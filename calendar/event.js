@@ -14,7 +14,9 @@ import namespace from "can-namespace";
  */
 var Event = DefineMap.extend({
     id: "number",
-    date: "date",
+    start: "date",
+    end: "date",
+    allDay: {type: "boolean", default: "false"},
     title: "string",
     description: "string",
     status: "string"

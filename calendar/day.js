@@ -10,8 +10,8 @@ var Day = DefineMap.extend({
     }},
 });
 
-Event.List = DefineList.extend({
-    "#": Event
+Day.List = DefineList.extend({
+    "#": Day
 });
 
-export default namespace.event = Event;
+export default namespace.day = Day;
