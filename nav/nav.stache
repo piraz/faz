@@ -1,0 +1,5 @@
+<nav class:from="getComponentClass()">
+    {{#each(items, item=value)}}
+    <a class:from="getItemClass(item)" href:from="getItemHref(item)">{{item.value}}</a>
+    {{/each}}
+</nav>
