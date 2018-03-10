@@ -128,6 +128,10 @@ var helpers = {
         if(item.disabled) {
             classes.push("disabled")
         }
+        if (this.fill) {
+            classes.push("nav-item");
+        }
+
         return classes.join(" ");
     },
     /**
