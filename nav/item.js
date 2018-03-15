@@ -12,6 +12,7 @@ var NavItem = DefineMap.extend({
     id: "string",
     active: {type: "boolean", default: false},
     disabled: {type: "boolean", default: false},
+    dropdown: {type: "boolean", default: false},
     href: {type: "string", default: "#"},
     value: "string"
 });

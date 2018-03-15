@@ -3,12 +3,22 @@ import NavItem from "./item";
 import Component from "can-component";
 import DefineMap from "can-define/map/map";
 
-import template from "./nav.stache";
+//import template from "./nav.stache";
+var navTemplate;
+var dropTemplate;
 
+var promise = steal("nav/nav.stache", "nav/dropdown.stache",
+    function(_navTemplate, _dropTemplate){
+        navTemplate = _navTemplate;
+        dropTemplate = _dropTemplate;
+    }
+);
+
+import canMap from "can-connect/can/map/map";
 import connect from "can-connect";
 import dataUrl from "can-connect/data/url/url";
 import constructor from "can-connect/constructor/constructor";
-import canMap from "can-connect/can/map/map";
+
 
 /**
  * Nav View Model
@@ -35,7 +45,8 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
     connectedCallback: function(element) {
         var _this = this;
         var activeItem = "";
-        if(typeof $(element).attr("active") !== undefined) {
+
+        if(typeof $(element).attr("active") !== "undefined") {
             activeItem = $(element).attr("active");
         }
 
@@ -63,11 +74,25 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             item = $(item);
             item.detach();
             var navItem = new NavItem();
-            navItem.value = item.html();
+
             navItem.id = item.prop("id");
 
             if(typeof item.attr("disabled") !== "undefined") {
                 navItem.disabled = item.attr("disabled");
+            }
+
+            if(_this.isElDropdown(item)) {
+                navItem.dropdown = true;
+                var title = "";
+                var children = [];
+                item.children().each(function(index, child) {
+                    if($(child).prop("tagName").toLowerCase() == "title") {
+                        navItem.value = $(child).html();
+                    }
+                });
+                console.debug(item);
+            } else {
+                navItem.value = item.html();
             }
 
             if(typeof item.attr("href") !== "undefined") {
@@ -79,6 +104,17 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             }
             _this.items.push(navItem);
         });
+    },
+    isElDropdown: function(el) {
+        var isDropdown = false;
+        el.children().each(function(index, child){
+            if($(child).prop("tagName").toLowerCase() == "title") {
+
+                isDropdown = true;
+                return isDropdown;
+            }
+        });
+        return isDropdown;
     }
 });
 
@@ -149,10 +185,14 @@ var helpers = {
     }
 };
 
-Component.extend({
-    tag: "nav-base",
-    view: template,
-    ViewModel: NavViewModel,
-    events: events,
-    helpers: helpers
+promise.then(function(){
+
+    Component.extend({
+        tag: "nav-base",
+        view: navTemplate,
+        ViewModel: NavViewModel,
+        events: events,
+        helpers: helpers
+    });
+
 });

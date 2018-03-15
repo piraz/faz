@@ -73,7 +73,14 @@
 
         <nav-base active="item1" justify="right">
             <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
+            <nav-item id="item1">
+                <title>Dropdown</title>
+                <children>
+                    <nav-item id="sub1">Sub1</nav-item>
+                    <nav-item id="sub2">Sub2</nav-item>
+                    <nav-item id="sub2">Sub3</nav-item>
+                </children>
+            </nav-item>
             <nav-item id="item2">Item 2</nav-item>
             <nav-item id="disabled" disabled="true">Disabled</nav-item>
         </nav-base>
