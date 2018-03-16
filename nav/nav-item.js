@@ -1,6 +1,6 @@
-import DefineMap from "can-define/map/map";
-import DefineList from "can-define/list/list";
-import namespace from "can-namespace";
+var DefineMap = require("can-define/map/map");
+var DefineList = require("can-define/list/list");
+var namespace = require("can-namespace");
 
 /**
  *
@@ -14,9 +14,10 @@ var NavItem = DefineMap.extend({
     children: {type: "observable", default: function() {
         return new NavItem.List([]);
     }},
+    parent: {type: "observable", default: null},
     disabled: {type: "boolean", default: false},
     dropdown: {type: "boolean", default: false},
-    href: {type: "string", default: "#"},
+    href: {type: "string", default: "javascript:void(0)"},
     value: "string"
 });
 
@@ -24,7 +25,10 @@ NavItem.List = DefineList.extend({
     "#": NavItem,
     get enabled() {
         return this.filter({disabled: false});
+    },
+    get active() {
+        return this.filter({active: true});
     }
 });
 
-export default namespace.NavItem = NavItem;
+module.exports = namespace.NavItem = NavItem;

@@ -50,6 +50,9 @@
     </nav>
 
     <main role="main" class="container">
+
+        <h1>Base nav</h1>
+
         <nav-base active="item1">
             <nav-item id="active">Active</nav-item>
             <nav-item id="item1">Item 1</nav-item>
@@ -57,7 +60,71 @@
             <nav-item id="disabled" disabled="true">Disabled</nav-item>
         </nav-base>
 
-        <nav-base active="item2" pills justify="center">
+        <pre class="prettyprint lang-html linenums">&lt;nav-base active="item1"&gt;
+    &lt;nav-item id="active"&gt;Active&lt;/nav-item&gt;
+    &lt;nav-item id="item1"&gt;Item 1&lt;/nav-item&gt;
+    &lt;nav-item id="item2"&gt;Item 2&lt;/nav-item&gt;
+    &lt;nav-item id="disabled" disabled="true"&gt;Disabled&lt;/nav-item&gt;
+&lt;/nav-base&gt;</pre>
+
+        <h1>Horizontal alignment</h1>
+
+        <h2>Center</h2>
+
+        <nav-base active="item2" justify="center">
+            <nav-item id="active">Active</nav-item>
+            <nav-item id="item1">Item 1</nav-item>
+            <nav-item id="item2">Item 2</nav-item>
+            <nav-item id="disabled" disabled="true">Disabled</nav-item>
+        </nav-base>
+
+        <pre class="prettyprint linenums:1 lang-html">&lt;nav-base active="item1" justify="center"&gt;
+    &lt;nav-item id="active"&gt;Active&lt;/nav-item&gt;
+    &lt;nav-item id="item1"&gt;Item 1&lt;/nav-item&gt;
+    &lt;nav-item id="item2"&gt;Item 2&lt;/nav-item&gt;
+    &lt;nav-item id="disabled" disabled="true"&gt;Disabled&lt;/nav-item&gt;
+&lt;/nav-base&gt;</pre>
+
+        <h2>Right</h2>
+
+        <nav-base active="dropdown" justify="right">
+            <nav-item id="active">Active</nav-item>
+            <nav-item id="dropdown">
+                <title>Dropdown</title>
+                <children>
+                    <nav-item id="sub1">Sub1</nav-item>
+                    <nav-item id="sub2">Sub2</nav-item>
+                    <nav-item id="sub2">Sub3</nav-item>
+                </children>
+            </nav-item>
+            <nav-item id="item2">
+                <title>Dropdown 2</title>
+                <children>
+                    <nav-item id="sub1">Sub21</nav-item>
+                    <nav-item id="sub2">Sub22</nav-item>
+                    <nav-item id="sub2">Sub23</nav-item>
+                </children>
+            </nav-item>
+            <nav-item id="disabled" disabled="true">Disabled</nav-item>
+        </nav-base>
+
+        <pre class="prettyprint linenums lang-html">&lt;nav-base active="dropdown" justify="right"&gt;
+    &lt;nav-item id="active"&gt;Active&lt;/nav-item&gt;
+    &lt;nav-item id="dropdown"&gt;
+        &lt;title&gt;Dropdown&lt;/title&gt;
+        &lt;children&gt;
+            &lt;nav-item id="sub1"&gt;Sub1&lt;/nav-item&gt;
+            &lt;nav-item id="sub2"&gt;Sub2&lt;/nav-item&gt;
+            &lt;nav-item id="sub2"&gt;Sub3&lt;/nav-item&gt;
+        &lt;/children&gt;
+    &lt;/nav-item&gt;
+    &lt;nav-item id="item2"&gt;Item 2&lt;/nav-item&gt;
+    &lt;nav-item id="disabled" disabled="true"&gt;Disabled&lt;/nav-item&gt;
+&lt;/nav-base></pre>
+
+        <h1>Vertical</h1>
+
+        <nav-base active="item1" vertical pills>
             <nav-item id="active">Active</nav-item>
             <nav-item id="item1">Item 1</nav-item>
             <nav-item id="item2">Item 2</nav-item>
@@ -71,28 +138,9 @@
             <nav-item id="disabled" disabled="true">Disabled</nav-item>
         </nav-base>
 
-        <nav-base active="item1" justify="right">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">
-                <title>Dropdown</title>
-                <children>
-                    <nav-item id="sub1">Sub1</nav-item>
-                    <nav-item id="sub2">Sub2</nav-item>
-                    <nav-item id="sub2">Sub3</nav-item>
-                </children>
-            </nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
+
 
          <nav-base active="item1" justify="right" tabs>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <nav-base active="item1" vertical>
             <nav-item id="active">Active</nav-item>
             <nav-item id="item1">Item 1</nav-item>
             <nav-item id="item2">Item 2</nav-item>
@@ -110,6 +158,7 @@
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst"></script>
 
 </body>
 </html>
