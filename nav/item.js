@@ -11,6 +11,9 @@ import namespace from "can-namespace";
 var NavItem = DefineMap.extend({
     id: "string",
     active: {type: "boolean", default: false},
+    children: {type: "observable", default: function() {
+        return new NavItem.List([]);
+    }},
     disabled: {type: "boolean", default: false},
     dropdown: {type: "boolean", default: false},
     href: {type: "string", default: "#"},

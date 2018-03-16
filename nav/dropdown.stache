@@ -1,8 +1,14 @@
-<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ value }}</a>
-<div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-</div>
+{{#if(item.dropdown)}}
+    <li class="nav-item dropdown">
+        <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ item.value }}</a>
+        <div class="dropdown-menu">
+            {{#each(item.children, child=value)}}
+              <a class="dropdown-item" href="#">{{ child.value }}</a>
+            {{/each}}
+        </div>
+    </li>
+{{else}}
+    <li class="nav-item">
+        <a class:from="viewModel.getItemClass(item)" on:click="viewModel.enableItem(item)" href:from="viewModel.getItemHref(item)">{{item.value}}</a>
+    </li>
+{{/if}}

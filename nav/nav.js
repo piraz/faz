@@ -8,7 +8,7 @@ var navTemplate;
 var dropTemplate;
 
 var promise = steal("nav/nav.stache", "nav/dropdown.stache",
-    function(_navTemplate, _dropTemplate){
+    function(_navTemplate, _dropTemplate) {
         navTemplate = _navTemplate;
         dropTemplate = _dropTemplate;
     }
@@ -70,10 +70,10 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             this.vertical = true;
         }
 
-        element.querySelectorAll("nav-item").forEach(function(item) {
+        element.querySelectorAll("nav-base > nav-item").forEach(function(item) {
+            var navItem = new NavItem();
             item = $(item);
             item.detach();
-            var navItem = new NavItem();
 
             navItem.id = item.prop("id");
 
@@ -83,14 +83,17 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
 
             if(_this.isElDropdown(item)) {
                 navItem.dropdown = true;
-                var title = "";
                 var children = [];
                 item.children().each(function(index, child) {
-                    if($(child).prop("tagName").toLowerCase() == "title") {
+                    var tagName = $(child).prop("tagName").toLowerCase();
+                    if(tagName == "title") {
                         navItem.value = $(child).html();
                     }
+                    else if(tagName == "children") {
+                        _this.buildDropDownChildren(navItem, child,
+                            activeItem);
+                    }
                 });
-                console.debug(item);
             } else {
                 navItem.value = item.html();
             }
@@ -107,14 +110,86 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
     },
     isElDropdown: function(el) {
         var isDropdown = false;
-        el.children().each(function(index, child){
+        el.children().each(function(index, child) {
             if($(child).prop("tagName").toLowerCase() == "title") {
-
                 isDropdown = true;
                 return isDropdown;
             }
         });
         return isDropdown;
+    },
+    buildDropDownChildren: function(dropdown, el, activeItem) {
+        var _this = this;
+        $(el).children().each(function(index, child) {
+            dropdown.children.push(_this.buildNavItem(child, activeItem));
+        });
+    },
+    buildNavItem: function(item, activeItem, detach=false) {
+        var navItem = new NavItem();
+        item = $(item);
+
+        if (detach) {
+            item.detach()
+        };
+
+        navItem.id = item.prop("id");
+
+        if(typeof item.attr("disabled") !== "undefined") {
+            navItem.disabled = item.attr("disabled");
+        }
+
+        navItem.value = item.html();
+
+        if(typeof item.attr("href") !== "undefined") {
+            navItem.href = item.attr("href");
+        }
+
+        if(activeItem!="" && navItem.id == activeItem) {
+            navItem.active = true;
+        }
+
+        return navItem;
+    },
+    enableItem: function (item) {
+
+    },
+    /**
+     * Returns the nav item class.
+     *
+     * @param {NavItem} item
+     * @returns {string}
+     */
+    getItemClass: function(item) {
+        var classes = ["nav-link"];
+        if(item.active) {
+            classes.push("active");
+        }
+        if(item.disabled) {
+            classes.push("disabled")
+        }
+
+        return classes.join(" ");
+    },
+    /**
+     * Returns the nav item href. If item is disabled a javascript void
+     * function will be placed to avoid any action.
+     *
+     * @param {NavItem} item
+     * @returns {string}
+     */
+    getItemHref: function (item) {
+        if(item.disabled) {
+            return "javascript:void(0)";
+        }
+        return item.href;
+    },
+    getItemValue: function (item) {
+        var _this = this;
+        var context = {
+          item: item,
+          viewModel: _this
+        };
+        return dropTemplate(context);
     }
 });
 
@@ -123,6 +198,9 @@ var events = {
 };
 
 var helpers = {
+    getVMItemValue: function (item) {
+        return this.getItemValue(item);
+    },
     getComponentClass: function () {
         var classes = ["nav"];
 
@@ -149,44 +227,10 @@ var helpers = {
         }
 
         return classes.join(" ");
-    },
-    /**
-     * Returns the nav item class.
-     *
-     * @param {NavItem} item
-     * @returns {string}
-     */
-    getItemClass: function(item) {
-        var classes = ["nav-link"];
-        if(item.active) {
-            classes.push("active");
-        }
-        if(item.disabled) {
-            classes.push("disabled")
-        }
-        if (this.fill) {
-            classes.push("nav-item");
-        }
-
-        return classes.join(" ");
-    },
-    /**
-     * Returns the nav item href. If item is disabled a javascript void
-     * function will be placed to avoid any action.
-     *
-     * @param {NavItem} item
-     * @returns {string}
-     */
-    getItemHref: function (item) {
-        if(item.disabled) {
-            return "javascript:void(0)";
-        }
-        return item.href;
     }
 };
 
-promise.then(function(){
-
+promise.then(function() {
     Component.extend({
         tag: "nav-base",
         view: navTemplate,
@@ -194,5 +238,4 @@ promise.then(function(){
         events: events,
         helpers: helpers
     });
-
 });
