@@ -1,0 +1,5 @@
+<nav class:from="getComponentClass()">
+    {{#each(items, item=value)}}
+        {{getVMItemValue(item)}}
+    {{/each}}
+</nav>
