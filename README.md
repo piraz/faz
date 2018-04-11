@@ -1,2 +1,3 @@
-# can-toolbox
-CanJs Components collection using bootstrap as the css framework.
+# Candango Faz
+
+Candango faz is a toolkit based on bootstrap and canjs.

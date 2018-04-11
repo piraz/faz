@@ -1,9 +1,9 @@
 {
-  "name": "can-toolbox",
+  "name": "faz",
   "version": "0.0.1",
-  "description": "CanJs Components collection using bootstrap as the css framework.",
+  "description": "Candango Faz Javascript toolkit.",
   "main": "index.js",
-  "repository": "https://github.com/candango/can-toolbox.git",
+  "repository": "https://github.com/candango/faz.git",
   "author": "Flavio Garcia <piraz@candango.org>",
   "license": "Apache-2.0",
   "private": false,

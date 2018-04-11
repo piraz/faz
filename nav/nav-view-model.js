@@ -1,6 +1,8 @@
 var NavItem = require("./nav-item");
 var DefineMap = require("can-define/map/map");
 var namespace = require("can-namespace");
+var route = require("can-route");
+
 
 var dropTemplate = require("./dropdown.stache");
 /**
@@ -16,6 +18,7 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
     }},
     fill: {type:"boolean", default: "false"},
     justify: {type:"string", default: "left"},
+    page: "string",
     pills: {type:"boolean", default: "false"},
     tabs: {type:"boolean", default: "false"},
     type: {type:"string", default: "base"},
@@ -26,6 +29,14 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
      * @param element
      */
     connectedCallback: function(element) {
+
+
+        route.data = new DefineMap( { page: "" } );
+        route.register( "{page}");
+        route.start();
+
+        console.log(route);
+
         var _this = this;
         var activeItem = "";
 
