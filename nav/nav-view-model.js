@@ -3,8 +3,8 @@ var DefineMap = require("can-define/map/map");
 var namespace = require("can-namespace");
 var route = require("can-route");
 
-
 var dropTemplate = require("./dropdown.stache");
+
 /**
  * Nav View Model
  * @constructor
@@ -35,8 +35,6 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
         route.register( "{page}");
         route.start();
 
-        console.log(route);
-
         var _this = this;
         var activeItem = "";
 
@@ -64,7 +62,8 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             this.vertical = true;
         }
 
-        element.querySelectorAll("nav-base > nav-item").forEach(function(item) {
+        element.querySelectorAll("faz-nav > faz-nav-item").forEach(function(
+            item) {
             var navItem = new NavItem();
             item = $(item);
             item.detach();
@@ -102,6 +101,9 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
         });
     },
     isElDropdown: function(el) {
+        if(el.children().length==0){
+            return false;
+        }
         var isDropdown = false;
         el.children().each(function(index, child) {
             if($(child).prop("tagName").toLowerCase() == "title") {
@@ -114,11 +116,15 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
     buildDropDownChildren: function(dropdown, el, activeItem) {
         var _this = this;
         $(el).children().each(function(index, child) {
-            dropdown.children.push(_this.buildNavItem(child, activeItem));
+            dropdown.children.push(_this.buildNavItem(dropdown,
+                child, activeItem));
         });
     },
-    buildNavItem: function(item, activeItem, detach=false) {
+    buildNavItem: function(parent, item, activeItem, detach=false) {
         var navItem = new NavItem();
+        navItem.parent = parent;
+        var _this = this;
+
         item = $(item);
 
         if (detach) {
@@ -131,14 +137,29 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             navItem.disabled = item.attr("disabled");
         }
 
-        navItem.value = item.html();
-
-        if(typeof item.attr("href") !== "undefined") {
-            navItem.href = item.attr("href");
+        if(this.isElDropdown(item)) {
+            navItem.dropdown = true;
+            var children = [];
+            item.children().each(function(index, child) {
+                var tagName = $(child).prop("tagName").toLowerCase();
+                if(tagName == "title") {
+                    navItem.value = $(child).html();
+                }
+                else if(tagName == "children") {
+                    _this.buildDropDownChildren(navItem, child,
+                        activeItem);
+                }
+            });
         }
+        else {
+            navItem.value = item.html();
+            if(typeof item.attr("href") !== "undefined") {
+                navItem.href = item.attr("href");
+            }
 
-        if(activeItem!="" && navItem.id == activeItem) {
-            navItem.active = true;
+            if(activeItem!="" && navItem.id == activeItem) {
+                navItem.active = true;
+            }
         }
 
         return navItem;

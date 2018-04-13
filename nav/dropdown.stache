@@ -1,11 +1,11 @@
 {{#if(item.dropdown)}}
     <li class="nav-item dropdown">
         <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ item.value }}</a>
-        <div class="dropdown-menu">
+        <ul class="dropdown-menu">
             {{#each(item.children, child=value)}}
-              <a class="dropdown-item" href="#">{{ child.value }}</a>
+                {{ child.html }}
             {{/each}}
-        </div>
+        </ul>
     </li>
 {{else}}
     <li class="nav-item">
