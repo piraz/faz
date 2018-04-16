@@ -1,0 +1,12 @@
+{{#if(item.dropdown)}}
+    <li class="dropdown-submenu">
+        <a class="dropdown-item dropdown-toggle" href="#">{{ item.value }}</a>
+        <ul class="dropdown-menu">
+            {{#each(item.children, child=value)}}
+                {{ child.html }}
+            {{/each}}
+        </ul>
+    </li>
+{{else}}
+    <li><a class="dropdown-item" href="#">{{ item.value }}</a></li>
+{{/if}}

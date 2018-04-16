@@ -10,12 +10,17 @@ var item = new NavItem();
 
 QUnit.test("NavItem defaults.", function(assert) {
     assert.equal(
+        item.active,
+        false,
+        "Item href default is: false."
+    );
+
+    assert.equal(
         item.href,
         "javascript:void(0)",
-        "Item href default is: javascript:void(0)."
+        "Item href default is: \"javascript:void(0)\"."
     );
 });
-
 
 QUnit.module("nav/nav-view-model");
 

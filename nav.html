@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Candango Can.js Toolbox</title>
+    <title>Candango Faz Toolkit</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,16 +24,16 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="faz-nav-item active">
                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="faz-nav-item">
                   <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item">
+                <li class="faz-nav-item">
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="faz-nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="#">Action</a>
@@ -51,101 +51,126 @@
 
     <main role="main" class="container">
 
-        <h1>Base nav</h1>
+        <h1>Navs</h1>
 
-        <nav-base active="item1">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <pre class="prettyprint lang-html linenums">&lt;nav-base active="item1"&gt;
-    &lt;nav-item id="active"&gt;Active&lt;/nav-item&gt;
-    &lt;nav-item id="item1"&gt;Item 1&lt;/nav-item&gt;
-    &lt;nav-item id="item2"&gt;Item 2&lt;/nav-item&gt;
-    &lt;nav-item id="disabled" disabled="true"&gt;Disabled&lt;/nav-item&gt;
-&lt;/nav-base&gt;</pre>
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <faz-nav active="item1">
+                        <faz-nav-item id="active">Active</faz-nav-item>
+                        <faz-nav-item id="item1">Item 1</faz-nav-item>
+                        <faz-nav-item id="item2">Item 2</faz-nav-item>
+                        <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+                    </faz-nav>
+                </li>
+                <li class="list-group-item"><pre class="prettyprint lang-html linenums">&lt;faz-nav active="item1"&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav&gt;</pre>
+                </li>
+            </ul>
+        </div>
 
         <h1>Horizontal alignment</h1>
 
         <h2>Center</h2>
 
-        <nav-base active="item2" justify="center">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
+        <faz-nav active="item2" justify="center">
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
 
-        <pre class="prettyprint linenums:1 lang-html">&lt;nav-base active="item1" justify="center"&gt;
-    &lt;nav-item id="active"&gt;Active&lt;/nav-item&gt;
-    &lt;nav-item id="item1"&gt;Item 1&lt;/nav-item&gt;
-    &lt;nav-item id="item2"&gt;Item 2&lt;/nav-item&gt;
-    &lt;nav-item id="disabled" disabled="true"&gt;Disabled&lt;/nav-item&gt;
-&lt;/nav-base&gt;</pre>
+        <pre class="prettyprint linenums:1 lang-html">&lt;faz-nav active="item1" justify="center"&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav&gt;</pre>
 
         <h2>Right</h2>
 
-        <nav-base active="dropdown" justify="right">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="dropdown">
-                <title>Dropdown</title>
+        <faz-nav active="dropdown" justify="right">
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="dropdown1">
+                <title>Dropdown 1</title>
                 <children>
-                    <nav-item id="sub1">Sub1</nav-item>
-                    <nav-item id="sub2">Sub2</nav-item>
-                    <nav-item id="sub2">Sub3</nav-item>
+                    <faz-nav-item id="sub11">Sub11</faz-nav-item>
+                    <faz-nav-item id="sub12">Sub12</faz-nav-item>
+                    <faz-nav-item id="sub13">
+                        <title>Sub13</title>
+                        <children>
+                            <faz-nav-item id="sub131">Sub131</faz-nav-item>
+                            <faz-nav-item id="sub132">
+                                <title>Sub132</title>
+                                <children>
+                                    <faz-nav-item id="sub1321">sub1321</faz-nav-item>
+                                    <faz-nav-item id="sub1322">sub1322</faz-nav-item>
+                                    <faz-nav-item id="sub1323">sub1323</faz-nav-item>
+                                </children>
+                            </faz-nav-item>
+                        </children>
+                    </faz-nav-item>
                 </children>
-            </nav-item>
-            <nav-item id="item2">
+            </faz-nav-item>
+            <faz-nav-item id="dropdown2">
                 <title>Dropdown 2</title>
                 <children>
-                    <nav-item id="sub1">Sub21</nav-item>
-                    <nav-item id="sub2">Sub22</nav-item>
-                    <nav-item id="sub2">Sub23</nav-item>
+                    <faz-nav-item id="sub1">Sub21</faz-nav-item>
+                    <faz-nav-item id="sub2">Sub22</faz-nav-item>
+                    <faz-nav-item id="sub3">Sub23</faz-nav-item>
                 </children>
-            </nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
+            </faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
 
-        <pre class="prettyprint linenums lang-html">&lt;nav-base active="dropdown" justify="right"&gt;
-    &lt;nav-item id="active"&gt;Active&lt;/nav-item&gt;
-    &lt;nav-item id="dropdown"&gt;
+        <pre class="prettyprint linenums lang-html">&lt;faz-nav active="dropdown" justify="right"&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="dropdown"&gt;
         &lt;title&gt;Dropdown&lt;/title&gt;
         &lt;children&gt;
-            &lt;nav-item id="sub1"&gt;Sub1&lt;/nav-item&gt;
-            &lt;nav-item id="sub2"&gt;Sub2&lt;/nav-item&gt;
-            &lt;nav-item id="sub2"&gt;Sub3&lt;/nav-item&gt;
+            &lt;faz-nav-item id="sub1"&gt;Sub1&lt;/faz-nav-item&gt;
+            &lt;faz-nav-item id="sub2"&gt;Sub2&lt;/faz-nav-item&gt;
+            &lt;faz-nav-item id="sub2"&gt;Sub3&lt;/faz-nav-item&gt;
         &lt;/children&gt;
-    &lt;/nav-item&gt;
-    &lt;nav-item id="item2"&gt;Item 2&lt;/nav-item&gt;
-    &lt;nav-item id="disabled" disabled="true"&gt;Disabled&lt;/nav-item&gt;
-&lt;/nav-base></pre>
+    &lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav></pre>
 
         <h1>Vertical</h1>
 
-        <nav-base active="item1" vertical pills>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <nav-base active="item1" pills fill>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
+        <faz-nav active="item1" vertical>
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
 
 
+        <pre class="prettyprint linenums lang-html">&lt;faz-nav active="item1" vertical&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav&gt;</pre>
 
-         <nav-base active="item1" justify="right" tabs>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
+        <faz-nav active="item1" pills fill>
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
+
+         <faz-nav active="item1" justify="right" tabs>
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
     </main><!-- /.container -->
 
     <script>

@@ -50,7 +50,7 @@ var helpers = {
 };
 
 Component.extend({
-    tag: "nav-base",
+    tag: "faz-nav",
     view: navTemplate,
     ViewModel: NavViewModel,
     events: events,
