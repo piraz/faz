@@ -8,5 +8,5 @@
         </ul>
     </li>
 {{else}}
-    <li><a class="dropdown-item" href="#">{{ item.value }}</a></li>
+    <li><a class="dropdown-item" {{#if(true)}}role="tab"{{/if}}  href="#">{{ item.value }}</a></li>
 {{/if}}

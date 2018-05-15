@@ -1,4 +1,5 @@
-var NavItem = require("./nav-item");
+var FazNavContent = require("./content");
+var FazNavItem = require("./nav-item");
 var DefineMap = require("can-define/map/map");
 var namespace = require("can-namespace");
 var route = require("can-route");
@@ -12,9 +13,13 @@ var dropTemplate = require("./dropdown.stache");
  * @param {string} event.value
  */
 var NavViewModel = DefineMap.extend("NavViewModel", {
+    id: {type:"string", default: ""},
     isLoading: {type: "boolean", default: false},
     items: {type: "observable", default: function() {
-        return new NavItem.List([]);
+        return new FazNavItem.List([]);
+    }},
+    contents: {type: "observable", default: function() {
+        return new FazNavContent.List([]);
     }},
     fill: {type:"boolean", default: "false"},
     justify: {type:"string", default: "left"},
@@ -23,6 +28,12 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
     tabs: {type:"boolean", default: "false"},
     type: {type:"string", default: "base"},
     vertical: {type:"boolean", default: "false"},
+    get hasContent() {
+        if (this.contents.length) {
+           return true;
+        }
+        return false;
+    },
 
     /**
      *
@@ -40,6 +51,10 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
 
         if(typeof $(element).attr("active") !== "undefined") {
             activeItem = $(element).attr("active");
+        }
+
+        if(typeof $(element).attr("id") !== "undefined") {
+            this.id = $(element).attr("id");
         }
 
         if(typeof $(element).attr("fill") !== "undefined") {
@@ -62,9 +77,19 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             this.vertical = true;
         }
 
+        element.querySelectorAll("faz-nav > faz-nav-content").forEach(function(
+            content) {
+            var navContent = new FazNavContent();
+            content = $(content);
+            navContent.id = content.prop("id");
+            content.detach();
+            navContent.element = content;
+            _this.contents.push(navContent);
+        });
+
         element.querySelectorAll("faz-nav > faz-nav-item").forEach(function(
             item) {
-            var navItem = new NavItem();
+            var navItem = new FazNavItem();
             item = $(item);
             item.detach();
             navItem.id = item.prop("id");
@@ -73,9 +98,12 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
                 navItem.disabled = item.attr("disabled");
             }
 
+            if(typeof item.attr("content") !== "undefined") {
+                navItem.content = item.attr("content");
+            }
+
             if(_this.isElDropdown(item)) {
                 navItem.dropdown = true;
-                var children = [];
                 item.children().each(function(index, child) {
                     var tagName = $(child).prop("tagName").toLowerCase();
                     if(tagName == "title") {
@@ -99,6 +127,10 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
             }
             _this.items.push(navItem);
         });
+
+        if (this.hasContent){
+            this.items.active[0].activate();
+        }
     },
     isElDropdown: function(el) {
         if(el.children().length==0){
@@ -120,8 +152,12 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
                 child, activeItem));
         });
     },
-    buildNavItem: function(parent, item, activeItem, detach=false) {
-        var navItem = new NavItem();
+    buildNavItem: function(parent, item, activeItem, detach) {
+        if (typeof detach === 'undefined') {
+            detach =  false;
+        }
+
+        var navItem = new FazNavItem();
         navItem.parent = parent;
         var _this = this;
 
@@ -129,7 +165,7 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
 
         if (detach) {
             item.detach()
-        };
+        }
 
         navItem.id = item.prop("id");
 
@@ -163,46 +199,6 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
         }
 
         return navItem;
-    },
-    activateItem: function (item) {
-        if (!item.disabled) {
-            if (item.parent != null) {
-                item.parent.items.active.forEach(function(child) {
-                    child.active = false;
-                })
-            }
-            item.active = true;
-        }
-    },
-    /**
-     * Returns the nav item class.
-     *
-     * @param {NavItem} item
-     * @returns {string}
-     */
-    getItemClass: function(item) {
-        var classes = ["nav-link"];
-        if(item.active) {
-            classes.push("active");
-        }
-        if(item.disabled) {
-            classes.push("disabled")
-        }
-
-        return classes.join(" ");
-    },
-    /**
-     * Returns the nav item href. If item is disabled a javascript void
-     * function will be placed to avoid any action.
-     *
-     * @param {NavItem} item
-     * @returns {string}
-     */
-    getItemHref: function (item) {
-        if(item.disabled) {
-            return "javascript:void(0)";
-        }
-        return item.href;
     },
     getItemValue: function (item) {
         var _this = this;

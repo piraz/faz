@@ -20,6 +20,9 @@ var helpers = {
     getVMItemValue: function (item) {
         return this.getItemValue(item);
     },
+    getComponentId: function() {
+        return "";
+    },
     getComponentClass: function () {
         var classes = ["nav"];
 

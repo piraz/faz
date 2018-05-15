@@ -1,5 +1,12 @@
-<nav class:from="getComponentClass()">
+<nav class:from="getComponentClass()" id:from="id">
     {{#each(items, item=value)}}
         {{getVMItemValue(item)}}
     {{/each}}
 </nav>
+{{#hasContent}}
+<div class="tab-content">
+    {{#each(scope.root.contents, content=value)}}
+    <div class:from="content.class" id="content.id" role="tabpanel" aria-labelledby="pills-home-tab">{{content.element.html()}}</div>
+    {{/each}}
+</div>
+{{/hasContent}}
