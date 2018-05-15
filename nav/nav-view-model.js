@@ -1,5 +1,5 @@
 var FazNavContent = require("./content");
-var FazNavItem = require("./nav-item");
+var FazNavItem = require("./item");
 var DefineMap = require("can-define/map/map");
 var namespace = require("can-namespace");
 var route = require("can-route");
@@ -12,7 +12,7 @@ var dropTemplate = require("./dropdown.stache");
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-var NavViewModel = DefineMap.extend("NavViewModel", {
+var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     id: {type:"string", default: ""},
     isLoading: {type: "boolean", default: false},
     items: {type: "observable", default: function() {
@@ -210,4 +210,4 @@ var NavViewModel = DefineMap.extend("NavViewModel", {
     }
 });
 
-module.exports = namespace.NavViewModel = NavViewModel;
+module.exports = namespace.FazNavViewModel = FazNavViewModel;
