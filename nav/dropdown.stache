@@ -9,6 +9,6 @@
     </li>
 {{else}}
     <li class="nav-item">
-        <a class:from="viewModel.getItemClass(item)" on:click="viewModel.activateItem(item)" href:from="viewModel.getItemHref(item)">{{item.value}}</a>
+        <a class:from="item.class" on:click="item.activate()" href:from="item.getHref()">{{item.value}}</a>
     </li>
 {{/if}}
