@@ -21,6 +21,8 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     contents: {type: "observable", default: function() {
         return new FazNavContent.List([]);
     }},
+    navOuterClass: {type: "string", default: ""},
+    contentOuterClass: {type: "string", default: ""},
     fill: {type:"boolean", default: "false"},
     justify: {type:"string", default: "left"},
     page: "string",
@@ -34,7 +36,18 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
         }
         return false;
     },
-
+    get role() {
+        if (this.contents.length) {
+           return "tablist";
+        }
+        return "";
+    },
+    get orientation() {
+        if (this.vertical){
+            return "vertical";
+        }
+        return "";
+    },
     /**
      *
      * @param element
@@ -49,8 +62,25 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
         var _this = this;
         var activeItem = "";
 
+        $.each(element.attributes, function() {
+            if(this.name.toLowerCase() == "navouterclass"){
+                this.navOuterClass = this.value;
+            }
+        });
+
+
+        console.log(element.attributes)
+
         if(typeof $(element).attr("active") !== "undefined") {
             activeItem = $(element).attr("active");
+        }
+
+        if(typeof $(element).attr("navouterclass") !== "undefined") {
+            this.navOuterClass = $(element).attr("navouterclass");
+        }
+
+        if(typeof $(element).attr("contentOuterClass") !== "undefined") {
+            this.contentOuterClass = $(element).attr("contentOuterClass");
         }
 
         if(typeof $(element).attr("id") !== "undefined") {
@@ -79,6 +109,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         element.querySelectorAll("faz-nav > faz-nav-content").forEach(function(
             content) {
+            console.log(element);
             var navContent = new FazNavContent();
             content = $(content);
             navContent.id = content.prop("id");
