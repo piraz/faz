@@ -1,0 +1,6 @@
+# Yarn/Node
+node_modules/
+dist/
+
+# Idea metadata
+.idea/

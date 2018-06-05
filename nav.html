@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Candango Faz Toolkit</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/node_modules/steal/steal.js"></script>
+    <!-- Custom styles for this template -->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="faz-nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="faz-nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="faz-nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+                <li class="faz-nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+
+        <h1>Navs</h1>
+
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <faz-nav active="item1" id="navBasic">
+                        <faz-nav-item id="active">Active</faz-nav-item>
+                        <faz-nav-item id="item1">Item 1</faz-nav-item>
+                        <faz-nav-item id="item2">Item 2</faz-nav-item>
+                        <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+                    </faz-nav>
+                </li>
+                <li class="list-group-item"><pre class="prettyprint lang-html linenums">&lt;faz-nav active="item1"&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav&gt;</pre>
+                </li>
+            </ul>
+        </div>
+
+        <h1>Horizontal alignment</h1>
+
+        <h2>Center</h2>
+
+        <faz-nav active="item2" justify="center">
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
+
+        <pre class="prettyprint linenums:1 lang-html">&lt;faz-nav active="item1" justify="center"&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav&gt;</pre>
+
+        <h2>Right</h2>
+
+        <faz-nav active="dropdown" justify="right">
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="dropdown1">
+                <title>Dropdown 1</title>
+                <children>
+                    <faz-nav-item id="sub11">Sub11</faz-nav-item>
+                    <faz-nav-item id="sub12">Sub12</faz-nav-item>
+                    <faz-nav-item id="sub13">
+                        <title>Sub13</title>
+                        <children>
+                            <faz-nav-item id="sub131">Sub131</faz-nav-item>
+                            <faz-nav-item id="sub132">
+                                <title>Sub132</title>
+                                <children>
+                                    <faz-nav-item id="sub1321">sub1321</faz-nav-item>
+                                    <faz-nav-item id="sub1322">sub1322</faz-nav-item>
+                                    <faz-nav-item id="sub1323">sub1323</faz-nav-item>
+                                </children>
+                            </faz-nav-item>
+                        </children>
+                    </faz-nav-item>
+                </children>
+            </faz-nav-item>
+            <faz-nav-item id="dropdown2">
+                <title>Dropdown 2</title>
+                <children>
+                    <faz-nav-item id="sub1">Sub21</faz-nav-item>
+                    <faz-nav-item id="sub2">Sub22</faz-nav-item>
+                    <faz-nav-item id="sub3">Sub23</faz-nav-item>
+                </children>
+            </faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
+
+        <pre class="prettyprint linenums lang-html">&lt;faz-nav active="dropdown" justify="right"&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="dropdown"&gt;
+        &lt;title&gt;Dropdown&lt;/title&gt;
+        &lt;children&gt;
+            &lt;faz-nav-item id="sub1"&gt;Sub1&lt;/faz-nav-item&gt;
+            &lt;faz-nav-item id="sub2"&gt;Sub2&lt;/faz-nav-item&gt;
+            &lt;faz-nav-item id="sub2"&gt;Sub3&lt;/faz-nav-item&gt;
+        &lt;/children&gt;
+    &lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav></pre>
+
+        <h1>Vertical</h1>
+
+        <faz-nav active="item1" vertical>
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
+
+
+        <pre class="prettyprint linenums lang-html">&lt;faz-nav active="item1" vertical&gt;
+    &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
+    &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
+&lt;/faz-nav&gt;</pre>
+
+        <faz-nav active="item1" pills fill>
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-nav>
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <faz-nav active="item1" justify="right" tabs>
+                        <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
+                        <faz-nav-item id="item2" content="item2-content">Item 2</faz-nav-item>
+                        <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+
+                        <faz-nav-content id="item1-content">
+                            Item 1 content
+                        </faz-nav-content>
+
+                        <faz-nav-content id="item2-content">
+                            Item 2 content
+                        </faz-nav-content>
+                    </faz-nav>
+                </li>
+            </ul>
+        </div>
+
+    <script>
+        //var compute = steal("can-compute/can-compute")
+        //var buga = new compute("test");
+    </script>
+
+        <faz-nav active="item1" class="row" justify="right" pills vertical navouterclass="col-3" contentouterclass="col-9">
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
+            <faz-nav-item id="item2" content="item2-content">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+
+            <faz-nav-content id="item1-content">
+                Item 1 content <faz-alert>
+                        <content> a</content>
+                    </faz-alert>
+            </faz-nav-content>
+
+            <faz-nav-content id="item2-content">
+                Item 2 content
+            </faz-nav-content>
+
+        </faz-nav>
+
+
+    </main><!-- /.container -->
+
+    <script>
+        steal("nav");
+        steal("faz-alert");
+    </script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst"></script>
+
+</body>
+</html>
