@@ -1,7 +1,7 @@
 "use strict";
 "format cjs";
 
-var NavViewModel = require("./nav-view-model");
+var FazNavViewModel = require("./nav-view-model");
 var Component = require("can-component");
 
 //import template from "./nav.stache";
@@ -19,6 +19,9 @@ var events = {
 var helpers = {
     getVMItemValue: function (item) {
         return this.getItemValue(item);
+    },
+    getComponentId: function() {
+        return "";
     },
     getComponentClass: function () {
         var classes = ["nav"];
@@ -52,7 +55,7 @@ var helpers = {
 Component.extend({
     tag: "faz-nav",
     view: navTemplate,
-    ViewModel: NavViewModel,
+    ViewModel: FazNavViewModel,
     events: events,
     helpers: helpers
 });
