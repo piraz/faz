@@ -184,6 +184,11 @@
             </ul>
         </div>
 
+    <script>
+        //var compute = steal("can-compute/can-compute")
+        //var buga = new compute("test");
+    </script>
+
         <faz-nav active="item1" class="row" justify="right" pills vertical navouterclass="col-3" contentouterclass="col-9">
             <faz-nav-item id="active">Active</faz-nav-item>
             <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
@@ -191,7 +196,9 @@
             <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
 
             <faz-nav-content id="item1-content">
-                Item 1 content
+                Item 1 content <faz-alert>
+                        <content> a</content>
+                    </faz-alert>
             </faz-nav-content>
 
             <faz-nav-content id="item2-content">
@@ -205,6 +212,7 @@
 
     <script>
         steal("nav");
+        steal("faz-alert");
     </script>
 
     <!-- Bootstrap core JavaScript
