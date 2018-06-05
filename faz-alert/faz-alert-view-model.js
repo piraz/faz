@@ -17,26 +17,29 @@ var FazAlertViewModel = DefineMap.extend("NavViewModel", {
      * @param element
      */
     connectedCallback: function(element) {
-        var content = "";
-        var alertElement = null;
-        $($(element).contents()).each(function (index, item) {
+        element = $(element);
+
+        var alertElement = $(element.contents()[element.contents().length-2]);
+        console.log(alertElement);
+        element.contents().each(function (index, item) {
             item = $(item);
-            if(!(item.prop("tagName") == "DIV" && item.hasClass("alert"))) {
-                if(item.get(0).nodeType == 1){
-                    content += item.html();
-                } else {
-                    content += item.text();
-                }
-                item.detach();
+            if(alertElement.is(item)) {
+                return false;
             }
-            else {
-                return;
-            }
+            item.detach();
+            alertElement.append(item);
         });
 
-        buga = stache(content)();
+        /*var content = "";
+        var alertElement = null;
 
-        this.content = stache(content)().textContent;
+        console.log($(element).contents());
+
+
+        console.log(content);
+        buga = stache(content)();*/
+
+        //this.content = buga;
 
     }
 });
