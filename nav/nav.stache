@@ -1,27 +1,24 @@
-
-<div class:from="scope.root.navOuterClass">
+<div class:from="scope.top.navOuterClass">
 {{#hasContent}}
-    <div class:from="getComponentClass()" id:from="scope.root.id" role="tablist" aria-orientation:from="scope.root.orientation">
-        {{#each(scope.root.items, item=value)}}
+    <div class:from="getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
+        {{#each(scope.top.items, item=value)}}
             {{getVMItemValue(item)}}
         {{/each}}
     </div>
 {{else}}
-    <nav class:from="getComponentClass()" id:from="scope.root.id">
+    <nav class:from="getComponentClass()" id:from="scope.top.id">
 
-        {{#each(scope.root.items, item=value)}}
+        {{#each(scope.top.items, item=value)}}
             {{getVMItemValue(item)}}
         {{/each}}
     </nav>
 {{/hasContent}}
 </div>
-
-
 {{#hasContent}}
-    <div class:from="scope.root.contentOuterClass">
+    <div class:from="scope.top.contentOuterClass">
         <div class="tab-content">
-            {{#each(scope.root.contents, content=value)}}
-            <div class:from="content.class" id="content.id" role="tabpanel" aria-labelledby="pills-home-tab">{{content.element.html()}}</div>
+            {{#each(scope.top.contents, content=value)}}
+            <div class:from="content.class" id="content.id" role="tabpanel" aria-labelledby="pills-home-tab">{{content.element}}</div>
             {{/each}}
         </div>
     </div>

@@ -53,8 +53,6 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
      * @param element
      */
     connectedCallback: function(element) {
-
-
         route.data = new DefineMap( { page: "" } );
         route.register( "{page}");
         route.start();
@@ -67,9 +65,6 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
                 this.navOuterClass = this.value;
             }
         });
-
-
-        console.log(element.attributes)
 
         if(typeof $(element).attr("active") !== "undefined") {
             activeItem = $(element).attr("active");
@@ -109,7 +104,6 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         element.querySelectorAll("faz-nav > faz-nav-content").forEach(function(
             content) {
-            console.log(element);
             var navContent = new FazNavContent();
             content = $(content);
             navContent.id = content.prop("id");
