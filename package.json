@@ -20,8 +20,9 @@
     "can-stache": "^4.1.2",
     "can-stache-bindings": "^4.0.5",
     "jquery": "^3.3.1",
+    "less": "^3.0.4",
     "popper.js": "^1.12.9",
-    "steal": "^1.6.5",
+    "steal": "^1.11.8",
     "steal-less": "^1.2.2",
     "steal-stache": "^4.1.0"
   },
