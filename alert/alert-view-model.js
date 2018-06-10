@@ -20,7 +20,6 @@ var FazAlertViewModel = DefineMap.extend("NavViewModel", {
         element = $(element);
 
         var alertElement = $(element.contents()[element.contents().length-2]);
-        console.log(alertElement);
         element.contents().each(function (index, item) {
             item = $(item);
             if(alertElement.is(item)) {
