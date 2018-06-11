@@ -147,6 +147,10 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
                 navItem.href = item.attr("href");
             }
 
+            if(item.attr("target") != undefined) {
+                navItem.target = item.attr("target");
+            }
+
             if(activeItem!="" && navItem.id == activeItem) {
                 navItem.active = true;
             }
@@ -216,6 +220,10 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             navItem.value = item.html();
             if(typeof item.attr("href") !== "undefined") {
                 navItem.href = item.attr("href");
+            }
+
+            if(typeof item.attr("target") !== "undefined") {
+                navItem.target = item.attr("target");
             }
 
             if(activeItem!="" && navItem.id == activeItem) {
