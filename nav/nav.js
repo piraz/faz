@@ -7,7 +7,7 @@ var Component = require("can-component");
 //import template from "./nav.stache";
 var navTemplate = require("./nav.stache");
 
-require("stylesheets/nav.less")
+require("../stylesheets/nav.less")
 
 //import canMap from "can-connect/can/map/map";
 //import connect from "can-connect";

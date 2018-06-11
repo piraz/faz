@@ -9,6 +9,6 @@
     </li>
 {{else}}
     <li class="nav-item">
-        <a class:from="item.class" on:click="item.activate()" href:from="item.getHref()">{{item.value}}</a>
+        <a class:from="item.class" on:click="item.activate()" target:from="item.target" href:from="item.getHref()">{{item.value}}</a>
     </li>
 {{/if}}

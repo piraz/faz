@@ -23,6 +23,7 @@ var FazNavItem = DefineMap.extend({
     disabled: {type: "boolean", default: false},
     dropdown: {type: "boolean", default: false},
     href: {type: "string", default: "javascript:void(0)"},
+    target: {type: "string", default: ""},
     value: "string",
     get navId() {
         return "fazNavItem" + this.id;
