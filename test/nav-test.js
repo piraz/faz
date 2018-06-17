@@ -1,10 +1,9 @@
 var QUnit = require("steal-qunit");
 
-var define = require("can-define");
-var NavItem = require("nav/nav-item");
+var NavItem = require("nav/item");
 var NavViewModel = require("nav/nav-view-model");
 
-QUnit.module("nav/nav-item");
+QUnit.module("nav/item");
 
 var item = new NavItem();
 
