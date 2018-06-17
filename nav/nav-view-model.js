@@ -28,7 +28,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     page: "string",
     pills: {type:"boolean", default: "false"},
     tabs: {type:"boolean", default: "false"},
-    type: {type:"string", default: "base"},
+    type: {type:"string", default: "nav"},
     vertical: {type:"boolean", default: "false"},
     get hasContent() {
         if (this.contents.length) {
@@ -53,6 +53,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
      * @param element
      */
     connectedCallback: function(element) {
+        this.type = element.tagName.toLowerCase().replace("faz-", "");
         route.data = new DefineMap( { page: "" } );
         route.register( "{page}");
         route.start();
@@ -102,8 +103,10 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             this.vertical = true;
         }
 
-        element.querySelectorAll("faz-nav > faz-nav-content").forEach(function(
-            content) {
+        var mainQuery = "faz-"  + this.type + "> ";
+
+        element.querySelectorAll(mainQuery + "faz-nav-content").forEach(
+            function(content) {
             var navContent = new FazNavContent();
             content = $(content);
             navContent.id = content.prop("id");
@@ -112,7 +115,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             _this.contents.push(navContent);
         });
 
-        element.querySelectorAll("faz-nav > faz-nav-item").forEach(function(
+        element.querySelectorAll(mainQuery + "faz-nav-item").forEach(function(
             item) {
             var navItem = new FazNavItem();
             item = $(item);

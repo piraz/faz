@@ -3997,7 +3997,7 @@ qs@~2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-2.3.3.tgz#e9e85adbe75da0bbe4c8e0476a086290f863b404"
 
-qunit@^2.5.1:
+qunit@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.6.1.tgz#3a2a5f05307f873174e0f5859010fb7380380e3c"
   dependencies:
@@ -4637,9 +4637,9 @@ steal-parse-amd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/steal-parse-amd/-/steal-parse-amd-1.0.0.tgz#3b0b29fade323473b24665e682301facb361bc61"
 
-steal-qunit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/steal-qunit/-/steal-qunit-1.0.1.tgz#afe3f0e72cc65fc65f6fcbd1b006e8367de9cffd"
+steal-qunit@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/steal-qunit/-/steal-qunit-1.0.2.tgz#0201556ae7ce8d37768dc68e65f57e0348c3d6f3"
   dependencies:
     qunitjs "^1.17.1"
     steal-css "^1.0.0"
