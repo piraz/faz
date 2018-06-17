@@ -1,8 +1,8 @@
 # Candango Faz
 
-**master:** [![Build Status](https://travis-ci.org/candango/faz.svg?branch=master)](https://travis-ci.org/faz/firenado)
+**master:** [![Build Status](https://travis-ci.org/candango/faz.svg?branch=master)](https://travis-ci.org/candango/faz)
 
-**develop:** [![Build Status develop](https://travis-ci.org/candango/faz.svg?branch=develop)](https://travis-ci.org/faz/firenado)
+**develop:** [![Build Status develop](https://travis-ci.org/candango/faz.svg?branch=develop)](https://travis-ci.org/candango/faz)
 
 ## Introduction
 
