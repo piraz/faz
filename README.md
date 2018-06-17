@@ -1,6 +1,26 @@
 # Candango Faz
 
+**master:** [![Build Status](https://travis-ci.org/candango/faz.svg?branch=master)](https://travis-ci.org/faz/firenado)
+
+**develop:** [![Build Status develop](https://travis-ci.org/candango/faz.svg?branch=develop)](https://travis-ci.org/faz/firenado)
+
+## Introduction
+
 Candango faz is a toolkit based on bootstrap and canjs.
+
+# Installation
+
+## npm
+
+```
+> npm i faz
+```
+
+## yarn
+
+```
+> yarn add faz
+```
 
 # Development
 
