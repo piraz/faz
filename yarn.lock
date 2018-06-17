@@ -3997,7 +3997,7 @@ qs@~2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-2.3.3.tgz#e9e85adbe75da0bbe4c8e0476a086290f863b404"
 
-qunit@^2.5.1:
+qunit@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.6.1.tgz#3a2a5f05307f873174e0f5859010fb7380380e3c"
   dependencies:
