@@ -27,7 +27,10 @@
     "steal-stache": "^4.1.0"
   },
   "scripts": {
-    "build": "steal-tools"
+    "run": "http-server",
+    "build": "steal-tools",
+    "test": "npm run test:browser",
+    "test:browser": "testee test/nav-test.html --browsers firefox --reporter Spec"
   },
   "devDependencies": {
     "http-server": "^0.11.1",

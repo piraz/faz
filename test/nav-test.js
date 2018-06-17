@@ -1,5 +1,7 @@
 var QUnit = require("steal-qunit");
 
+var $ = require("jquery");
+
 var NavItem = require("nav/item");
 var NavViewModel = require("nav/nav-view-model");
 
