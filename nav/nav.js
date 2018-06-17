@@ -3,6 +3,7 @@
 
 var FazNavViewModel = require("./nav-view-model");
 var Component = require("can-component");
+var namespace = require("can-namespace");
 
 //import template from "./nav.stache";
 var navTemplate = require("./nav.stache");
@@ -26,7 +27,7 @@ var helpers = {
         return "";
     },
     getComponentClass: function () {
-        var classes = ["nav"];
+        var classes = [this.type];
 
         if (this.fill) {
             classes.push("nav-fill");
@@ -54,10 +55,12 @@ var helpers = {
     }
 };
 
-Component.extend({
+var FazNav = Component.extend({
     tag: "faz-nav",
     view: navTemplate,
     ViewModel: FazNavViewModel,
     events: events,
     helpers: helpers
 });
+
+module.exports = namespace.FazNav = FazNav;
