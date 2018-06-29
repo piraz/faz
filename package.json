@@ -28,7 +28,7 @@
   },
   "scripts": {
     "run": "http-server",
-    "build": "steal-tools",
+    "build": "node build.js",
     "test": "npm run test:browser",
     "test:browser": "testee test/nav.html --browsers firefox --reporter Spec"
   },
