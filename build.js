@@ -1,5 +1,5 @@
 var stealTools = require("steal-tools");
 
 stealTools.build({
-    main: ["faz/app/nav", "faz/app/alert"]
+    main: ["faz/app/alert", "faz/app/nav", "faz/app/navbar"]
 });
