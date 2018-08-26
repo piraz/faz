@@ -23,6 +23,43 @@ QUnit.test("NavItem defaults.", function(assert) {
     );
 });
 
+
+QUnit.test("NavItem getHref.", function(assert) {
+    item.disabled = true;
+
+    assert.equal(
+        item.getHref(),
+        "javascript:void(0)",
+        "When disable is true: default href."
+    );
+
+    item.disabled = false;
+
+    assert.equal(
+        item.getHref(),
+        "javascript:void(0)",
+        "When enabled and content and href are null: default href."
+    );
+
+
+    item.content = "my-content";
+
+    assert.equal(
+        item.getHref(),
+        "#" + item.content,
+        "When enabled and content isn't empty: \"# + item.content\"."
+    );
+
+    item.content = null;
+    item.href = "http://a_url.com";
+
+    assert.equal(
+        item.getHref(),
+        item.href,
+        "When enabled and not content and url isn't empty: \"item.html\"."
+    );
+});
+
 QUnit.module("nav/nav-view-model");
 
 var viewModel = new NavViewModel();
