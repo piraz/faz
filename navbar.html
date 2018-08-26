@@ -11,7 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/node_modules/steal/steal.js"></script>
+    <script src="/node_modules/steal/steal.js" main="faz/app/navbar"></script>
     <!-- Custom styles for this template -->
 </head>
 
@@ -50,52 +50,13 @@
     </nav>
 
     <main role="main" class="container">
-        <nav-base active="item1">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <nav-base active="item2" pills justify="center">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <nav-base active="item1" pills fill>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <nav-base active="item1" justify="right">
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-         <nav-base active="item1" justify="right" tabs>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
-
-        <nav-base active="item1" vertical>
-            <nav-item id="active">Active</nav-item>
-            <nav-item id="item1">Item 1</nav-item>
-            <nav-item id="item2">Item 2</nav-item>
-            <nav-item id="disabled" disabled="true">Disabled</nav-item>
-        </nav-base>
+        <faz-navbar id="navbarTitle">
+            <faz-nav-item id="active">Active</faz-nav-item>
+            <faz-nav-item id="item1">Item 1</faz-nav-item>
+            <faz-nav-item id="item2">Item 2</faz-nav-item>
+            <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
+        </faz-navbar>
     </main><!-- /.container -->
-
-    <script>
-        steal("nav");
-    </script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
