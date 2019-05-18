@@ -1,13 +1,13 @@
 sudo: false
 language: node_js
 node_js:
-- node
-script: npm test
+  - "8"
+script: testee test/*.html --browsers firefox --reporter Spec
 before_install:
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- sleep 3
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
 cache:
   yarn: true
   directories:
-  - node_modules
+    - node_modules
