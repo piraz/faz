@@ -1,7 +1,4 @@
-var DefineMap = require("can-define/map/map");
-var namespace = require("can-namespace");
-var route = require("can-route");
-var stache = require("can-stache");
+import { DefineMap } from "can";
 
 /**
  * Nav View Model
@@ -9,7 +6,7 @@ var stache = require("can-stache");
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-var FazAlertViewModel = DefineMap.extend("NavViewModel", {
+let FazAlertViewModel = DefineMap.extend("FazAlertViewModel", {
     isLoading: {type: "boolean", default: false},
     content: {type: "observable"},
     /**
@@ -28,19 +25,7 @@ var FazAlertViewModel = DefineMap.extend("NavViewModel", {
             item.detach();
             alertElement.append(item);
         });
-
-        /*var content = "";
-        var alertElement = null;
-
-        console.log($(element).contents());
-
-
-        console.log(content);
-        buga = stache(content)();*/
-
-        //this.content = buga;
-
     }
 });
 
-module.exports = namespace.FazAlertViewModel = FazAlertViewModel;
+export { FazAlertViewModel };
