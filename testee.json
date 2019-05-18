@@ -1,0 +1,22 @@
+{
+  "port": 3621,
+  "reporter": "Spec",
+  "timeout": 120,
+  "delay": 1000,
+  "tunnel": {
+    "type": "local"
+  },
+  "launch": {
+    "type": "local"
+  },
+  "browsers": [
+    {
+      "browser": "chrome",
+      "args": [
+        "--headless",
+        "--disable-gpu",
+        "--remote-debugging-port=9222"
+      ]
+    }
+  ]
+}
