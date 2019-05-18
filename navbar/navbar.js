@@ -1,8 +1,24 @@
-"use strict";
-"format cjs";
+import { Component, stache } from "can";
 
-var FazNav = require("../nav/nav");
+import FazNavbarBrand from "./brand";
 
-var FazNavbar = FazNav.extend({
-    tag: "faz-navbar"
+import FazNavbarViewModel from "./view-model";
+import navbarTemplate from "./navbar.stache";
+
+import "../stylesheets/nav.less";
+
+let events = {
+
+};
+
+let helpers = {
+
+};
+
+export default Component.extend({
+    tag: "faz-navbar",
+    view: navbarTemplate,
+    ViewModel: FazNavbarViewModel,
+    events: events,
+    helpers: helpers,
 });
