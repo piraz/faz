@@ -1,8 +1,6 @@
-var DefineMap = require("can-define/map/map");
-var DefineList = require("can-define/list/list");
-var namespace = require("can-namespace");
+import { DefineList, DefineMap } from "can";
 
-var itemTemplate = require("./item.stache");
+import itemTemplate from "./item.stache";
 
 /**
  *
@@ -12,7 +10,7 @@ var itemTemplate = require("./item.stache");
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-var FazNavItem = DefineMap.extend({
+let FazNavItem = DefineMap.extend({
     id: "string",
     active: {type: "boolean", default: false},
     children: {type: "observable", default: function() {
@@ -84,6 +82,7 @@ var FazNavItem = DefineMap.extend({
             return "javascript:void(0)";
         }
         if (this.content) {
+            console.log(this.parent);
             return "#" + this.content;
         }
         return this.href;
@@ -122,4 +121,4 @@ steal.done().then(function() {
     });
 });
 
-module.exports = namespace.FazNavItem = FazNavItem;
+export default FazNavItem;

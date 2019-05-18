@@ -1,6 +1,7 @@
 # Yarn/Node
 node_modules/
 dist/
+yarn.lock
 
 # Idea metadata
 .idea/

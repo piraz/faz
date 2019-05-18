@@ -18,7 +18,7 @@
     <div class:from="scope.top.contentOuterClass">
         <div class="tab-content">
             {{#each(scope.top.contents, content=value)}}
-            <div class:from="content.class" id="content.id" role="tabpanel" aria-labelledby="pills-home-tab">{{content.element}}</div>
+            <div class:from="content.class" id="content.id" role="tabpanel" aria-labelledby="pills-home-tab">{{getSafeString(content.element)}}</div>
             {{/each}}
         </div>
     </div>

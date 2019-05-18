@@ -2,12 +2,11 @@ import QUnit from "steal-qunit";
 
 import $ from "jquery";
 
-import { default as NavItem } from "nav/item";
-import NavViewModel from "nav/nav-view-model";
+import FazAlertViewModel from "alert/alert-view-model";
 
-QUnit.module("nav/item");
+QUnit.module("alert/alert-view-model");
 
-let item = new NavItem();
+let alertViewModel = new FazAlertViewModel();
 
 QUnit.test("NavItem defaults.", function(assert) {
     assert.equal(
@@ -58,17 +57,4 @@ QUnit.test("NavItem getHref.", function(assert) {
         item.href,
         "When enabled and not content and url isn't empty: \"item.html\"."
     );
-});
-
-QUnit.module("nav/nav-view-model");
-
-let viewModel = new NavViewModel();
-
-QUnit.test("NavViewModel defaults.", function(assert) {
-    assert.equal(
-        viewModel.justify,
-        "left",
-        "View model justify default is left."
-    );
-    assert.equal(viewModel.fill, false, "View model fill default is false.");
 });

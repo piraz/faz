@@ -1,6 +1,3 @@
-"use strict";
-"format cjs";
+import { FazAlert, FazNav } from "../faz";
 
-require("../stylesheets/showcase.less");
-require("../nav/nav");
-require("../alert/alert");
+import "stylesheets/showcase.less";
