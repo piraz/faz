@@ -1,6 +1,4 @@
-var DefineMap = require("can-define/map/map");
-var DefineList = require("can-define/list/list");
-var namespace = require("can-namespace");
+import { DefineList, DefineMap } from "can";
 
 /**
  *
@@ -10,7 +8,7 @@ var namespace = require("can-namespace");
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-var FazNavContent = DefineMap.extend({
+let FazNavContent = DefineMap.extend({
     id: "string",
     element: "observable",
     active: {type: "boolean", default: false},
@@ -38,4 +36,4 @@ FazNavContent.List = DefineList.extend({
     }
 });
 
-module.exports = namespace.FazNavContent = FazNavContent;
+export default FazNavContent;

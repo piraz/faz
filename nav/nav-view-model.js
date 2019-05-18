@@ -1,10 +1,9 @@
-var FazNavContent = require("./content");
-var FazNavItem = require("./item");
-var DefineMap = require("can-define/map/map");
-var namespace = require("can-namespace");
-var route = require("can-route");
+import { DefineMap, route } from "can";
 
-var dropTemplate = require("./dropdown.stache");
+import FazNavContent from "./content";
+import FazNavItem from "./item";
+
+import dropTemplate from "./dropdown.stache";
 
 /**
  * Nav View Model
@@ -12,7 +11,7 @@ var dropTemplate = require("./dropdown.stache");
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
+let FazNavViewModel = DefineMap.extend({
     id: {type:"string", default: ""},
     isLoading: {type: "boolean", default: false},
     items: {type: "observable", default: function() {
@@ -63,7 +62,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         $.each(element.attributes, function() {
             if(this.name.toLowerCase() == "navouterclass"){
-                this.navOuterClass = this.value;
+                _this.navOuterClass = this.value;
             }
         });
 
@@ -80,6 +79,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
         }
 
         if(typeof $(element).attr("id") !== "undefined") {
+            console.log($(element).attr("id"));
             this.id = $(element).attr("id");
         }
 
@@ -125,6 +125,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             if(typeof item.attr("disabled") !== "undefined") {
                 navItem.disabled = item.attr("disabled");
             }
+
 
             if(typeof item.attr("content") !== "undefined") {
                 navItem.content = item.attr("content");
@@ -246,4 +247,4 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     }
 });
 
-module.exports = namespace.FazNavViewModel = FazNavViewModel;
+export default FazNavViewModel;

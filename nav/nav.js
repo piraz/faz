@@ -1,25 +1,15 @@
-"use strict";
-"format cjs";
+import { Component, stache } from "can";
 
-var FazNavViewModel = require("./nav-view-model");
-var Component = require("can-component");
-var namespace = require("can-namespace");
+import FazNavViewModel from "./nav-view-model";
+import navTemplate from "./nav.stache";
 
-//import template from "./nav.stache";
-var navTemplate = require("./nav.stache");
+import "../stylesheets/nav.less";
 
-require("../stylesheets/nav.less")
-
-//import canMap from "can-connect/can/map/map";
-//import connect from "can-connect";
-//import dataUrl from "can-connect/data/url/url";
-//import constructor from "can-connect/constructor/constructor";
-
-var events = {
+let events = {
 
 };
 
-var helpers = {
+let helpers = {
     getVMItemValue: function (item) {
         return this.getItemValue(item);
     },
@@ -52,15 +42,16 @@ var helpers = {
         }
 
         return classes.join(" ");
+    },
+    getSafeString: function(item) {
+        return stache.safeString(item);
     }
 };
 
-var FazNav = Component.extend({
+export default Component.extend({
     tag: "faz-nav",
     view: navTemplate,
     ViewModel: FazNavViewModel,
     events: events,
     helpers: helpers
 });
-
-module.exports = namespace.FazNav = FazNav;
