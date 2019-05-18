@@ -21,7 +21,7 @@
     "run": "http-server",
     "build": "node build.js",
     "test": "npm run test:browser",
-    "test:browser": "testee test/*.html --config=testee.json"
+    "test:browser": "testee test/*.html --browsers firefox --reporter Spec"
   },
   "keywords": [
     "canjs",
