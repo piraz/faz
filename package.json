@@ -10,7 +10,7 @@
   "dependencies": {
     "bootstrap": "4.3.1",
     "can": "5.25.0",
-    "jquery": "3.3.1",
+    "jquery": "3.4.1",
     "less": "3.0.4",
     "popper.js": "1.15.0",
     "steal": "2.2.1",
