@@ -1,5 +1,3 @@
-"use strict";
-"format cjs";
+import { FazNavbar } from "../faz";
 
-require("../stylesheets/showcase.less");
-require("../navbar/navbar");
+import "../stylesheets/showcase.less";
