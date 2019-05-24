@@ -1,7 +1,7 @@
 import { DefineMap, route } from "can";
 
 import { default as FazNavbarBrand} from "./brand";
-import FazNavContent from "../nav/content";
+
 import brandTemplate from "./brand.stache";
 
 // import FazNavContent from "./content";
