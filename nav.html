@@ -170,17 +170,17 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <faz-nav active="item1" justify="right" tabs>
-                        <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
-                        <faz-nav-item id="item2" content="item2-content">Item 2</faz-nav-item>
+                        <faz-nav-item id="item1" href="#item1-content">Item 1</faz-nav-item>
+                        <faz-nav-item id="item2" href="#item2-content">Item 2</faz-nav-item>
                         <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
 
-                        <faz-nav-content id="item1-content">
+                        <faz-nav-tab-content id="item1-content">
                             Item 1 content
-                        </faz-nav-content>
+                        </faz-nav-tab-content>
 
-                        <faz-nav-content id="item2-content">
+                        <faz-nav-tab-content id="item2-content">
                             Item 2 content
-                        </faz-nav-content>
+                        </faz-nav-tab-content>
                     </faz-nav>
                 </li>
             </ul>
@@ -191,21 +191,21 @@
         //var buga = new compute("test");
     </script>
 
-        <faz-nav active="active" class="row" justify="right" pills vertical navouterclass="col-3" contentouterclass="col-9">
+        <faz-nav active="active" class="row" justify="right" pills vertical navouterclass="col-3" tablistouterclass="col-9" tabs>
             <faz-nav-item id="active">Active</faz-nav-item>
-            <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
-            <faz-nav-item id="item2" content="item2-content">Item 2</faz-nav-item>
+            <faz-nav-item id="item1" href="item1-content">Item 1</faz-nav-item>
+            <faz-nav-item id="item2" href="item2-content">Item 2</faz-nav-item>
             <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
 
-            <faz-nav-content id="item1-content">
+            <faz-nav-tab-content id="item1-content" fade>
                 Item 1 content <faz-alert>
                         <content> a</content>
                     </faz-alert>
-            </faz-nav-content>
+            </faz-nav-tab-content>
 
-            <faz-nav-content id="item2-content">
+            <faz-nav-tab-content id="item2-content">
                 Item 2 content
-            </faz-nav-content>
+            </faz-nav-tab-content>
 
         </faz-nav>
 

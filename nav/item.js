@@ -10,19 +10,23 @@ import itemTemplate from "./item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavItem = DefineMap.extend({
+let FazNavItem = DefineMap.extend("FazNavItem", {
     id: "string",
     active: {type: "boolean", default: false},
     children: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    content: {type: "string", default: null},
+    tab: {type: "string", default: null},
+    element: "observable",
     parent: {type: "observable", default: null},
     disabled: {type: "boolean", default: false},
     dropdown: {type: "boolean", default: false},
     href: {type: "string", default: "javascript:void(0)"},
     target: {type: "string", default: ""},
     value: "string",
+    get isRoot() {
+        return this.parent.constructor.name == "FazNavViewModel";
+    },
     get navId() {
         return "fazNavItem" + this.id;
     },
@@ -55,16 +59,15 @@ let FazNavItem = DefineMap.extend({
                 this.parent.items.active.forEach(function(child) {
                     child.active = false;
                 });
-                if (this.parent.contents.length) {
-                    this.parent.contents.active.forEach(function(content) {
-                        content.active = false;
+                if (this.parent.tablist.length) {
+                    this.parent.tablist.active.forEach(function(tab) {
+                        tab.active = false;
                     });
-                    var contentId = this.content;
-                    this.parent.contents.forEach(function(content) {
-                        if(content.id == contentId) {
-                            content.active = true;
+                    this.parent.tablist.forEach(function(tab) {
+                        if(tab.id == this.tab) {
+                            tab.active = true;
                         }
-                    });
+                    }.bind(this));
                 }
             }
             this.active = true;
@@ -81,9 +84,8 @@ let FazNavItem = DefineMap.extend({
         if (this.disabled) {
             return "javascript:void(0)";
         }
-        if (this.content) {
-            console.log(this.parent);
-            return "#" + this.content;
+        if (this.parent.tabs) {
+            return "#" + this.href;
         }
         return this.href;
     }

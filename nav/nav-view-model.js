@@ -1,9 +1,7 @@
 import { DefineMap, route } from "can";
 
-import FazNavContent from "./content";
 import FazNavItem from "./item";
-
-import dropTemplate from "./dropdown.stache";
+import FazNavTabContent from "./tab-content";
 
 /**
  * Nav View Model
@@ -11,17 +9,17 @@ import dropTemplate from "./dropdown.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavViewModel = DefineMap.extend({
+let FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     id: {type:"string", default: ""},
     isLoading: {type: "boolean", default: false},
     items: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    contents: {type: "observable", default: function() {
-        return new FazNavContent.List([]);
+    tablist: {type: "observable", default: function() {
+        return new FazNavTabContent.List([]);
     }},
     navOuterClass: {type: "string", default: ""},
-    contentOuterClass: {type: "string", default: ""},
+    tablistOuterClass: {type: "string", default: ""},
     fill: {type:"boolean", default: "false"},
     justify: {type:"string", default: "left"},
     page: "string",
@@ -29,14 +27,14 @@ let FazNavViewModel = DefineMap.extend({
     tabs: {type:"boolean", default: "false"},
     type: {type:"string", default: "nav"},
     vertical: {type:"boolean", default: "false"},
-    get hasContent() {
-        if (this.contents.length) {
+    get hasTabItems() {
+        if (this.tablist.length) {
            return true;
         }
         return false;
     },
     get role() {
-        if (this.contents.length) {
+        if (this.tablist.length) {
            return "tablist";
         }
         return "";
@@ -74,12 +72,11 @@ let FazNavViewModel = DefineMap.extend({
             this.navOuterClass = $(element).attr("navouterclass");
         }
 
-        if(typeof $(element).attr("contentOuterClass") !== "undefined") {
-            this.contentOuterClass = $(element).attr("contentOuterClass");
+        if(typeof $(element).attr("tablistOuterClass") !== "undefined") {
+            this.tablistOuterClass = $(element).attr("tablistOuterClass");
         }
 
         if(typeof $(element).attr("id") !== "undefined") {
-            console.log($(element).attr("id"));
             this.id = $(element).attr("id");
         }
 
@@ -105,15 +102,20 @@ let FazNavViewModel = DefineMap.extend({
 
         var mainQuery = "faz-"  + this.type + "> ";
 
-        element.querySelectorAll(mainQuery + "faz-nav-content").forEach(
-            function(content) {
-            var navContent = new FazNavContent();
-            content = $(content);
-            navContent.id = content.prop("id");
-            content.detach();
-            navContent.element = content;
-            _this.contents.push(navContent);
-        });
+        element.querySelectorAll(mainQuery + "faz-nav-tab-content").forEach(
+            function(tabContent) {
+                var navTabContent = new FazNavTabContent();
+                //navTab.element = tab;
+                tabContent = $(tabContent);
+                navTabContent.id = tabContent.prop("id");
+                if (tabContent.attr("fade")!==undefined) {
+                    tabContent.fade = true;
+                }
+                tabContent.detach();
+                navTabContent.element = tabContent;
+                this.tablist.push(navTabContent);
+            }.bind(this)
+        );
 
         element.querySelectorAll(mainQuery + "faz-nav-item").forEach(function(
             item) {
@@ -121,17 +123,18 @@ let FazNavViewModel = DefineMap.extend({
             item = $(item);
             item.detach();
             navItem.id = item.prop("id");
-            navItem.parent = _this;
+            navItem.parent = this;
+            navItem.element = item;
+
             if(typeof item.attr("disabled") !== "undefined") {
                 navItem.disabled = item.attr("disabled");
             }
 
-
-            if(typeof item.attr("content") !== "undefined") {
-                navItem.content = item.attr("content");
+            if(typeof item.attr("tab") !== "undefined") {
+                navItem.tab = item.attr("tab");
             }
 
-            if(_this.isElDropdown(item)) {
+            if(this.isElDropdown(item)) {
                 navItem.dropdown = true;
                 item.children().each(function(index, child) {
                     var tagName = $(child).prop("tagName").toLowerCase();
@@ -159,9 +162,9 @@ let FazNavViewModel = DefineMap.extend({
                 navItem.active = true;
             }
             _this.items.push(navItem);
-        });
+        }.bind(this));
 
-        if (this.hasContent){
+        if (this.hasTabItems){
             this.items.active[0].activate();
         }
     },
@@ -236,14 +239,6 @@ let FazNavViewModel = DefineMap.extend({
         }
 
         return navItem;
-    },
-    getItemValue: function (item) {
-        var _this = this;
-        var context = {
-          item: item,
-          viewModel: _this
-        };
-        return dropTemplate(context);
     }
 });
 

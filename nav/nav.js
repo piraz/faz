@@ -44,7 +44,7 @@ let helpers = {
         return classes.join(" ");
     },
     getSafeString: function(item) {
-        return stache.safeString(item);
+        return stache.safeString(item[0]);
     }
 };
 
