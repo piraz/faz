@@ -1,3 +1,5 @@
-<div>
-
-</div>
+<nav class="{{ this.class }}">
+{{#brand}}
+    <div>{{ this.html }}</div>
+{{/brand}}
+</nav>

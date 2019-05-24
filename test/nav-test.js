@@ -5,7 +5,7 @@ import $ from "jquery";
 import { default as NavItem } from "nav/item";
 import NavViewModel from "nav/nav-view-model";
 
-QUnit.module("nav/item");
+QUnit.module("faz/nav/item");
 
 let item = new NavItem();
 
@@ -60,7 +60,7 @@ QUnit.test("NavItem getHref.", function(assert) {
     );
 });
 
-QUnit.module("nav/nav-view-model");
+QUnit.module("faz/nav/nav-view-model");
 
 let viewModel = new NavViewModel();
 

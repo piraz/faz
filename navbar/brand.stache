@@ -1,0 +1,5 @@
+{{#if (brand.isLink)}}
+    <a class="navbar-brand" href="{{ brand.href }}">Navbar</a>
+{{else}}
+    <span class="navbar-brand mb-0 h1">Navbar</span>
+{{/if}}
