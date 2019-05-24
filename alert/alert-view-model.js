@@ -28,4 +28,4 @@ let FazAlertViewModel = DefineMap.extend("FazAlertViewModel", {
     }
 });
 
-export { FazAlertViewModel };
+export default FazAlertViewModel;
