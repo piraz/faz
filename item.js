@@ -5,7 +5,7 @@ let FazItem = DefineMap.extend({
     content: "string",
     element: "observable",
     href: "string",
-    parent: {type: "observable", default: null},
+    parent: {type: "observable"},
     get isLink() {
         return this.href !== null && this.href !== undefined;
     },

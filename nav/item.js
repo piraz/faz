@@ -1,4 +1,8 @@
-import { DefineList, DefineMap } from "can";
+import $ from "jquery";
+
+import { DefineList } from "can";
+
+import { default as  FazItem } from "../item";
 
 import itemTemplate from "./item.stache";
 
@@ -10,17 +14,13 @@ import itemTemplate from "./item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavItem = DefineMap.extend("FazNavItem", {
-    id: "string",
+let FazNavItem = FazItem.extend("FazNavItem", {
     active: {type: "boolean", default: false},
     children: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    element: "observable",
-    parent: {type: "observable", default: null},
     disabled: {type: "boolean", default: false},
     dropdown: {type: "boolean", default: false},
-    href: {type: "string", default: "javascript:void(0)"},
     target: {type: "string", default: ""},
     value: "string",
     get isRoot() {
@@ -67,8 +67,10 @@ let FazNavItem = DefineMap.extend("FazNavItem", {
                         );
                         this.parent.tabContentList.forEach(
                             function(tabContent) {
-                                let tabContentHef = this.href.startsWith("#") ?
-                                    this.href.substring(1) : this.href;
+                                let tabContentHef =
+                                    this.getHref().startsWith("#") ?
+                                    this.getHref().substring(1) :
+                                        this.getHref();
                                 if(tabContent.id == tabContentHef) {
                                     tabContent.active = true;
                                 }
@@ -88,15 +90,19 @@ let FazNavItem = DefineMap.extend("FazNavItem", {
      * @returns {string}
      */
     getHref: function () {
+        let voidHref = "javascript:void(0)";
+        let validHef = this.href === undefined ? voidHref : this.href;
         if (this.disabled) {
-            return "javascript:void(0)";
+            return voidHref;
         }
-        if (this.parent.tabs) {
-            if (!this.href.startsWith("#")) {
-                return "#" + this.href;
+        if (this.parent !== undefined) {
+            if (this.parent.tabs) {
+                if (!validHef.startsWith("#") && this.href) {
+                    return "#" + validHef;
+                }
             }
         }
-        return this.href;
+        return validHef;
     }
 });
 
@@ -119,9 +125,9 @@ steal.done().then(function() {
             '.show').removeClass("show");
       }
 
-      var $subMenu = $(this).next(".dropdown-menu");
+      let subMenu = $(this).next(".dropdown-menu");
 
-      $subMenu.toggleClass('show');
+      subMenu.toggleClass('show');
 
       $(this).parents('li.nav-item.dropdown.show').on(
           'hidden.bs.dropdown', function(e) {

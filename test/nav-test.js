@@ -15,7 +15,7 @@ QUnit.test("NavItem defaults.", function(assert) {
     );
 
     assert.equal(
-        item.href,
+        item.getHref(),
         "javascript:void(0)",
         "Item href default is: \"javascript:void(0)\"."
     );
