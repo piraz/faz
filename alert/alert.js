@@ -1,4 +1,4 @@
-import { FazAlertViewModel } from "./alert-view-model"
+import {default as FazAlertViewModel } from "./alert-view-model"
 import { Component } from "can";
 
 import alertTemplate from "./alert.stache"

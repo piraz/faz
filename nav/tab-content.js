@@ -8,7 +8,7 @@ import { DefineList, DefineMap } from "can";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavContent = DefineMap.extend({
+let FazNavTabContent = DefineMap.extend("FazNavTabContent", {
     id: "string",
     element: "observable",
     active: {type: "boolean", default: false},
@@ -26,14 +26,17 @@ let FazNavContent = DefineMap.extend({
             classes.push("show");
         }
         return classes.join(" ");
+    },
+    get html() {
+        return this.element;
     }
 });
 
-FazNavContent.List = DefineList.extend({
-    "#": FazNavContent,
+FazNavTabContent.List = DefineList.extend({
+    "#": FazNavTabContent,
     get active() {
         return this.filter({active: true});
     }
 });
 
-export default FazNavContent;
+export default FazNavTabContent;

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Candango Faz Toolkit - Navbar</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/styles/sunburst.min.css">
+    <link rel="stylesheet" type="text/css" href="/app/highlight-line-numbers.css">
+    <script src="/node_modules/steal/steal.js" main="faz/app/navbar"></script>
+    <!-- Custom styles for this template -->
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <h1>Navbars</h1>
+
+    <h2>Brand</h2>
+
+    <h3>As a heading</h3>
+
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-navbar id="navbarHeading" class="bg-light">
+                    <faz-navbar-brand>test</faz-navbar-brand>
+                </faz-navbar>
+            </li>
+
+
+            <li class="list-group-item"><pre><code class="xml">&lt;faz-navbar id="navbarTitle" class="bg-light"&gt;
+    &lt;faz-navbar-brand&gt;test&lt;/faz-navbar-brand&gt;
+&lt;/faz-navbar&gt;</code></pre>
+            </li>
+        </ul>
+    </div>
+
+    <h3>As a link</h3>
+
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-navbar id="navbarHeading" class="bg-light">
+                    <faz-navbar-brand href="#">test</faz-navbar-brand>
+                </faz-navbar>
+            </li>
+            <li class="list-group-item"><pre><code class="xml">&lt;faz-navbar id="navbarTitle" class="bg-light"&gt;
+    &lt;faz-navbar-brand href="#"&gt;test&lt;/faz-navbar-brand&gt;
+&lt;/faz-navbar&gt;</code></pre>
+            </li>
+        </ul>
+    </div>
+</main><!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
+
+<script>
+    //$(function () {
+    document.querySelectorAll("pre code").forEach((block) => {
+        hljs.highlightBlock(block);
+        hljs.lineNumbersBlock(block);
+    });
+    //});
+</script>
+
+</body>
+</html>

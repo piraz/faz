@@ -1,4 +1,8 @@
-import { DefineList, DefineMap } from "can";
+import $ from "jquery";
+
+import { DefineList } from "can";
+
+import { default as  FazItem } from "../item";
 
 import itemTemplate from "./item.stache";
 
@@ -10,19 +14,18 @@ import itemTemplate from "./item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavItem = DefineMap.extend({
-    id: "string",
+let FazNavItem = FazItem.extend("FazNavItem", {
     active: {type: "boolean", default: false},
     children: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    content: {type: "string", default: null},
-    parent: {type: "observable", default: null},
     disabled: {type: "boolean", default: false},
     dropdown: {type: "boolean", default: false},
-    href: {type: "string", default: "javascript:void(0)"},
     target: {type: "string", default: ""},
     value: "string",
+    get isRoot() {
+        return this.parent.constructor.name == "FazNavViewModel";
+    },
     get navId() {
         return "fazNavItem" + this.id;
     },
@@ -55,16 +58,25 @@ let FazNavItem = DefineMap.extend({
                 this.parent.items.active.forEach(function(child) {
                     child.active = false;
                 });
-                if (this.parent.contents.length) {
-                    this.parent.contents.active.forEach(function(content) {
-                        content.active = false;
-                    });
-                    var contentId = this.content;
-                    this.parent.contents.forEach(function(content) {
-                        if(content.id == contentId) {
-                            content.active = true;
-                        }
-                    });
+                if (this.isRoot) {
+                    if (this.parent.hasTabContents) {
+                        this.parent.tabContentList.active.forEach(
+                            function(tabContent) {
+                                tabContent.active = false;
+                            }
+                        );
+                        this.parent.tabContentList.forEach(
+                            function(tabContent) {
+                                let tabContentHef =
+                                    this.getHref().startsWith("#") ?
+                                    this.getHref().substring(1) :
+                                        this.getHref();
+                                if(tabContent.id == tabContentHef) {
+                                    tabContent.active = true;
+                                }
+                            }.bind(this)
+                        );
+                    }
                 }
             }
             this.active = true;
@@ -78,14 +90,19 @@ let FazNavItem = DefineMap.extend({
      * @returns {string}
      */
     getHref: function () {
+        let voidHref = "javascript:void(0)";
+        let validHef = this.href === undefined ? voidHref : this.href;
         if (this.disabled) {
-            return "javascript:void(0)";
+            return voidHref;
         }
-        if (this.content) {
-            console.log(this.parent);
-            return "#" + this.content;
+        if (this.parent !== undefined) {
+            if (this.parent.tabs) {
+                if (!validHef.startsWith("#") && this.href) {
+                    return "#" + validHef;
+                }
+            }
         }
-        return this.href;
+        return validHef;
     }
 });
 
@@ -108,9 +125,9 @@ steal.done().then(function() {
             '.show').removeClass("show");
       }
 
-      var $subMenu = $(this).next(".dropdown-menu");
+      let subMenu = $(this).next(".dropdown-menu");
 
-      $subMenu.toggleClass('show');
+      subMenu.toggleClass('show');
 
       $(this).parents('li.nav-item.dropdown.show').on(
           'hidden.bs.dropdown', function(e) {

@@ -1,6 +1,6 @@
-import { DefineList, DefineMap } from "can";
+import { default as FazItem } from "../item";
 
-// import itemTemplate from "./item.stache";
+import brandTemplate from "./brand.stache";
 
 /**
  *
@@ -10,8 +10,13 @@ import { DefineList, DefineMap } from "can";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavbarBrand = DefineMap.extend({
-    id: "string"
+let FazNavbarBrand = FazItem.extend({
+    get html() {
+        let context = {
+            brand: this
+        };
+        return brandTemplate(context);
+    }
 });
 
 export default FazNavbarBrand;
