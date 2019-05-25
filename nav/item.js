@@ -16,7 +16,6 @@ let FazNavItem = DefineMap.extend("FazNavItem", {
     children: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    tab: {type: "string", default: null},
     element: "observable",
     parent: {type: "observable", default: null},
     disabled: {type: "boolean", default: false},
@@ -59,15 +58,23 @@ let FazNavItem = DefineMap.extend("FazNavItem", {
                 this.parent.items.active.forEach(function(child) {
                     child.active = false;
                 });
-                if (this.parent.tablist.length) {
-                    this.parent.tablist.active.forEach(function(tab) {
-                        tab.active = false;
-                    });
-                    this.parent.tablist.forEach(function(tab) {
-                        if(tab.id == this.tab) {
-                            tab.active = true;
-                        }
-                    }.bind(this));
+                if (this.isRoot) {
+                    if (this.parent.hasTabContents) {
+                        this.parent.tabContentList.active.forEach(
+                            function(tabContent) {
+                                tabContent.active = false;
+                            }
+                        );
+                        this.parent.tabContentList.forEach(
+                            function(tabContent) {
+                                let tabContentHef = this.href.startsWith("#") ?
+                                    this.href.substring(1) : this.href;
+                                if(tabContent.id == tabContentHef) {
+                                    tabContent.active = true;
+                                }
+                            }.bind(this)
+                        );
+                    }
                 }
             }
             this.active = true;
@@ -85,7 +92,9 @@ let FazNavItem = DefineMap.extend("FazNavItem", {
             return "javascript:void(0)";
         }
         if (this.parent.tabs) {
-            return "#" + this.href;
+            if (!this.href.startsWith("#")) {
+                return "#" + this.href;
+            }
         }
         return this.href;
     }
