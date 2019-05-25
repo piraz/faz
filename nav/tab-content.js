@@ -1,4 +1,4 @@
-import { DefineList, DefineMap, stache } from "can";
+import { DefineList, DefineMap } from "can";
 
 /**
  *

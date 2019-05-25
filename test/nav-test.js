@@ -1,7 +1,7 @@
 import QUnit from "steal-qunit";
 
 import { default as NavItem } from "nav/item";
-import NavViewModel from "nav/nav-view-model";
+import NavViewModel from "nav/view-model";
 
 QUnit.module("faz/nav/item");
 

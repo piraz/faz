@@ -1,6 +1,6 @@
 import { Component, stache } from "can";
 
-import FazNavViewModel from "./nav-view-model";
+import FazNavViewModel from "./view-model";
 import navTemplate from "./nav.stache";
 
 import "../stylesheets/nav.less";
