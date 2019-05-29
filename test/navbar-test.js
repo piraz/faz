@@ -1,7 +1,7 @@
 import QUnit from "steal-qunit";
 
-import FazNavbarBrand from "navbar/brand";
-import FazNavbarViewModel from "navbar/view-model";
+import FazNavbarBrand from "navbar/navbar-brand";
+import FazNavbarViewModel from "navbar/navbar-view-model";
 
 QUnit.module("navbar/brand");
 

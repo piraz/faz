@@ -1,8 +1,6 @@
-import { Component, stache } from "can";
+import { Component } from "can";
 
-import FazNavbarBrand from "./brand";
-
-import FazNavbarViewModel from "./view-model";
+import FazNavbarViewModel from "./navbar-view-model";
 import navbarTemplate from "./navbar.stache";
 
 import "../stylesheets/nav.less";
