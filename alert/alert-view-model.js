@@ -1,5 +1,7 @@
 import { DefineMap } from "can";
 
+import alertTemplate from "./alert.stache"
+
 /**
  * Nav View Model
  * @constructor
@@ -7,24 +9,22 @@ import { DefineMap } from "can";
  * @param {string} event.value
  */
 let FazAlertViewModel = DefineMap.extend("FazAlertViewModel", {
-    isLoading: {type: "boolean", default: false},
+    isLoading: {type: "boolean", default: true},
     content: {type: "observable"},
+    get html() {
+        return alertTemplate(this);
+    },
     /**
      *
      * @param element
      */
     connectedCallback: function(element) {
         element = $(element);
-
-        var alertElement = $(element.contents()[element.contents().length-2]);
-        element.contents().each(function (index, item) {
-            item = $(item);
-            if(alertElement.is(item)) {
-                return false;
-            }
-            item.detach();
-            alertElement.append(item);
-        });
+        this.content = element.html();
+        element.contents().detach();
+        element.append(this.html);
+        this.isLoading = false;
+        element.contents().unwrap();
     }
 });
 
