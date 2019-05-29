@@ -1,9 +1,9 @@
 import QUnit from "steal-qunit";
 
-import { default as NavItem } from "nav/item";
-import NavViewModel from "nav/view-model";
+import { default as NavItem } from "nav/nav-item";
+import NavViewModel from "nav/nav-view-model";
 
-QUnit.module("faz/nav/item");
+QUnit.module("faz/nav/nav-item");
 
 let item = new NavItem();
 

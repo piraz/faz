@@ -4,7 +4,7 @@ import { DefineList } from "can";
 
 import { default as  FazItem } from "../item";
 
-import itemTemplate from "./item.stache";
+import itemTemplate from "./nav-item.stache";
 
 /**
  *

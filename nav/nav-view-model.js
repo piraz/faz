@@ -1,7 +1,7 @@
 import { DefineMap, route } from "can";
 
-import FazNavItem from "./item";
-import FazNavTabContent from "./tab-content";
+import FazNavItem from "./nav-item";
+import FazNavTabContent from "./nav-tab-content";
 
 /**
  * Nav View Model
@@ -162,6 +162,7 @@ let FazNavViewModel = DefineMap.extend("FazNavViewModel", {
         if (this.hasTabContents){
             this.items.active[0].activate();
         }
+        $(element).children().unwrap();
     },
     isElDropdown: function(el) {
         if(el.children().length==0){
