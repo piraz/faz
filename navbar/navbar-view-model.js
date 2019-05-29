@@ -34,7 +34,6 @@ let FazNavbarViewModel = DefineMap.extend({
      */
     connectedCallback: function(element) {
         element = $(element);
-        console.log(element);
         this.id = element.attr("id");
 
         if(element.attr("class")) {
