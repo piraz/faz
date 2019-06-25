@@ -1,6 +1,6 @@
 import {DefineMap} from "can";
 
-let FazItem = DefineMap.extend({
+let FazItem = DefineMap.extend("FazItem", {
     id: "string",
     content: "string",
     element: "observable",

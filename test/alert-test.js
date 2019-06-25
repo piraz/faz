@@ -11,7 +11,7 @@ let alertViewModel = new FazAlertViewModel();
 QUnit.test("Alert view model defaults.", function(assert) {
     assert.equal(
         alertViewModel.isLoading,
-        false,
-        "Alert view model isLoading default is: false."
+        true,
+        "Alert view model isLoading default is: true."
     );
 });
