@@ -1,10 +1,7 @@
-var FazNavContent = require("./content");
-var FazNavItem = require("./item");
-var DefineMap = require("can-define/map/map");
-var namespace = require("can-namespace");
-var route = require("can-route");
+import { DefineMap, route } from "can";
 
-var dropTemplate = require("./dropdown.stache");
+import FazNavItem from "./nav-item";
+import FazNavTabContent from "./nav-tab-content";
 
 /**
  * Nav View Model
@@ -12,17 +9,17 @@ var dropTemplate = require("./dropdown.stache");
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
+let FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     id: {type:"string", default: ""},
     isLoading: {type: "boolean", default: false},
     items: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    contents: {type: "observable", default: function() {
-        return new FazNavContent.List([]);
+    tabContentList: {type: "observable", default: function() {
+        return new FazNavTabContent.List([]);
     }},
     navOuterClass: {type: "string", default: ""},
-    contentOuterClass: {type: "string", default: ""},
+    tablistOuterClass: {type: "string", default: ""},
     fill: {type:"boolean", default: "false"},
     justify: {type:"string", default: "left"},
     page: "string",
@@ -30,14 +27,14 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     tabs: {type:"boolean", default: "false"},
     type: {type:"string", default: "nav"},
     vertical: {type:"boolean", default: "false"},
-    get hasContent() {
-        if (this.contents.length) {
+    get hasTabContents() {
+        if (this.tabContentList.length) {
            return true;
         }
         return false;
     },
     get role() {
-        if (this.contents.length) {
+        if (this.hasTabContents()) {
            return "tablist";
         }
         return "";
@@ -63,7 +60,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         $.each(element.attributes, function() {
             if(this.name.toLowerCase() == "navouterclass"){
-                this.navOuterClass = this.value;
+                _this.navOuterClass = this.value;
             }
         });
 
@@ -75,8 +72,8 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             this.navOuterClass = $(element).attr("navouterclass");
         }
 
-        if(typeof $(element).attr("contentOuterClass") !== "undefined") {
-            this.contentOuterClass = $(element).attr("contentOuterClass");
+        if(typeof $(element).attr("tablistOuterClass") !== "undefined") {
+            this.tablistOuterClass = $(element).attr("tablistOuterClass");
         }
 
         if(typeof $(element).attr("id") !== "undefined") {
@@ -105,15 +102,19 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         var mainQuery = "faz-"  + this.type + "> ";
 
-        element.querySelectorAll(mainQuery + "faz-nav-content").forEach(
-            function(content) {
-            var navContent = new FazNavContent();
-            content = $(content);
-            navContent.id = content.prop("id");
-            content.detach();
-            navContent.element = content;
-            _this.contents.push(navContent);
-        });
+        element.querySelectorAll(mainQuery + "faz-nav-tab-content").forEach(
+            function(tabContent) {
+                var navTabContent = new FazNavTabContent();
+                tabContent = $(tabContent);
+                navTabContent.id = tabContent.prop("id");
+                if (tabContent.attr("fade")!==undefined) {
+                    tabContent.fade = true;
+                }
+                tabContent.detach();
+                navTabContent.element = tabContent;
+                this.tabContentList.push(navTabContent);
+            }.bind(this)
+        );
 
         element.querySelectorAll(mainQuery + "faz-nav-item").forEach(function(
             item) {
@@ -121,16 +122,14 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             item = $(item);
             item.detach();
             navItem.id = item.prop("id");
-            navItem.parent = _this;
+            navItem.parent = this;
+            navItem.element = item;
+
             if(typeof item.attr("disabled") !== "undefined") {
                 navItem.disabled = item.attr("disabled");
             }
 
-            if(typeof item.attr("content") !== "undefined") {
-                navItem.content = item.attr("content");
-            }
-
-            if(_this.isElDropdown(item)) {
+            if(this.isElDropdown(item)) {
                 navItem.dropdown = true;
                 item.children().each(function(index, child) {
                     var tagName = $(child).prop("tagName").toLowerCase();
@@ -158,11 +157,12 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
                 navItem.active = true;
             }
             _this.items.push(navItem);
-        });
+        }.bind(this));
 
-        if (this.hasContent){
+        if (this.hasTabContents){
             this.items.active[0].activate();
         }
+        $(element).children().unwrap();
     },
     isElDropdown: function(el) {
         if(el.children().length==0){
@@ -178,11 +178,10 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
         return isDropdown;
     },
     buildDropDownChildren: function(dropdown, el, activeItem) {
-        var _this = this;
         $(el).children().each(function(index, child) {
-            dropdown.children.push(_this.buildNavItem(dropdown,
+            dropdown.children.push(this.buildNavItem(dropdown,
                 child, activeItem));
-        });
+        }.bind(this));
     },
     buildNavItem: function(parent, item, activeItem, detach) {
         if (typeof detach === 'undefined') {
@@ -191,7 +190,6 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         var navItem = new FazNavItem();
         navItem.parent = parent;
-        var _this = this;
 
         item = $(item);
 
@@ -201,7 +199,7 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
 
         navItem.id = item.prop("id");
 
-        if(typeof item.attr("disabled") !== "undefined") {
+        if (typeof item.attr("disabled") !== "undefined") {
             navItem.disabled = item.attr("disabled");
         }
 
@@ -210,40 +208,32 @@ var FazNavViewModel = DefineMap.extend("FazNavViewModel", {
             var children = [];
             item.children().each(function(index, child) {
                 var tagName = $(child).prop("tagName").toLowerCase();
-                if(tagName == "title") {
+                if (tagName == "title") {
                     navItem.value = $(child).html();
                 }
-                else if(tagName == "children") {
-                    _this.buildDropDownChildren(navItem, child,
+                else if (tagName == "children") {
+                    this.buildDropDownChildren(navItem, child,
                         activeItem);
                 }
-            });
+            }.bind(this));
         }
         else {
             navItem.value = item.html();
-            if(typeof item.attr("href") !== "undefined") {
+            if (typeof item.attr("href") !== "undefined") {
                 navItem.href = item.attr("href");
             }
 
-            if(typeof item.attr("target") !== "undefined") {
+            if (typeof item.attr("target") !== "undefined") {
                 navItem.target = item.attr("target");
             }
 
-            if(activeItem!="" && navItem.id == activeItem) {
+            if (activeItem!="" && navItem.id == activeItem) {
                 navItem.active = true;
             }
         }
 
         return navItem;
-    },
-    getItemValue: function (item) {
-        var _this = this;
-        var context = {
-          item: item,
-          viewModel: _this
-        };
-        return dropTemplate(context);
     }
 });
 
-module.exports = namespace.FazNavViewModel = FazNavViewModel;
+export default FazNavViewModel;

@@ -11,6 +11,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/styles/sunburst.min.css">
+    <link rel="stylesheet" type="text/css" href="/app/highlight-line-numbers.css">
     <script src="/node_modules/steal/steal.js" main="faz/app/nav"></script>
     <!-- Custom styles for this template -->
 </head>
@@ -63,12 +65,12 @@
                         <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
                     </faz-nav>
                 </li>
-                <li class="list-group-item"><pre class="prettyprint lang-html linenums">&lt;faz-nav active="item1"&gt;
+                <li class="list-group-item"><pre><code class="xml">&lt;faz-nav active="item1"&gt;
     &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
-&lt;/faz-nav&gt;</pre>
+&lt;/faz-nav&gt;</code></pre>
                 </li>
             </ul>
         </div>
@@ -84,12 +86,12 @@
             <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
         </faz-nav>
 
-        <pre class="prettyprint linenums:1 lang-html">&lt;faz-nav active="item1" justify="center"&gt;
+        <pre><code class="xml">&lt;faz-nav active="item1" justify="center"&gt;
     &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
-&lt;/faz-nav&gt;</pre>
+&lt;/faz-nav&gt;</code></pre>
 
         <h2>Right</h2>
 
@@ -127,7 +129,7 @@
             <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
         </faz-nav>
 
-        <pre class="prettyprint linenums lang-html">&lt;faz-nav active="dropdown" justify="right"&gt;
+        <pre><code class="xml">&lt;faz-nav active="dropdown" justify="right"&gt;
     &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="dropdown"&gt;
         &lt;title&gt;Dropdown&lt;/title&gt;
@@ -139,7 +141,7 @@
     &lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
-&lt;/faz-nav></pre>
+&lt;/faz-nav></code></pre>
 
         <h1>Vertical</h1>
 
@@ -151,12 +153,12 @@
         </faz-nav>
 
 
-        <pre class="prettyprint linenums lang-html">&lt;faz-nav active="item1" vertical&gt;
+        <pre><code class="xml">&lt;faz-nav active="item1" vertical&gt;
     &lt;faz-nav-item id="active"&gt;Active&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item1"&gt;Item 1&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="item2"&gt;Item 2&lt;/faz-nav-item&gt;
     &lt;faz-nav-item id="disabled" disabled="true"&gt;Disabled&lt;/faz-nav-item&gt;
-&lt;/faz-nav&gt;</pre>
+&lt;/faz-nav&gt;</code></pre>
 
         <faz-nav active="item1" pills fill>
             <faz-nav-item id="active">Active</faz-nav-item>
@@ -168,17 +170,17 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <faz-nav active="item1" justify="right" tabs>
-                        <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
-                        <faz-nav-item id="item2" content="item2-content">Item 2</faz-nav-item>
+                        <faz-nav-item id="item1" href="#item1-content">Item 1</faz-nav-item>
+                        <faz-nav-item id="item2" href="#item2-content">Item 2</faz-nav-item>
                         <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
 
-                        <faz-nav-content id="item1-content">
+                        <faz-nav-tab-content id="item1-content">
                             Item 1 content
-                        </faz-nav-content>
+                        </faz-nav-tab-content>
 
-                        <faz-nav-content id="item2-content">
+                        <faz-nav-tab-content id="item2-content">
                             Item 2 content
-                        </faz-nav-content>
+                        </faz-nav-tab-content>
                     </faz-nav>
                 </li>
             </ul>
@@ -189,21 +191,21 @@
         //var buga = new compute("test");
     </script>
 
-        <faz-nav active="item1" class="row" justify="right" pills vertical navouterclass="col-3" contentouterclass="col-9">
+        <faz-nav active="active" class="row" justify="right" pills vertical navouterclass="col-3" tablistouterclass="col-9" tabs>
             <faz-nav-item id="active">Active</faz-nav-item>
-            <faz-nav-item id="item1" content="item1-content">Item 1</faz-nav-item>
-            <faz-nav-item id="item2" content="item2-content">Item 2</faz-nav-item>
+            <faz-nav-item id="item1" href="item21-content">Item 1</faz-nav-item>
+            <faz-nav-item id="item2" href="item22-content">Item 2</faz-nav-item>
             <faz-nav-item id="disabled" disabled="true">Disabled</faz-nav-item>
 
-            <faz-nav-content id="item1-content">
+            <faz-nav-tab-content id="item21-content" fade>
                 Item 1 content <faz-alert>
                         <content> a</content>
                     </faz-alert>
-            </faz-nav-content>
+            </faz-nav-tab-content>
 
-            <faz-nav-content id="item2-content">
+            <faz-nav-tab-content id="item22-content">
                 Item 2 content
-            </faz-nav-content>
+            </faz-nav-tab-content>
 
         </faz-nav>
 
@@ -217,7 +219,17 @@
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst"></script>
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
 
+    <script>
+        //$(function () {
+        document.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightBlock(block);
+            hljs.lineNumbersBlock(block);
+        });
+        //});
+    </script>
 </body>
 </html>
+    

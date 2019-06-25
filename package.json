@@ -1,35 +1,24 @@
 {
   "name": "faz",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Candango Faz Javascript toolkit.",
-  "main": "index.js",
+  "main": "faz.js",
   "repository": "https://github.com/candango/faz.git",
   "author": "Flavio Garcia <piraz@candango.org>",
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "bootstrap": "^4.1.3",
-    "can-component": "^4.4.2",
-    "can-compute": "^4.1.0",
-    "can-connect": "^3.0.2",
-    "can-define": "^2.5.7",
-    "can-namespace": "^1.0.0",
-    "can-route": "^4.3.5",
-    "can-route-pushstate": "^5.0.2",
-    "can-stache": "^4.10.5",
-    "can-stache-bindings": "^4.4.0",
-    "jquery": "^3.3.1",
-    "less": "^3.0.4",
-    "popper.js": "^1.12.9",
-    "steal": "^2.1.2",
-    "steal-less": "^1.3.1",
-    "steal-stache": "^4.1.2"
+    "bootstrap": "4.3.1",
+    "can": "5.25.0",
+    "jquery": "3.4.1",
+    "less": "3.0.4",
+    "popper.js": "1.15.0"
   },
   "scripts": {
     "run": "http-server",
     "build": "node build.js",
     "test": "npm run test:browser",
-    "test:browser": "testee test/nav.html --browsers firefox --reporter Spec"
+    "test:browser": "testee test/*.html --config=testee.json"
   },
   "keywords": [
     "canjs",
@@ -37,11 +26,15 @@
     "toolkit"
   ],
   "devDependencies": {
-    "http-server": "^0.11.1",
-    "qunit": "^2.6.2",
-    "steal-qunit": "^1.0.2",
-    "steal-tools": "^2.0.3",
-    "testee": "^0.8.1"
+    "http-server": "0.11.1",
+    "qunit": "2.9.2",
+    "steal": "2.2.1",
+    "steal-less": "1.3.4",
+    "steal-stache": "4.1.3",
+    "steal-qunit": "2.0.0",
+    "steal-tools": "2.2.2",
+    "rollup": "1.12.1",
+    "testee": "0.9.1"
   },
   "steal": {
     "plugins": [
