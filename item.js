@@ -1,4 +1,4 @@
-import {DefineMap} from "can";
+import { DefineMap } from "can";
 
 let FazItem = DefineMap.extend("FazItem", {
     id: "string",
