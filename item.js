@@ -2,6 +2,7 @@ import { DefineMap } from "can";
 
 let FazItem = DefineMap.extend("FazItem", {
     id: "string",
+    active: {type: "boolean", default: false},
     content: "string",
     element: "observable",
     href: "string",
