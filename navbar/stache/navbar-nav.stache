@@ -1,0 +1,7 @@
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+        {{#each (nav.items, item=value)}}
+            {{ item.html }}
+        {{/each}}
+    </div>
+</div>
