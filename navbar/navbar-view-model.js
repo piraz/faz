@@ -2,7 +2,7 @@ import { DefineMap } from "can";
 import $ from "jquery";
 
 import { default as FazNavbarBrand} from "./navbar-brand";
-
+import { default as FazNavbarNav} from "./navbar-nav";
 
 /**
  * Navbar View Model
@@ -12,17 +12,20 @@ import { default as FazNavbarBrand} from "./navbar-brand";
  */
 let FazNavbarViewModel = DefineMap.extend({
     id: {type: "string", default: ""},
+    isLoading: {type: "boolean", default: true},
     brand: {type: "observable", default: null},
+    nav: {type: "observable", default: null},
     extraClasses: "string",
     type: {type: "string", default: "light"},
     get class() {
         let classes = ["navbar"];
         if (this.type == "light") {
             classes.push("navbar-light");
+            classes.push("bg-light");
         } else if(this.type == "dark") {
             classes.push("navbar-dark");
+            classes.push("bg-dark");
         }
-
         if (this.extraClasses) {
             classes.push(this.extraClasses);
         }
@@ -48,8 +51,11 @@ let FazNavbarViewModel = DefineMap.extend({
             this.processBrand($(brand));
         }.bind(this));
 
-        element.children().unwrap();
-
+        element.find("faz-navbar-nav").each(function (_, nav) {
+            this.processNav($(nav));
+        }.bind(this));
+        element.show();
+        this.isLoading = false;
     },
     processBrand: function(brand) {
         brand.detach();
@@ -60,6 +66,17 @@ let FazNavbarViewModel = DefineMap.extend({
         } else {
             console.warn("Faz Navbar brand is unique. Please remove " +
                 "extra brands declared into this object.")
+        }
+    },
+    processNav: function(nav) {
+        nav.detach();
+        if(!this.nav) {
+            let navbarNav = new FazNavbarNav();
+            navbarNav.process(this, nav);
+            this.nav = navbarNav;
+        } else {
+            console.warn("Faz Navbar nav is unique. Please remove " +
+                "extra navs declared into this object.")
         }
     }
 });

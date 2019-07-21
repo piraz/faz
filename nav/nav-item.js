@@ -4,7 +4,7 @@ import { DefineList } from "can";
 
 import { default as  FazItem } from "../item";
 
-import itemTemplate from "./nav-item.stache";
+import itemTemplate from "./stache/nav-item.stache";
 
 /**
  *
@@ -15,7 +15,6 @@ import itemTemplate from "./nav-item.stache";
  * @param {string} event.value
  */
 let FazNavItem = FazItem.extend("FazNavItem", {
-    active: {type: "boolean", default: false},
     children: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},

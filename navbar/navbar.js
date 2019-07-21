@@ -1,9 +1,7 @@
 import { Component } from "can";
 
 import FazNavbarViewModel from "./navbar-view-model";
-import navbarTemplate from "./navbar.stache";
-
-import "../stylesheets/nav.less";
+import navbarTemplate from "./stache/navbar.stache";
 
 let events = {
 

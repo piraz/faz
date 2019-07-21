@@ -1,6 +1,6 @@
 import { default as FazItem } from "../item";
 
-import brandTemplate from "./navbar-brand.stache";
+import brandTemplate from "./stache/navbar-brand.stache";
 
 /**
  *
@@ -21,6 +21,7 @@ let FazNavbarBrand = FazItem.extend({
         this.id = element.attr("id");
         this.href = element.attr("href");
         this.content = element.html();
+        this.element = element;
     }
 });
 
