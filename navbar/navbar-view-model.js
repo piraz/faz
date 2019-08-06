@@ -1,8 +1,8 @@
 import { DefineMap } from "can";
 import $ from "jquery";
 
-import { default as FazNavbarBrand} from "./navbar-brand";
-import { default as FazNavbarNav} from "./navbar-nav";
+import { default as FazNavbarBrand } from "./navbar-brand";
+import { default as FazNavbarNav } from "./navbar-nav";
 
 /**
  * Navbar View Model
@@ -37,6 +37,7 @@ let FazNavbarViewModel = DefineMap.extend({
      */
     connectedCallback: function(element) {
         element = $(element);
+
         this.id = element.attr("id");
 
         if(element.attr("class")) {
@@ -54,8 +55,9 @@ let FazNavbarViewModel = DefineMap.extend({
         element.find("faz-navbar-nav").each(function (_, nav) {
             this.processNav($(nav));
         }.bind(this));
-        element.show();
+
         this.isLoading = false;
+        element.addClass("faz-navbar-loaded");
     },
     processBrand: function(brand) {
         brand.detach();

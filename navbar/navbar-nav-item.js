@@ -75,8 +75,7 @@ let FazNavbarNavItem = FazItem.extend("FazNavbarNavItem", {
         this.parent = parent;
         this.element = element;
         this.href = this.element.attr("href");
-        this.active = this.element.attr("current")===undefined ? false: true;
-        console.log(this.parent);
+        this.active = this.element.attr("current") === undefined ? false: true;
     }
 });
 
