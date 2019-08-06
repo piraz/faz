@@ -11,45 +11,25 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/styles/sunburst.min.css">
-    <link rel="stylesheet" type="text/css" href="/app/highlight-line-numbers.css">
-    <script src="/node_modules/steal/steal.js" main="faz/app/navbar"></script>
-    <!-- Custom styles for this template -->
+    <link href="/stylesheets/faz.css" rel="stylesheet"/>
+    <link href="/stylesheets/showcase.css" rel="stylesheet"/>
+    <!-- Production -->
+    <!--<script src="/dist/steal.production.js" main="faz/index">
+    </script>-->
+    <!-- Development -->
+    <script src="/node_modules/steal/steal.js" main="faz/index">
+    </script>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
+<faz-navbar id="navbarIndex" type="dark" class="navbar-expand-md fixed-top">
+    <faz-navbar-brand href="/">Faz</faz-navbar-brand>
+    <faz-navbar-nav>
+        <faz-navbar-nav-item href="/">Index</faz-navbar-nav-item>
+        <faz-navbar-nav-item href="/nav.html">Nav</faz-navbar-nav-item>
+        <faz-navbar-nav-item href="/navbar" current>Navbar</faz-navbar-nav-item>
+    </faz-navbar-nav>
+</faz-navbar>
 
 <main role="main" class="container">
     <h1>Navbars</h1>

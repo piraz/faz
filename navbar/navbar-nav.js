@@ -1,6 +1,6 @@
 import { default as FazItem } from "../item";
 
-import {default as FazNavbarNavItem} from "./navbar-nav-item";
+import { default as FazNavbarNavItem } from "./navbar-nav-item";
 
 import navTemplate from "./stache/navbar-nav.stache";
 import $ from "jquery";

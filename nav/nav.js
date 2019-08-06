@@ -3,8 +3,6 @@ import { Component, stache } from "can";
 import FazNavViewModel from "./nav-view-model";
 import navTemplate from "./stache/nav.stache";
 
-import "../stylesheets/nav.less";
-
 let events = {
 
 };
@@ -17,7 +15,7 @@ let helpers = {
         return "";
     },
     getComponentClass: function () {
-        var classes = [this.type];
+        let classes = [this.type];
 
         if (this.fill) {
             classes.push("nav-fill");

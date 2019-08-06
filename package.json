@@ -16,8 +16,12 @@
   },
   "scripts": {
     "run": "http-server",
-    "build": "node build.js && npm run export",
+    "build": "node build.js && npm run export && npm run lessc",
     "export": "steal-tools export",
+    "lessc": "lessc stylesheets/faz.less dist/css/faz.css --source-map",
+    "lessc:dev": "npm run lessc:dev:faz && npm run lessc:dev:showcase",
+    "lessc:dev:faz": "lessc stylesheets/faz.less stylesheets/faz.css --source-map",
+    "lessc:dev:showcase": "lessc stylesheets/showcase.less stylesheets/showcase.css --source-map",
     "test": "npm run test:browser",
     "test:browser": "testee test/*.html --config=testee.json"
   },
@@ -30,7 +34,6 @@
     "http-server": "0.11.1",
     "qunit": "2.9.2",
     "steal": "2.2.1",
-    "steal-less": "1.3.4",
     "steal-stache": "4.1.5",
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.2",
@@ -39,7 +42,6 @@
   },
   "steal": {
     "plugins": [
-      "steal-less",
       "steal-stache"
     ]
   }

@@ -5,7 +5,7 @@ import "highlightjs-line-numbers.js";
 import xml from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/a11y-dark.css";
-import "./highlight-line-numbers.less";
+import "./highlight-line-numbers.css";
 
 
 hljs.registerLanguage("xml", xml);

@@ -11,42 +11,35 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/faz.css" rel="stylesheet"/>
+    <link href="/stylesheets/showcase.css" rel="stylesheet"/>
     <!-- Production -->
-    <!--link href="/stylesheets/faz.css" rel="stylesheet">
-    <link href="/stylesheets/showcase.css" rel="stylesheet">
-    <script src="/dist/steal.production.js" main="faz/index">
-    </script-->
+    <!--<script src="/dist/steal.production.js" main="faz/index">
+    </script>-->
     <!-- Development -->
     <script src="/node_modules/steal/steal.js" main="faz/index">
     </script>
-    <link rel="stylesheet/less" type="text/css" href="/stylesheets/faz.less" />
-    <link rel="stylesheet/less" type="text/css" href="/stylesheets/showcase.less" />
-    <script src="/node_modules/less/dist/less.min.js" type="text/javascript"></script>
-    <script></script>
-
-    <!-- Custom styles for this template -->
 </head>
 
 <body>
-    <faz-navbar id="navbarIndex" type="dark" class="navbar-expand-md fixed-top">
+    <faz-navbar type="dark" class="navbar-expand-md fixed-top">
         <faz-navbar-brand href="/">Faz</faz-navbar-brand>
         <faz-navbar-nav>
             <faz-navbar-nav-item href="/" current>Index</faz-navbar-nav-item>
             <faz-navbar-nav-item href="/nav.html">Nav</faz-navbar-nav-item>
+            <faz-navbar-nav-item href="/navbar">Navbar</faz-navbar-nav-item>
         </faz-navbar-nav>
     </faz-navbar>
 
     <main role="main" class="container">
 
       <div class="starter-template">
-        <h1>Calendar</h1>
-        <p class="lead">Calendar components.</p>
+        <h1>Faz</h1>
+        <p class="lead">Faz components</p>
         <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
+          <li class="list-group-item">Alert</li>
+          <li class="list-group-item">Nav</li>
+          <li class="list-group-item"><a href="/navbar">Navbar</a></li>
         </ul>
 
       </div>

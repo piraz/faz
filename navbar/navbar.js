@@ -1,14 +1,13 @@
 import { Component } from "can";
 
 import FazNavbarViewModel from "./navbar-view-model";
+
 import navbarTemplate from "./stache/navbar.stache";
 
 let events = {
-
 };
 
 let helpers = {
-
 };
 
 export default Component.extend({
@@ -16,5 +15,5 @@ export default Component.extend({
     view: navbarTemplate,
     ViewModel: FazNavbarViewModel,
     events: events,
-    helpers: helpers,
+    helpers: helpers
 });

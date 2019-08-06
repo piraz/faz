@@ -5,3 +5,13 @@ yarn.lock
 
 # Idea metadata
 .idea/
+
+# Less
+stylesheets/*.css
+stylesheets/*.css.map
+
+
+# Less
+stylesheets/*.css
+stylesheets/*.css.map
+
