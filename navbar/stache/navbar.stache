@@ -1,7 +1,7 @@
 {{# isLoading}}
     <div>Loading...</div>
 {{ else }}
-    <nav class="{{ this.class }}">
+    <nav id:from="id" class:from="class">
     {{#brand}}
         {{ this.html }}
     {{/brand}}
