@@ -2,14 +2,9 @@ import {ajax, Component, DefineMap} from "can";
 
 let template = "";
 
-ajax({
-    url: "./app/stache/main-navbar.stache",
-}).then(function(response){
-    template = response.responseText;
-});
-
 import mainNavbarTemplate from "./stache/main-navbar.stache";
 import alertTemplate from "../alert/alert.stache";
+import $ from "jquery";
 
 let events = {
 
@@ -27,14 +22,7 @@ let helpers = {
  */
 let MainNavbarViewModel = DefineMap.extend({
     id: {type: "string", default: "navbarIndex"},
-    content: {type: "observable"},
-    isLoading: {type: "boolean", default: true},
-    get html() {
-        return mainNavbarTemplate(this);
-    },
-    connectedCallback: function(element) {
-        this.isLoading = false;
-    }
+    data: {type: "observable", default: null}
 });
 
 export default Component.extend({

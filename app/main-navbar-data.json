@@ -1,0 +1,26 @@
+{
+  "brand": {
+    "id": "brandFaz",
+    "href": "/",
+    "value": "Faz"
+  },
+  "nav": {
+    "items": [
+      {
+        "id": "navIndex",
+        "href": "/",
+        "value": "Index"
+      },
+      {
+        "id": "navNav",
+        "href": "/nav.html",
+        "value": "Nav"
+      },
+      {
+        "id": "navNavbar",
+        "href": "/navbar",
+        "value": "Navbar"
+      }
+    ]
+  }
+}
