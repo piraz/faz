@@ -1,29 +1,31 @@
-{{#if (item.dropdown)}}
-    {{#if (item.isRoot)}}
+{{# dropdown }}
+    {{# scope.top.isRoot }}
     <li class="nav-item dropdown">
-        <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ item.value }}</a>
+        <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ scope.top.value }}</a>
         <ul class="dropdown-menu">
-            {{#each (item.children, child=value)}}
+            {{#each (scope.top.children, child=value)}}
                 {{ child.html }}
             {{/each}}
         </ul>
     </li>
     {{else}}
     <li class="dropdown-submenu">
-        <a class="dropdown-item dropdown-toggle" href="#">{{ item.value }}</a>
+        <a class="dropdown-item dropdown-toggle" href="#">{{ scope.top.value }}</a>
         <ul class="dropdown-menu">
-            {{#each (item.children, child=value)}}
+            {{#each (scope.top.children, child=value)}}
                 {{ child.html }}
             {{/each}}
         </ul>
     </li>
-    {{/if}}
+    {{/ scope.top.isRoot }}
 {{else}}
-    {{#if (item.isRoot)}}
+    {{# scope.top.isRoot }}
     <li class="nav-item">
-        <a class:from="item.class" on:click="item.activate()" target:from="item.target" href:from="item.getHref()">{{item.value}}</a>
+        <a id:from="scope.top.id" class:from="scope.top.class" on:click="scope.top.activate()" target:from="scope.top.target" href:from="scope.top.getHref()" aria-controls:from="scope.top.ariaControls" aria-selected:from="scope.top.ariaSelected">{{ scope.top.value }}</a>
     </li>
     {{else}}
-    <li><a class="dropdown-item" {{#if (true)}}role="tab"{{/if}} target:from="item.target"  href:from="item.getHref()">{{ item.value }}</a></li>
-    {{/if}}
-{{/if}}
+    <li>
+        <a id:from="scope.top.id" class="dropdown-item" role="tab" target:from="scope.top.target"  href:from="scope.top.getHref()">{{ scope.top.value }}</a>
+    </li>
+    {{/ scope.top.isRoot }}
+{{/ dropdown }}

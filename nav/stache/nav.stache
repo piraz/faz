@@ -1,24 +1,37 @@
-<div class:from="scope.top.navOuterClass">
 {{#hasTabContents}}
-    <div class:from="getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
-        {{#each (scope.top.items, item=value)}}
-            {{ item.html }}
-        {{/each}}
-    </div>
+    {{#if(../vertical)}}
+        <div class="row">
+            <div class="col-3">
+                <div class:from="../getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
+                    {{#each (scope.top.items, item=value)}}
+                        {{ item.html }}
+                    {{/each}}
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content">
+                    {{#each (scope.top.tabContentList, tabContent=value)}}
+                        {{ tabContent.html }}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class:from="../getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
+            {{#each (scope.top.items, item=value)}}
+                {{ item.html }}
+            {{/each}}
+        </div>
+        <div class="tab-content">
+            {{#each (scope.top.tabContentList, tabContent=value)}}
+                {{ tabContent.html }}
+            {{/each}}
+        </div>
+    {{/if}}
 {{else}}
-    <nav class:from="getComponentClass()" id:from="scope.top.id">
+    <nav class:from="../getComponentClass()" id:from="scope.top.id">
         {{#each (scope.top.items, item=value)}}
             {{ item.html }}
         {{/each}}
     </nav>
-{{/hasTabContents}}
-</div>
-{{#hasTabContents}}
-    <div class:from="scope.top.tablistOuterClass">
-        <div class="tab-content">
-            {{#each (scope.top.tabContentList, tabContent=value)}}
-            <div class:from="tabContent.class" id:from="tabContent.id" role="tabpanel" aria-labelledby="pills-home-tab">{{{ tabContent.html }}}</div>
-            {{/each}}
-        </div>
-    </div>
 {{/hasTabContents}}

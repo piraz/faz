@@ -1,6 +1,22 @@
+/**
+ * Copyright 2018-2019 Flavio Garcia
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import $ from "jquery";
 
-import { DefineList } from "can";
+import { DefineList, Scope } from "can";
 
 import { default as  FazItem } from "../item";
 
@@ -22,6 +38,39 @@ let FazNavItem = FazItem.extend("FazNavItem", {
     dropdown: {type: "boolean", default: false},
     target: {type: "string", default: ""},
     value: "string",
+    title: "string",
+    get ariaControls(){
+        let voidAriaControls = "";
+        let validAriaControls = this.href === undefined ? voidAriaControls :
+            this.href;
+        if (this.disabled) {
+            return voidAriaControls;
+        }
+        if (this.parent !== undefined) {
+            if (this.parent.tabs) {
+                if (validAriaControls.startsWith("#") && this.href) {
+                    return validAriaControls.substring(1);
+                }
+            }
+        }
+        return validAriaControls;
+    },
+    get ariaSelected() {
+        return this.active ? "true" : "false";
+    },
+    get isDropdown() {
+        if(this.element.children().length==0) {
+            return false;
+        }
+        let isDropdown = false;
+        this.element.children().each(function(index, child) {
+            if($(child).prop("tagName").toLowerCase() == "title") {
+                isDropdown = true;
+                return;
+            }
+        });
+        return isDropdown;
+    },
     get isRoot() {
         return this.parent.constructor.name == "FazNavViewModel";
     },
@@ -35,42 +84,31 @@ let FazNavItem = FazItem.extend("FazNavItem", {
      * @returns {string}
      */
     get class() {
-        var classes = ["nav-link"];
+        let classes = ["nav-link"];
         if(this.active) {
             classes.push("active");
         }
         if(this.disabled) {
             classes.push("disabled")
         }
-
         return classes.join(" ");
     },
     get html() {
-        var context = {
-          item: this
-        };
-        return itemTemplate(context);
+        const scope = new Scope(this, null, { viewModel: true });
+        return itemTemplate(scope);
     },
     activate: function () {
         if (!this.disabled) {
             if (this.parent != null) {
                 this.parent.items.active.forEach(function(child) {
                     child.active = false;
-                });
+                }.bind(this));
                 if (this.isRoot) {
                     if (this.parent.hasTabContents) {
-                        this.parent.tabContentList.active.forEach(
-                            function(tabContent) {
-                                tabContent.active = false;
-                            }
-                        );
                         this.parent.tabContentList.forEach(
                             function(tabContent) {
-                                let tabContentHef =
-                                    this.getHref().startsWith("#") ?
-                                    this.getHref().substring(1) :
-                                        this.getHref();
-                                if(tabContent.id == tabContentHef) {
+                                tabContent.active = false;
+                                if(tabContent.id == this.ariaControls) {
                                     tabContent.active = true;
                                 }
                             }.bind(this)
@@ -102,6 +140,46 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             }
         }
         return validHef;
+    },
+
+    process: function(parent, element, activeItem) {
+        this.parent = parent;
+        //if(this.isRoot) {
+            element.detach();
+        //}
+        this.element = element;
+        this.id = this.element.prop("id");
+        if(this.element.attr("disabled") !== undefined) {
+            this.disabled = this.element.attr("disabled");
+        }
+        if(activeItem != "" && this.id == activeItem) {
+            this.active = true;
+        }
+        if(this.isDropdown) {
+            this.dropdown = true;
+            this.element.children().each(function(_, child) {
+                let tagName = $(child).prop("tagName").toLowerCase();
+                if(tagName == "title") {
+                    this.value = $(child).html();
+                } else if(tagName == "children") {
+                    $(child).each(function(_, item) {
+                        $(item).children().each(function(_, itemChild) {
+                            let navItem = new FazNavItem();
+                            navItem.process(this, $(itemChild), activeItem);
+                            this.children.push(navItem);
+                        }.bind(this));
+                    }.bind(this));
+                }
+            }.bind(this));
+        } else {
+            this.value = this.element.html();
+        }
+        if(this.element.attr("href") != undefined) {
+            this.href = this.element.attr("href");
+        }
+        if(this.element.attr("target") != undefined) {
+            this.target = this.element.attr("target");
+        }
     }
 });
 
