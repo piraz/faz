@@ -9,9 +9,3 @@ yarn.lock
 # Less
 stylesheets/*.css
 stylesheets/*.css.map
-
-
-# Less
-stylesheets/*.css
-stylesheets/*.css.map
-
