@@ -16,11 +16,10 @@
 
 import $ from "jquery";
 
-import { DefineList, route, RoutePushstate} from "can";
+import {ObservableArray, route, RoutePushstate, stache, type} from "can";
 
 import { default as  FazItem } from "../item";
 
-import itemTemplate from "./stache/navbar-nav-item.stache";
 import FazNavbarNav from "./navbar-nav";
 
 /**
@@ -31,21 +30,35 @@ import FazNavbarNav from "./navbar-nav";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavbarNavItem = FazItem.extend("FazNavbarNavItem", {
-    children: {type: "observable", default: function() {
-            return new FazNavItem.List([]);
-        }},
-    disabled: {type: "boolean", default: false},
-    dropdown: {type: "boolean", default: false},
-    target: {type: "string", default: ""},
-    value: "string",
-    urlData: {type: "observable", default: undefined},
+class FazNavbarNavItem extends FazItem {
+
+    static get props() {
+        return $.extend(super.props, {
+            children: {
+                type: FazNavbarNavItemList,
+                get default() {
+                    return new FazNavbarNavItemList([]);
+                }
+            },
+            disabled: {type: type.convert(Boolean), default: false},
+            dropdown: {type: type.convert(Boolean), default: false},
+            target: {type: type.convert(String), default: ""},
+            value: String
+        });
+    }
     get isRoot() {
         return this.parent.constructor.name == "FazNavbarNav";
-    },
+    }
     get html() {
-        return itemTemplate(this);
-    },
+        let view = stache(
+        `<li class="nav-item">
+            <a class:from="class" {{#if isLink}}href:from="getHref()"{{/if}}>
+            {{ value }}
+            </a>
+        </li>`
+        );
+        return view(this);
+    }
     /**
      * Returns the nav item class.
      *
@@ -61,7 +74,7 @@ let FazNavbarNavItem = FazItem.extend("FazNavbarNavItem", {
             classes.push("disabled")
         }
         return classes.join(" ");
-    },
+    }
     /**
      * Returns the nav item href. If item is disabled a javascript void
      * function will be placed to avoid any action.
@@ -69,7 +82,7 @@ let FazNavbarNavItem = FazItem.extend("FazNavbarNavItem", {
      * @param {FazNavItem} item
      * @returns {string}
      */
-    getHref: function () {
+    getHref () {
         if (this.active){
             return "#";
         }
@@ -86,14 +99,14 @@ let FazNavbarNavItem = FazItem.extend("FazNavbarNavItem", {
             }
         }
         return validHef;
-    },
+    }
     process(parent, element) {
         this.parent = parent;
         this.element = element;
         this.value = element.html();
         this.href = this.element.attr("href");
         this.active = this.element.attr("current") === undefined ? false: true;
-    },
+    }
     processData(parent, data) {
         this.parent = parent;
         this.value = data.value;
@@ -102,16 +115,24 @@ let FazNavbarNavItem = FazItem.extend("FazNavbarNavItem", {
             this.active = true;
         }
     }
-});
+}
 
-FazNavbarNavItem.List = DefineList.extend({
-    "#": FazNavbarNavItem,
-    get enabled() {
-        return this.filter({disabled: false});
-    },
-    get active() {
-        return this.filter({active: true});
+export class FazNavbarNavItemList extends ObservableArray {
+    static get props() {
+        return {
+            get enabled() {
+                return this.filter({disabled: false});
+            },
+
+            get active() {
+                return this.filter({active: true});
+            }
+        };
     }
-});
+
+    static get items() {
+        return type.convert(FazNavbarNavItem);
+    }
+}
 
 export default FazNavbarNavItem;

@@ -12,6 +12,11 @@
         "value": "Index"
       },
       {
+        "id": "navAlert",
+        "href": "/alert",
+        "value": "Alert"
+      },
+      {
         "id": "navNav",
         "href": "/nav.html",
         "value": "Nav"

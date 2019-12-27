@@ -16,9 +16,13 @@
 
 import { default as FazItem } from "../item";
 
-import { default as FazNavbarNavItem } from "./navbar-nav-item";
+import { default as FazNavbarNavItem,
+    FazNavbarNavItemList } from "./navbar-nav-item";
+
+import {ObservableObject, type} from "can";
 
 import navTemplate from "./stache/navbar-nav.stache";
+
 import $ from "jquery";
 
 /**
@@ -29,14 +33,23 @@ import $ from "jquery";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavbarNav = FazItem.extend("FazNavbarNav", {
-    brand: {type: "observable", default: null},
-    items: {type: "observable", default: function() {
-        return new FazNavbarNavItem.List([]);
-    }},
+class FazNavbarNav extends FazItem {
+    static get props() {
+        return $.extend(super.props, {
+            brand: ObservableObject,
+            items: {
+                type: FazNavbarNavItemList,
+                get default() {
+                    return new FazNavbarNavItemList([]);
+                }
+            }
+        });
+    }
+
     get html() {
         return navTemplate(this);
-    },
+    }
+
     process(parent, element) {
         element.find("faz-navbar-nav-item").each(function (_, item) {
             this.processItem($(item));
@@ -45,20 +58,26 @@ let FazNavbarNav = FazItem.extend("FazNavbarNav", {
             this.processItem($(item));
         }.bind(this));
         this.content = element.html();
-    },
+    }
+
     processData(parent, data) {
         data.items.forEach(function(item) {
             let navbarNavItem = new FazNavbarNavItem();
             navbarNavItem.processData(this, item);
             this.items.push(navbarNavItem);
         }.bind(this));
-    },
+    }
+
     processItem(item) {
         item.detach();
         let navbarNavItem = new FazNavbarNavItem();
         navbarNavItem.process(this, item);
         this.items.push(navbarNavItem);
     }
-});
+
+    static get seal() {
+        return true;
+    }
+}
 
 export default FazNavbarNav;

@@ -1,34 +1,20 @@
-import {ajax, Component, DefineMap} from "can";
+import { ObservableObject, StacheElement, type } from "can";
 
-let template = "";
+export default class MainNavbar extends StacheElement {
+    static view = `<faz-navbar id="navbarIndex"
+        source="/app/main-navbar-data.json" type="dark"
+        class="navbar-expand-md fixed-top"></faz-navbar>`;
 
-import mainNavbarTemplate from "./stache/main-navbar.stache";
-import alertTemplate from "../alert/alert.stache";
-import $ from "jquery";
+    static get props() {
+        return {
+            id: {type: type.convert(String), default: "navbarIndex"},
+            data: ObservableObject
+        };
+    }
 
-let events = {
+    static get seal() {
+        return true;
+    }
+}
 
-};
-
-let helpers = {
-
-};
-
-/**
- * Navbar View Model
- * @constructor
- * @param {Object} event. An object representing a nav item.
- * @param {string} event.value
- */
-let MainNavbarViewModel = DefineMap.extend({
-    id: {type: "string", default: "navbarIndex"},
-    data: {type: "observable", default: null}
-});
-
-export default Component.extend({
-    tag: "main-navbar",
-    view: mainNavbarTemplate,
-    ViewModel: MainNavbarViewModel,
-    events: events,
-    helpers: helpers
-});
+customElements.define("main-navbar", MainNavbar);

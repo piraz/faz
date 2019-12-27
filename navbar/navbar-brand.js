@@ -16,7 +16,7 @@
 
 import { default as FazItem } from "../item";
 
-import brandTemplate from "./stache/navbar-brand.stache";
+import { stache } from "can";
 
 /**
  *
@@ -26,24 +26,39 @@ import brandTemplate from "./stache/navbar-brand.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavbarBrand = FazItem.extend({
+class FazNavbarBrand extends FazItem {
+
     get html() {
-        let context = {
-            brand: this
-        };
-        return brandTemplate(context);
-    },
+        let view = stache(
+`{{#if (isLink)}}
+    <a class="navbar-brand" href="{{ href }}">{{{ content }}}</a>
+{{else}}
+    <span class="navbar-brand mb-0 h1">{{{ content }}}</span>
+{{/if}}`
+        );
+        return view(this);
+    }
+
     process(element) {
-        this.id = element.attr("id");
-        this.href = element.attr("href");
+        if(element.attr("id") !== undefined) {
+            this.id = element.attr("id");
+        }
+        if(element.attr("href") !== undefined) {
+            this.href = element.attr("href");
+        }
         this.content = element.html();
         this.element = element;
-    },
-    processData(data) {
-        this.id = data.id;
-        this.href = data.href;
-        this.content = data.value;
     }
-});
+
+    processData(data) {
+        this.content = data.value;
+        if(data.id !== undefined) {
+            this.id = data.id;
+        }
+        if(data.href !== undefined) {
+            this.href = data.href;
+        }
+    }
+}
 
 export default FazNavbarBrand;
