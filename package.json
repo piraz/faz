@@ -1,6 +1,6 @@
 {
   "name": "faz",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Candango Faz Javascript toolkit.",
   "main": "faz.js",
   "repository": "https://github.com/candango/faz.git",
@@ -8,12 +8,11 @@
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "bootstrap": "4.3.1",
-    "can": "5.30.2",
-    "can-util": "3.14.0",
+    "bootstrap": "4.4.1",
+    "can": "6.2.8",
     "jquery": "3.4.1",
-    "less": "3.9.0",
-    "popper.js": "1.15.0"
+    "less": "3.10.3",
+    "popper.js": "1.16.0"
   },
   "scripts": {
     "run": "http-server",
@@ -32,14 +31,15 @@
     "toolkit"
   ],
   "devDependencies": {
-    "http-server": "0.11.1",
-    "qunit": "2.9.2",
-    "steal": "2.2.2",
-    "steal-stache": "4.1.5",
+    "http-server": "0.12.0",
+    "qunit": "2.9.3",
+    "steal": "2.2.4",
+    "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
-    "steal-tools": "2.2.2",
-    "rollup": "1.19.3",
-    "testee": "0.9.1"
+    "steal-tools": "2.2.5",
+    "rollup": "1.27.11",
+    "testee": "0.9.1",
+    "can-migrate": "2.3.0"
   },
   "steal": {
     "plugins": [
