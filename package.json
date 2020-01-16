@@ -37,7 +37,7 @@
     "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.5",
-    "rollup": "1.27.11",
+    "rollup": "1.29.0",
     "testee": "0.9.1",
     "can-migrate": "2.3.0"
   },
