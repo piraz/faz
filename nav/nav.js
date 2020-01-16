@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-import { Component, stache } from "can";
+import {
+    ajax, DeepObservable, ObservableObject, StacheElement, type
+} from "can";
 
-import FazNavViewModel from "./nav-view-model";
-import navTemplate from "./stache/nav.stache";
+
+import $ from "jquery";
+import { default as ID } from "../id";
+
+import FazNavbar from "../navbar/navbar";
+import FazNavItem, { FazNavItemList } from "./nav-item";
+import FazNavTabContent from "./nav-tab-content";
 
 let events = {
 
@@ -62,10 +69,102 @@ let helpers = {
     }
 };
 
-export default Component.extend({
-    tag: "faz-nav",
-    view: navTemplate,
-    ViewModel: FazNavViewModel,
-    events: events,
-    helpers: helpers
-});
+let navTemplate = ``;
+
+
+export default class FazNav extends StacheElement {
+
+    static view = navTemplate;
+
+    static get props() {
+        return {
+            id: {type: type.convert(String), default: ID.random},
+            active: String,
+            isLoading: {type: type.convert(Boolean), default: true},
+            element: ObservableObject,
+            items: {type: FazNavItemList, get default() {
+                    return new FazNavItemList([]);
+            }},
+            // tabContentList: {type: "observable", default: function() {
+            //         return new FazNavTabContent.List([]);
+            //     }},
+            navOuterClass: {type: type.convert(String), default: "row"},
+            tabsClass: {type: type.convert(String), default: ""},
+            fill: {type: type.convert(Boolean), default: false},
+            justify: {type: type.convert(String), default: "left"},
+            page: String,
+            pills: {type: type.convert(Boolean), default: false},
+            tabs: {type: type.convert(Boolean), default: false},
+            vertical: {type: type.convert(Boolean), default: false},
+            // get hasTabContents() {
+            //     if (this.tabContentList.length) {
+            //         return true;
+            //     }
+            //     return false;
+            // },
+            get role() {
+                if (this.hasTabContents()) {
+                    return "tablist";
+                }
+                return "";
+            },
+            get orientation() {
+                if (this.vertical){
+                    return "vertical";
+                }
+                return "";
+            }
+        }
+    };
+
+    static get propertyDefaults() {
+        return DeepObservable;
+    }
+
+
+    connectedCallback() {
+        for(let attribute of this.attributes) {
+            switch (attribute.name) {
+                case "active":
+                    this.active = attribute.value;
+                    break;
+                case "id":
+                    this.id = attribute.value;
+                    break;
+                case "class":
+                    this.extraClasses = attribute.value;
+                    break;
+                case "source":
+                    this.source = attribute.value;
+                    break;
+                case "type":
+                    this.type = attribute.value;
+                    break;
+                default:
+                    console.log(attribute.name);
+            }
+        }
+
+        this.querySelectorAll("faz-nav > faz-nav-item").forEach(function(item) {
+            let data = {};
+            for(let attribute of item.attributes) {
+                data[attribute.name] = attribute.value;
+            }
+            data['content'] = item.innerHTML;
+            this.items.push(data);
+        }.bind(this));
+        console.log(this.items);
+        if(!this.source) {
+            console.debug(this);
+            console.debug("Finished connected callback " + this.id);
+        }
+        this.isLoading = false;
+        super.connectedCallback();
+    }
+
+    static get seal() {
+        return true;
+    }
+}
+
+customElements.define("faz-nav", FazNav);

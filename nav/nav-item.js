@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
 
 import $ from "jquery";
 
-import { DefineList, Scope } from "can";
+import {DefineList, ObservableArray, Scope, type} from "can";
 
 import { default as  FazItem } from "../item";
 
 import itemTemplate from "./stache/nav-item.stache";
+
 
 /**
  *
@@ -30,16 +31,23 @@ import itemTemplate from "./stache/nav-item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavItem = FazItem.extend("FazNavItem", {
-    children: {type: "observable", default: function() {
-        return new FazNavItem.List([]);
-    }},
-    disabled: {type: "boolean", default: false},
-    dropdown: {type: "boolean", default: false},
-    target: {type: "string", default: ""},
-    value: "string",
-    title: "string",
-    get ariaControls(){
+class FazNavItem extends FazItem {
+
+    static get props() {
+        return $.extend(super.props, {
+            disabled: {type: type.convert(Boolean), default: false},
+            dropdown: {type: type.convert(Boolean), default: false},
+            target: {type: type.convert(String), default: ""},
+            value: String,
+            title: String
+        });
+    }
+
+    get isRoot() {
+        return this.parent.constructor.name == "FazNav";
+    }
+
+    get ariaControls() {
         let voidAriaControls = "";
         let validAriaControls = this.href === undefined ? voidAriaControls :
             this.href;
@@ -54,10 +62,12 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             }
         }
         return validAriaControls;
-    },
+    }
+
     get ariaSelected() {
         return this.active ? "true" : "false";
-    },
+    }
+
     get isDropdown() {
         if(this.element.children().length==0) {
             return false;
@@ -70,13 +80,16 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             }
         });
         return isDropdown;
-    },
+    }
+
     get isRoot() {
         return this.parent.constructor.name == "FazNavViewModel";
-    },
+    }
+
     get navId() {
         return "fazNavItem" + this.id;
-    },
+    }
+
     /**
      * Returns the nav item class.
      *
@@ -92,12 +105,14 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             classes.push("disabled")
         }
         return classes.join(" ");
-    },
+    }
+
     get html() {
         const scope = new Scope(this, null, { viewModel: true });
         return itemTemplate(scope);
-    },
-    activate: function () {
+    }
+
+    activate() {
         if (!this.disabled) {
             if (this.parent != null) {
                 this.parent.items.active.forEach(function(child) {
@@ -118,7 +133,8 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             }
             this.active = true;
         }
-    },
+    }
+
     /**
      * Returns the nav item href. If item is disabled a javascript void
      * function will be placed to avoid any action.
@@ -126,7 +142,7 @@ let FazNavItem = FazItem.extend("FazNavItem", {
      * @param {FazNavItem} item
      * @returns {string}
      */
-    getHref: function () {
+    getHref() {
         let voidHref = "javascript:void(0)";
         let validHef = this.href === undefined ? voidHref : this.href;
         if (this.disabled) {
@@ -140,9 +156,9 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             }
         }
         return validHef;
-    },
+    }
 
-    process: function(parent, element, activeItem) {
+    process(parent, element, activeItem) {
         this.parent = parent;
         //if(this.isRoot) {
             element.detach();
@@ -181,17 +197,23 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             this.target = this.element.attr("target");
         }
     }
-});
+}
 
-FazNavItem.List = DefineList.extend({
-    "#": FazNavItem,
-    get enabled() {
-        return this.filter({disabled: false});
-    },
-    get active() {
-        return this.filter({active: true});
+export class FazNavItemList extends ObservableArray {
+    static get props() {
+        return {
+            get enabled() {
+                return this.filter({disabled: false});
+            },
+
+            get active() {
+                return this.filter({active: true});
+            }
+        };
     }
-});
+
+    static items = type.convert(FazNavItem);
+}
 
 steal.done().then(function() {
     // Responsive Dropdown Submenu fix
