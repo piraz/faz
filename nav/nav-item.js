@@ -16,7 +16,7 @@
 
 import $ from "jquery";
 
-import {DefineList, ObservableArray, Scope, type} from "can";
+import {ObservableArray, type} from "can";
 
 import { default as  FazItem } from "../item";
 
@@ -31,7 +31,7 @@ import itemTemplate from "./stache/nav-item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-class FazNavItem extends FazItem {
+export class FazNavItem extends FazItem {
 
     static get props() {
         return $.extend(super.props, {
@@ -44,7 +44,10 @@ class FazNavItem extends FazItem {
     }
 
     get isRoot() {
-        return this.parent.constructor.name == "FazNav";
+        if(this.parent!== undefined) {
+            return this.parent.constructor.name == "FazNav";
+        }
+        return false;
     }
 
     get ariaControls() {
@@ -82,9 +85,7 @@ class FazNavItem extends FazItem {
         return isDropdown;
     }
 
-    get isRoot() {
-        return this.parent.constructor.name == "FazNavViewModel";
-    }
+
 
     get navId() {
         return "fazNavItem" + this.id;
@@ -108,8 +109,11 @@ class FazNavItem extends FazItem {
     }
 
     get html() {
-        const scope = new Scope(this, null, { viewModel: true });
-        return itemTemplate(scope);
+        return itemTemplate(this);
+    }
+
+    setParent(parent) {
+        this.parent = parent;
     }
 
     activate() {
@@ -236,5 +240,3 @@ steal.done().then(function() {
       return false;
     });
 });
-
-export default FazNavItem;

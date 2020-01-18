@@ -1,5 +1,5 @@
 {{# dropdown }}
-    {{# scope.top.isRoot }}
+    {{# isRoot }}
     <li class="nav-item dropdown">
         <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ scope.top.value }}</a>
         <ul class="dropdown-menu">
@@ -17,15 +17,15 @@
             {{/each}}
         </ul>
     </li>
-    {{/ scope.top.isRoot }}
+    {{/ isRoot }}
 {{else}}
-    {{# scope.top.isRoot }}
+    {{# isRoot }}
     <li class="nav-item">
-        <a id:from="scope.top.id" class:from="scope.top.class" on:click="scope.top.activate()" target:from="scope.top.target" href:from="scope.top.getHref()" aria-controls:from="scope.top.ariaControls" aria-selected:from="scope.top.ariaSelected">{{ scope.top.value }}</a>
+        <a id:from="../id" class:from="../class" on:click="../activate()" target:from="../target" href:from="../getHref()" aria-controls:from="../ariaControls" aria-selected:from="../ariaSelected">{{ ../content }}</a>
     </li>
     {{else}}
     <li>
-        <a id:from="scope.top.id" class="dropdown-item" role="tab" target:from="scope.top.target"  href:from="scope.top.getHref()">{{ scope.top.value }}</a>
+        <a id:from="id" class="dropdown-item" role="tab" target:from="target"  href:from="getHref()">{{ content }}</a>
     </li>
-    {{/ scope.top.isRoot }}
+    {{/ isRoot }}
 {{/ dropdown }}

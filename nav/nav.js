@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,59 +18,18 @@ import {
     ajax, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
-
 import $ from "jquery";
 import { default as ID } from "../id";
+import { FazNavItem, FazNavItemList } from "./nav-item";
+import { FazNavTabContent, FazNavTabContentList } from "./nav-tab-content";
 
-import FazNavbar from "../navbar/navbar";
-import FazNavItem, { FazNavItemList } from "./nav-item";
-import FazNavTabContent from "./nav-tab-content";
-
-let events = {
-
-};
-
-let helpers = {
-    getVMItemValue: function (item) {
-        return this.getItemValue(item);
-    },
-    getComponentId: function() {
-        return "";
-    },
-    getComponentClass: function () {
-        let classes = ["nav"];
-
-        if (this.fill) {
-            classes.push("nav-fill");
-        }
-
-        if (this.justify == "center") {
-            classes.push("justify-content-center");
-        } else if (this.justify == "right") {
-            classes.push("justify-content-end");
-        }
-
-        if (this.pills) {
-            classes.push("nav-pills");
-        }
-
-        if (this.tabs) {
-            classes.push("nav-tabs");
-        }
-
-        if (this.vertical) {
-            classes.push("flex-column");
-        }
-
-        return classes.join(" ");
-    },
-    getSafeString: function(item) {
-        return stache.safeString(item[0]);
-    }
-};
-
-let navTemplate = ``;
-
+let navTemplate = `
+<nav class:from="componentClass" id:from="id" role="tablist" aria-orientation:from="orientation">
+    {{#each (scope.top.items, item=value)}}
+        {{ item.html }}
+    {{/each}}
+</nav>
+`;
 
 export default class FazNav extends StacheElement {
 
@@ -83,11 +42,11 @@ export default class FazNav extends StacheElement {
             isLoading: {type: type.convert(Boolean), default: true},
             element: ObservableObject,
             items: {type: FazNavItemList, get default() {
-                    return new FazNavItemList([]);
+                return new FazNavItemList([]);
             }},
-            // tabContentList: {type: "observable", default: function() {
-            //         return new FazNavTabContent.List([]);
-            //     }},
+            tabContentList: {type: FazNavTabContentList, get default() {
+                return new FazNavTabContentList([]);
+            }},
             navOuterClass: {type: type.convert(String), default: "row"},
             tabsClass: {type: type.convert(String), default: ""},
             fill: {type: type.convert(Boolean), default: false},
@@ -96,12 +55,39 @@ export default class FazNav extends StacheElement {
             pills: {type: type.convert(Boolean), default: false},
             tabs: {type: type.convert(Boolean), default: false},
             vertical: {type: type.convert(Boolean), default: false},
-            // get hasTabContents() {
-            //     if (this.tabContentList.length) {
-            //         return true;
-            //     }
-            //     return false;
-            // },
+            get hasTabContents() {
+                if (this.tabContentList.length) {
+                    return true;
+                }
+                return false;
+            },
+            get componentClass() {
+                let classes = ["nav"];
+
+                if (this.fill) {
+                    classes.push("nav-fill");
+                }
+
+                if (this.justify == "center") {
+                    classes.push("justify-content-center");
+                } else if (this.justify == "right") {
+                    classes.push("justify-content-end");
+                }
+
+                if (this.pills) {
+                    classes.push("nav-pills");
+                }
+
+                if (this.tabs) {
+                    classes.push("nav-tabs");
+                }
+
+                if (this.vertical) {
+                    classes.push("flex-column");
+                }
+
+                return classes.join(" ");
+            },
             get role() {
                 if (this.hasTabContents()) {
                     return "tablist";
@@ -120,7 +106,6 @@ export default class FazNav extends StacheElement {
     static get propertyDefaults() {
         return DeepObservable;
     }
-
 
     connectedCallback() {
         for(let attribute of this.attributes) {
@@ -144,22 +129,39 @@ export default class FazNav extends StacheElement {
                     console.log(attribute.name);
             }
         }
-
+        let data = {
+            "items": {}
+        };
         this.querySelectorAll("faz-nav > faz-nav-item").forEach(function(item) {
-            let data = {};
+            let dataItem = {};
             for(let attribute of item.attributes) {
-                data[attribute.name] = attribute.value;
+                dataItem[attribute.name] = attribute.value;
             }
-            data['content'] = item.innerHTML;
-            this.items.push(data);
+            dataItem['content'] = item.innerHTML;
+            dataItem['parent'] = this;
+            this.items.push(dataItem);
         }.bind(this));
-        console.log(this.items);
         if(!this.source) {
             console.debug(this);
             console.debug("Finished connected callback " + this.id);
         }
         this.isLoading = false;
         super.connectedCallback();
+        this.items.forEach(function(item){
+            item.setParent(this);
+        }.bind(this));
+    }
+
+    getVMItemValue (item) {
+        return this.getItemValue(item);
+    }
+
+    getComponentId () {
+        return "";
+    }
+
+    getSafeString(item) {
+        return stache.safeString(item[0]);
     }
 
     static get seal() {

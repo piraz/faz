@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 import { DefineMap, route } from "can";
 import each from "can-util/js/each/each";
 
-import FazNavItem from "./nav-item";
+import FazNavItem, { FazNavItemList } from "./nav-item";
 import FazNavTabContent from "./nav-tab-content";
 
 /**
@@ -32,9 +32,9 @@ let FazNavViewModel = DefineMap.extend("FazNavViewModel", {
     items: {type: "observable", default: function() {
         return new FazNavItem.List([]);
     }},
-    tabContentList: {type: "observable", default: function() {
+    /*tabContentList: {type: "observable", default: function() {
         return new FazNavTabContent.List([]);
-    }},
+    }},*/
     navOuterClass: {type: "string", default: "row"},
     tabsClass: {type: "string", default: ""},
     fill: {type:"boolean", default: "false"},

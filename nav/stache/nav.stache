@@ -22,12 +22,12 @@
                 {{ item.html }}
             {{/each}}
         </div>
-        <div class="tab-content">
-            {{#each (scope.top.tabContentList, tabContent=value)}}
-                {{ tabContent.html }}
-            {{/each}}
-        </div>
     {{/if}}
+    <div class="tab-content">
+        {{#each (scope.top.tabContentList, tabContent=value)}}
+            {{ tabContent.html }}
+        {{/each}}
+    </div>
 {{else}}
     <nav class:from="../getComponentClass()" id:from="scope.top.id">
         {{#each (scope.top.items, item=value)}}
