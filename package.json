@@ -39,7 +39,8 @@
     "steal-tools": "2.2.5",
     "rollup": "1.29.0",
     "testee": "0.9.1",
-    "can-migrate": "2.3.0"
+    "can-migrate": "2.3.0",
+    "electron": "7.1.9"
   },
   "steal": {
     "plugins": [

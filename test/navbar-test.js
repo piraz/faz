@@ -1,7 +1,7 @@
 import QUnit from "steal-qunit";
 
 import FazNavbarBrand from "navbar/navbar-brand";
-import FazNavbarViewModel from "navbar/navbar-view-model";
+import FazNavbar from "../navbar/navbar";
 
 QUnit.module("navbar/brand");
 
@@ -16,19 +16,19 @@ QUnit.test("Navbar Brand defaults.", function(assert) {
 });
 
 
-QUnit.module("navbar/view-model");
+QUnit.module("navbar/navbar");
 
-let navbarViewModel = new FazNavbarViewModel();
+let navbar = new FazNavbar();
 
-QUnit.test("Navbar View Model defaults.", function(assert) {
+QUnit.test("Navbar defaults.", function(assert) {
     assert.equal(
-        navbarViewModel.brand,
+        navbar.brand,
         null,
         "View Model brand default is: null."
     );
-    assert.equal(
-        navbarViewModel.id,
+    assert.notEqual(
+        navbar.id,
         "",
-        "View Model id default is: \"\"."
+        "View Model id default is a random string: \"" + navbar.id + "\"."
     );
 });

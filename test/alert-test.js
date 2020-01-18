@@ -2,15 +2,15 @@ import QUnit from "steal-qunit";
 
 import $ from "jquery";
 
-import { default as FazAlertViewModel } from "alert/alert-view-model";
+import FazAlert from "../alert/alert";
 
-QUnit.module("faz/alert/alert-view-model");
+QUnit.module("faz/alert/alert");
 
-let alertViewModel = new FazAlertViewModel();
+let alert = new FazAlert();
 
 QUnit.test("Alert view model defaults.", function(assert) {
     assert.equal(
-        alertViewModel.isLoading,
+        alert.isLoading,
         true,
         "Alert view model isLoading default is: true."
     );
