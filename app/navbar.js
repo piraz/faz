@@ -1,3 +1,3 @@
 import { FazNavbar } from "../faz";
 
-import "../stylesheets/showcase.less";
+import { MainNavbar } from "./app/main-navbar";

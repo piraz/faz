@@ -11,27 +11,28 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/node_modules/steal/steal.js" main="faz/index"></script>
-
-    <!-- Custom styles for this template -->
+    <link href="/stylesheets/faz.css" rel="stylesheet"/>
+    <link href="/stylesheets/showcase.css" rel="stylesheet"/>
+    <!-- Production -->
+    <!--<script src="/dist/steal.production.js" main="faz/index">
+    </script>-->
+    <!-- Development -->
+    <script src="/node_modules/steal/steal.js" main="faz/index">
+    </script>
 </head>
 
 <body>
-    <faz-navbar id="navbarIndex" type="dark" class="navbar-expand-md bg-dark fixed-top">
-        <faz-navbar-brand href="/">Faz</faz-navbar-brand>
-    </faz-navbar>
+    <main-navbar></main-navbar>
 
     <main role="main" class="container">
 
       <div class="starter-template">
-        <h1>Calendar</h1>
-        <p class="lead">Calendar components.</p>
+        <h1>Faz</h1>
+        <p class="lead">Faz components</p>
         <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
+          <li class="list-group-item">Alert</li>
+          <li class="list-group-item">Nav</li>
+          <li class="list-group-item"><a href="/navbar">Navbar</a></li>
         </ul>
 
       </div>

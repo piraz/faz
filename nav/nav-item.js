@@ -1,10 +1,27 @@
+/**
+ * Copyright 2018-2020 Flavio Garcia
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import $ from "jquery";
 
-import { DefineList } from "can";
+import {ObservableArray, type} from "can";
 
 import { default as  FazItem } from "../item";
 
-import itemTemplate from "./nav-item.stache";
+import itemTemplate from "./stache/nav-item.stache";
+
 
 /**
  *
@@ -14,21 +31,66 @@ import itemTemplate from "./nav-item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-let FazNavItem = FazItem.extend("FazNavItem", {
-    active: {type: "boolean", default: false},
-    children: {type: "observable", default: function() {
-        return new FazNavItem.List([]);
-    }},
-    disabled: {type: "boolean", default: false},
-    dropdown: {type: "boolean", default: false},
-    target: {type: "string", default: ""},
-    value: "string",
+export class FazNavItem extends FazItem {
+
+    static get props() {
+        return $.extend(super.props, {
+            disabled: {type: type.convert(Boolean), default: false},
+            dropdown: {type: type.convert(Boolean), default: false},
+            target: {type: type.convert(String), default: ""},
+            value: String,
+            title: String
+        });
+    }
+
     get isRoot() {
-        return this.parent.constructor.name == "FazNavViewModel";
-    },
+        if(this.parent!== undefined) {
+            return this.parent.constructor.name == "FazNav";
+        }
+        return false;
+    }
+
+    get ariaControls() {
+        let voidAriaControls = "";
+        let validAriaControls = this.href === undefined ? voidAriaControls :
+            this.href;
+        if (this.disabled) {
+            return voidAriaControls;
+        }
+        if (this.parent !== undefined) {
+            if (this.parent.tabs) {
+                if (validAriaControls.startsWith("#") && this.href) {
+                    return validAriaControls.substring(1);
+                }
+            }
+        }
+        return validAriaControls;
+    }
+
+    get ariaSelected() {
+        return this.active ? "true" : "false";
+    }
+
+    get isDropdown() {
+        if(this.element.children().length==0) {
+            return false;
+        }
+        let isDropdown = false;
+        this.element.children().each(function(index, child) {
+            if($(child).prop("tagName").toLowerCase() == "title") {
+                isDropdown = true;
+                return;
+            }
+        });
+        return isDropdown;
+    }
+
+
+
     get navId() {
         return "fazNavItem" + this.id;
-    },
+    }
+
     /**
      * Returns the nav item class.
      *
@@ -36,42 +98,36 @@ let FazNavItem = FazItem.extend("FazNavItem", {
      * @returns {string}
      */
     get class() {
-        var classes = ["nav-link"];
+        let classes = ["nav-link"];
         if(this.active) {
             classes.push("active");
         }
         if(this.disabled) {
             classes.push("disabled")
         }
-
         return classes.join(" ");
-    },
+    }
+
     get html() {
-        var context = {
-          item: this
-        };
-        return itemTemplate(context);
-    },
-    activate: function () {
+        return itemTemplate(this);
+    }
+
+    setParent(parent) {
+        this.parent = parent;
+    }
+
+    activate() {
         if (!this.disabled) {
             if (this.parent != null) {
                 this.parent.items.active.forEach(function(child) {
                     child.active = false;
-                });
+                }.bind(this));
                 if (this.isRoot) {
                     if (this.parent.hasTabContents) {
-                        this.parent.tabContentList.active.forEach(
-                            function(tabContent) {
-                                tabContent.active = false;
-                            }
-                        );
                         this.parent.tabContentList.forEach(
                             function(tabContent) {
-                                let tabContentHef =
-                                    this.getHref().startsWith("#") ?
-                                    this.getHref().substring(1) :
-                                        this.getHref();
-                                if(tabContent.id == tabContentHef) {
+                                tabContent.active = false;
+                                if(tabContent.id == this.ariaControls) {
                                     tabContent.active = true;
                                 }
                             }.bind(this)
@@ -81,7 +137,8 @@ let FazNavItem = FazItem.extend("FazNavItem", {
             }
             this.active = true;
         }
-    },
+    }
+
     /**
      * Returns the nav item href. If item is disabled a javascript void
      * function will be placed to avoid any action.
@@ -89,7 +146,7 @@ let FazNavItem = FazItem.extend("FazNavItem", {
      * @param {FazNavItem} item
      * @returns {string}
      */
-    getHref: function () {
+    getHref() {
         let voidHref = "javascript:void(0)";
         let validHef = this.href === undefined ? voidHref : this.href;
         if (this.disabled) {
@@ -104,17 +161,63 @@ let FazNavItem = FazItem.extend("FazNavItem", {
         }
         return validHef;
     }
-});
 
-FazNavItem.List = DefineList.extend({
-    "#": FazNavItem,
-    get enabled() {
-        return this.filter({disabled: false});
-    },
-    get active() {
-        return this.filter({active: true});
+    process(parent, element, activeItem) {
+        this.parent = parent;
+        //if(this.isRoot) {
+            element.detach();
+        //}
+        this.element = element;
+        this.id = this.element.prop("id");
+        if(this.element.attr("disabled") !== undefined) {
+            this.disabled = this.element.attr("disabled");
+        }
+        if(activeItem != "" && this.id == activeItem) {
+            this.active = true;
+        }
+        if(this.isDropdown) {
+            this.dropdown = true;
+            this.element.children().each(function(_, child) {
+                let tagName = $(child).prop("tagName").toLowerCase();
+                if(tagName == "title") {
+                    this.value = $(child).html();
+                } else if(tagName == "children") {
+                    $(child).each(function(_, item) {
+                        $(item).children().each(function(_, itemChild) {
+                            let navItem = new FazNavItem();
+                            navItem.process(this, $(itemChild), activeItem);
+                            this.children.push(navItem);
+                        }.bind(this));
+                    }.bind(this));
+                }
+            }.bind(this));
+        } else {
+            this.value = this.element.html();
+        }
+        if(this.element.attr("href") != undefined) {
+            this.href = this.element.attr("href");
+        }
+        if(this.element.attr("target") != undefined) {
+            this.target = this.element.attr("target");
+        }
     }
-});
+}
+
+export class FazNavItemList extends ObservableArray {
+    static get props() {
+        return {
+            get enabled() {
+                return this.filter({disabled: false});
+            },
+
+            get active() {
+                return this.filter({active: true});
+            }
+        };
+    }
+
+    static items = type.convert(FazNavItem);
+}
 
 steal.done().then(function() {
     // Responsive Dropdown Submenu fix
@@ -137,5 +240,3 @@ steal.done().then(function() {
       return false;
     });
 });
-
-export default FazNavItem;

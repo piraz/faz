@@ -1,0 +1,37 @@
+{{#hasTabContents}}
+    {{#if(../vertical)}}
+        <div class="row">
+            <div class="col-3">
+                <div class:from="../getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
+                    {{#each (scope.top.items, item=value)}}
+                        {{ item.html }}
+                    {{/each}}
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content">
+                    {{#each (scope.top.tabContentList, tabContent=value)}}
+                        {{ tabContent.html }}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class:from="../getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
+            {{#each (scope.top.items, item=value)}}
+                {{ item.html }}
+            {{/each}}
+        </div>
+    {{/if}}
+    <div class="tab-content">
+        {{#each (scope.top.tabContentList, tabContent=value)}}
+            {{ tabContent.html }}
+        {{/each}}
+    </div>
+{{else}}
+    <nav class:from="../getComponentClass()" id:from="scope.top.id">
+        {{#each (scope.top.items, item=value)}}
+            {{ item.html }}
+        {{/each}}
+    </nav>
+{{/hasTabContents}}
