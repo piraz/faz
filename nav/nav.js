@@ -15,7 +15,7 @@
  */
 
 import {
-    ajax, DeepObservable, ObservableObject, StacheElement, type
+    assign, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
 import $ from "jquery";
@@ -23,13 +23,8 @@ import { default as ID } from "../id";
 import { FazNavItem, FazNavItemList } from "./nav-item";
 import { FazNavTabContent, FazNavTabContentList } from "./nav-tab-content";
 
-let navTemplate = `
-<nav class:from="componentClass" id:from="id" role="tablist" aria-orientation:from="orientation">
-    {{#each (scope.top.items, item=value)}}
-        {{ item.html }}
-    {{/each}}
-</nav>
-`;
+import navTemplate from "./stache/nav.stache";
+
 
 export default class FazNav extends StacheElement {
 
@@ -67,7 +62,6 @@ export default class FazNav extends StacheElement {
                 if (this.fill) {
                     classes.push("nav-fill");
                 }
-
                 if (this.justify == "center") {
                     classes.push("justify-content-center");
                 } else if (this.justify == "right") {
@@ -108,38 +102,33 @@ export default class FazNav extends StacheElement {
     }
 
     connectedCallback() {
+        let attributes = {};
         for(let attribute of this.attributes) {
+
             switch (attribute.name) {
-                case "active":
-                    this.active = attribute.value;
+                case "pills":
+                    this.pills = true;
                     break;
-                case "id":
-                    this.id = attribute.value;
+                case "tabs":
+                    this.tabs = true;
                     break;
-                case "class":
-                    this.extraClasses = attribute.value;
-                    break;
-                case "source":
-                    this.source = attribute.value;
-                    break;
-                case "type":
-                    this.type = attribute.value;
+                case "vertical":
+                    this.vertical = true;
                     break;
                 default:
-                    console.log(attribute.name);
+                    attributes[attribute.name] = attribute.value;
+                    break;
             }
         }
+        assign(this, attributes);
+
         let data = {
             "items": {}
         };
         this.querySelectorAll("faz-nav > faz-nav-item").forEach(function(item) {
-            let dataItem = {};
-            for(let attribute of item.attributes) {
-                dataItem[attribute.name] = attribute.value;
-            }
-            dataItem['content'] = item.innerHTML;
-            dataItem['parent'] = this;
-            this.items.push(dataItem);
+            let navItem = new FazNavItem();
+            navItem.processElement(this, item);
+            this.items.push(navItem);
         }.bind(this));
         if(!this.source) {
             console.debug(this);
