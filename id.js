@@ -14,23 +14,13 @@
  * limitations under the License.
  */
 
-import { ajax, ObservableObject, type } from "can";
-import $ from "jquery";
-
-import { default as FazNavbarBrand } from "./navbar-brand";
-import { default as FazNavbarNav } from "./navbar-nav";
-
-/**
- * Navbar View Model
- * @constructor
- * @param {Object} event. An object representing a nav item.
- * @param {string} event.value
- */
-class FazNavbarViewModel extends ObservableObject {
-
-
-
-
+export default class ID {
+    static get random() {
+        // SEE: https://gist.github.com/gordonbrander/2230317
+        // Math.random should be unique because of its seeding algorithm.
+        // Convert it to base 36 (numbers + letters), and grab the first
+        // 9 characters
+        // after the decimal.
+        return '_' + Math.random().toString(36).substr(2, 9);
+    }
 }
-
-export default FazNavbarViewModel;

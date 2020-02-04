@@ -28,12 +28,11 @@ Candango faz is a toolkit based on bootstrap and canjs.
 
 ```
 > yarn
+> npm run-script lessc:dev
 > npm run-script run
 ```
 
-## At the command line
-
-Install yarn:
+## Running tests
 
 ```
 > yarn
