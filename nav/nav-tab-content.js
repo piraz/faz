@@ -15,6 +15,7 @@
  */
 
 import {
+    assign,
     DefineList,
     DefineMap, ObservableArray,
     ObservableObject,
@@ -27,6 +28,7 @@ import tabContentTemplate from "./stache/nav-tab-content.stache";
 import {default as FazItem} from "../item";
 import {default as ID} from "../id";
 import {FazNavItem, FazNavItemList} from "./nav-item";
+import $ from "jquery";
 
 /**
  *
@@ -37,48 +39,58 @@ import {FazNavItem, FazNavItemList} from "./nav-item";
  * @param {string} event.value
  */
 
-export class FazNavTabContent extends StacheElement {
+export class FazNavTabContent extends FazItem {
 
     static get props() {
-        return {
-            id: {type: type.convert(String), default: ID.random},
-            element: ObservableObject,
-            parent: ObservableObject,
-            active: {type: type.convert(Boolean), default: false},
+        return $.extend(super.props, {
             fade: {type: type.convert(Boolean), default: false},
-            show: {type: type.convert(Boolean), default: false},
-            get ariaLabelledby() {
-                let itemId = ""
-                this.parent.items.forEach(function (item) {
-                    if (this.id == item.ariaControls) {
-                        itemId = item.id;
-                        return;
-                    }
-                }.bind(this));
-                return itemId;
-            },
-            get class() {
-                let classes = ["tab-pane"];
-                if (this.active) {
-                    classes.push("active");
-                }
-                if (this.fade) {
-                    classes.push("fade");
-                }
-                if (this.show) {
-                    classes.push("show");
-                }
-                return classes.join(" ");
-            },
-            get value() {
-                return this.element;
-            },
-            get html() {
-                const scope = new Scope(this, null, {viewModel: true});
-                return tabContentTemplate(scope);
-            }
+            show: {type: type.convert(Boolean), default: false}
+        });
+    }
+
+    processElement(parent, element) {
+        this.parent = parent;
+
+        let dataItem = {};
+        for(let attribute of element.attributes) {
+            dataItem[attribute.name] = attribute.value;
         }
-    };
+        this.content = element.innerHTML;
+        assign(this, dataItem);
+    }
+
+    get ariaLabelledby() {
+        let itemId = ""
+        this.parent.items.forEach(function (item) {
+            if (this.id == item.ariaControls) {
+                itemId = item.id;
+                return;
+            }
+        }.bind(this));
+        return itemId;
+    }
+
+    get class() {
+        let classes = ["tab-pane"];
+        if (this.active) {
+            classes.push("active");
+        }
+        if (this.fade) {
+            classes.push("fade");
+        }
+        if (this.show) {
+            classes.push("show");
+        }
+        return classes.join(" ");
+    }
+
+    get value() {
+        return this.element;
+    }
+
+    get html() {
+        return tabContentTemplate(this);
+    }
 }
 
 export class FazNavTabContentList extends ObservableArray {

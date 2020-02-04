@@ -16,7 +16,7 @@
 
 import $ from "jquery";
 
-import {ObservableArray, type} from "can";
+import {assign, ObservableArray, type} from "can";
 
 import { default as  FazItem } from "../item";
 
@@ -36,8 +36,11 @@ export class FazNavItem extends FazItem {
     static get props() {
         return $.extend(super.props, {
             disabled: {type: type.convert(Boolean), default: false},
-            dropdown: {type: type.convert(Boolean), default: false},
             target: {type: type.convert(String), default: ""},
+            items: {type: FazNavItemList, get default() {
+                return new FazNavItemList([]);
+            }},
+            root: "*",
             value: String,
             title: String
         });
@@ -71,21 +74,12 @@ export class FazNavItem extends FazItem {
         return this.active ? "true" : "false";
     }
 
-    get isDropdown() {
-        if(this.element.children().length==0) {
+    get dropdown() {
+        if(this.items.length==0) {
             return false;
         }
-        let isDropdown = false;
-        this.element.children().each(function(index, child) {
-            if($(child).prop("tagName").toLowerCase() == "title") {
-                isDropdown = true;
-                return;
-            }
-        });
-        return isDropdown;
+        return true;
     }
-
-
 
     get navId() {
         return "fazNavItem" + this.id;
@@ -124,7 +118,7 @@ export class FazNavItem extends FazItem {
                 }.bind(this));
                 if (this.isRoot) {
                     if (this.parent.hasTabContents) {
-                        this.parent.tabContentList.forEach(
+                        this.parent.tabContents.forEach(
                             function(tabContent) {
                                 tabContent.active = false;
                                 if(tabContent.id == this.ariaControls) {
@@ -160,6 +154,46 @@ export class FazNavItem extends FazItem {
             }
         }
         return validHef;
+    }
+
+    processElement(parent, element) {
+        this.parent = parent;
+        if (parent.constructor.name == "FazNav") {
+            this.root = parent;
+        } else {
+            this.root = parent.root;
+        }
+
+        let dataItem = {};
+        for(let attribute of element.attributes) {
+            dataItem[attribute.name] = attribute.value;
+        }
+        assign(this, dataItem);
+
+        if (this.root.active == this.id) {
+            this.active = true;
+        }
+
+        if (element.children.length > 0) {
+            $(element.children).each(function(_,child) {
+                switch (child.tagName.toLowerCase()) {
+                    case "title":
+                        this.content = child.innerHTML;
+                        break;
+                    case "children":
+                        if (child.children.length > 0) {
+                            $(child.children).each(function(_,grandChild) {
+                                let navItem = new FazNavItem();
+                                navItem.processElement(this, grandChild);
+                                this.items.push(navItem);
+                            }.bind(this));
+                        }
+                        break;
+                }
+            }.bind(this));
+        } else {
+            this.content = element.innerHTML;
+        }
     }
 
     process(parent, element, activeItem) {

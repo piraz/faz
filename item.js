@@ -1,8 +1,6 @@
 import { default as ID } from "./id";
-import { ObservableObject, StacheElement, type } from "can";
+import { ObservableObject, type } from "can";
 import DeepObservable from "can-deep-observable";
-
-
 
 class FazItem extends ObservableObject {
     static get props() {

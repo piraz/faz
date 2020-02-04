@@ -1,23 +1,23 @@
 {{# dropdown }}
-    {{# isRoot }}
+    {{# ../isRoot }}
     <li class="nav-item dropdown">
-        <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ scope.top.value }}</a>
+        <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ ../content }}</a>
         <ul class="dropdown-menu">
-            {{#each (scope.top.children, child=value)}}
+            {{#each ( ../items, child=value)}}
                 {{ child.html }}
             {{/each}}
         </ul>
     </li>
     {{else}}
     <li class="dropdown-submenu">
-        <a class="dropdown-item dropdown-toggle" href="#">{{ scope.top.value }}</a>
+        <a class="dropdown-item dropdown-toggle" href="#">{{ ../content }}</a>
         <ul class="dropdown-menu">
-            {{#each (scope.top.children, child=value)}}
+            {{#each (../items, child=value)}}
                 {{ child.html }}
             {{/each}}
         </ul>
     </li>
-    {{/ isRoot }}
+    {{/ ../isRoot }}
 {{else}}
     {{# isRoot }}
     <li class="nav-item">

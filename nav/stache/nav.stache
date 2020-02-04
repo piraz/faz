@@ -2,7 +2,7 @@
     {{#if(../vertical)}}
         <div class="row">
             <div class="col-3">
-                <div class:from="../getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
+                <div class:from="../componentClass" id:from="../id" role="tablist" aria-orientation:from="../orientation">
                     {{#each (scope.top.items, item=value)}}
                         {{ item.html }}
                     {{/each}}
@@ -10,26 +10,26 @@
             </div>
             <div class="col-9">
                 <div class="tab-content">
-                    {{#each (scope.top.tabContentList, tabContent=value)}}
+                    {{#each (scope.top.tabContents, tabContent=value)}}
                         {{ tabContent.html }}
                     {{/each}}
                 </div>
             </div>
         </div>
     {{else}}
-        <div class:from="../getComponentClass()" id:from="scope.top.id" role="tablist" aria-orientation:from="scope.top.orientation">
-            {{#each (scope.top.items, item=value)}}
+        <div class:from="../componentClass" id:from="../id" role="tablist" aria-orientation:from="../orientation">
+            {{#each (../items, item=value)}}
                 {{ item.html }}
             {{/each}}
         </div>
     {{/if}}
     <div class="tab-content">
-        {{#each (scope.top.tabContentList, tabContent=value)}}
+        {{#each (../tabContents, tabContent=value)}}
             {{ tabContent.html }}
         {{/each}}
     </div>
 {{else}}
-    <nav class:from="../getComponentClass()" id:from="scope.top.id">
+    <nav class:from="componentClass" id:from="id" aria-orientation:from="orientation">
         {{#each (scope.top.items, item=value)}}
             {{ item.html }}
         {{/each}}
