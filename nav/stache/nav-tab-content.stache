@@ -1,1 +1,1 @@
-<div class:from="class" id:from="id" role="tabpanel" aria-labelledby:from="ariaLabelledby">{{{ value }}}</div>
+<div class:from="class" id:from="id" role="tabpanel" aria-labelledby:from="ariaLabelledby">{{{ content }}}</div>

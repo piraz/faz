@@ -39,7 +39,7 @@ export default class FazNav extends StacheElement {
             items: {type: FazNavItemList, get default() {
                 return new FazNavItemList([]);
             }},
-            tabContentList: {type: FazNavTabContentList, get default() {
+            tabContents: {type: FazNavTabContentList, get default() {
                 return new FazNavTabContentList([]);
             }},
             navOuterClass: {type: type.convert(String), default: "row"},
@@ -51,7 +51,7 @@ export default class FazNav extends StacheElement {
             tabs: {type: type.convert(Boolean), default: false},
             vertical: {type: type.convert(Boolean), default: false},
             get hasTabContents() {
-                if (this.tabContentList.length) {
+                if (this.tabContents.length) {
                     return true;
                 }
                 return false;
@@ -120,6 +120,7 @@ export default class FazNav extends StacheElement {
                     break;
             }
         }
+
         assign(this, attributes);
 
         let data = {
@@ -130,15 +131,31 @@ export default class FazNav extends StacheElement {
             navItem.processElement(this, item);
             this.items.push(navItem);
         }.bind(this));
-        if(!this.source) {
-            console.debug(this);
-            console.debug("Finished connected callback " + this.id);
-        }
+
+        this.querySelectorAll("faz-nav > faz-nav-tab-content").forEach(
+            function(item) {
+                let navTabContent = new FazNavTabContent();
+
+                navTabContent.processElement(this, item);
+
+                let tabContent = $(item);
+
+
+                tabContent.detach();
+                navTabContent.element = tabContent;
+                this.tabContents.push(navTabContent);
+        }.bind(this));
+
+
         this.isLoading = false;
         super.connectedCallback();
         this.items.forEach(function(item){
             item.setParent(this);
         }.bind(this));
+
+        if (this.hasTabContents) {
+            this.items.active[0].activate();
+        }
     }
 
     getVMItemValue (item) {

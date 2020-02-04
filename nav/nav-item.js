@@ -118,7 +118,7 @@ export class FazNavItem extends FazItem {
                 }.bind(this));
                 if (this.isRoot) {
                     if (this.parent.hasTabContents) {
-                        this.parent.tabContentList.forEach(
+                        this.parent.tabContents.forEach(
                             function(tabContent) {
                                 tabContent.active = false;
                                 if(tabContent.id == this.ariaControls) {

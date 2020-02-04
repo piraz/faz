@@ -17,7 +17,7 @@
             {{/each}}
         </ul>
     </li>
-    {{/ isRoot }}
+    {{/ ../isRoot }}
 {{else}}
     {{# isRoot }}
     <li class="nav-item">
