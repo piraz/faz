@@ -1,0 +1,54 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+    {{# for(page of pagesInCurrentBlock) }}
+        <li class="page-item{{#if(isCurrentPage(page)}}  active{{/if}}">
+            <a class="page-link" href="#">{{ page }}{{#if(isCurrentPage(page)}}   <span class="sr-only">(current)</span>{{/if}}</a>
+        </li>
+    {{/ for }}
+    </ul>
+</nav>
+{{# debug}}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Records Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Records:</dt>
+            <dd class="col-sm-9">{{../records}}</dd>
+            <dt class="col-sm-3">Current First Record:</dt>
+            <dd class="col-sm-9">{{../currentFirstRecord}}</dd>
+            <dt class="col-sm-3">Current Last Record:</dt>
+            <dd class="col-sm-9">{{../currentLastRecord}}</dd>
+        </dl>
+
+        <h5 class="card-title">Pages Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Pages:</dt>
+            <dd class="col-sm-9">{{../pages}}</dd>
+            <dt class="col-sm-3">Current Page:</dt>
+            <dd class="col-sm-9">{{../currentPage}}</dd>
+            <dt class="col-sm-3">Current Page Computed:</dt>
+            <dd class="col-sm-9">{{../currentPageComputed}}</dd>
+            <dt class="col-sm-3">Current First Page:</dt>
+            <dd class="col-sm-9">{{../currentFirstPage}}</dd>
+            <dt class="col-sm-3">Current Last Page:</dt>
+            <dd class="col-sm-9">{{../currentLastPage}}</dd>
+            <dt class="col-sm-3">Records per page:</dt>
+            <dd class="col-sm-9">{{../recordsPerPage}}</dd>
+            <dt class="col-sm-3">Records in last page:</dt>
+            <dd class="col-sm-9">{{../recordsInLastPage}}</dd>
+        </dl>
+
+        <h5 class="card-title">Blocks Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Blocks:</dt>
+            <dd class="col-sm-9">{{../blocks}}</dd>
+            <dt class="col-sm-3">Current Block:</dt>
+            <dd class="col-sm-9">{{../currentBlock}}</dd>
+            <dt class="col-sm-3">Pages per Block:</dt>
+            <dd class="col-sm-9">{{../pagesPerBlock}}</dd>
+            <dt class="col-sm-3">Pages in last Block:</dt>
+            <dd class="col-sm-9">{{../pagesInLastBlock}}</dd>
+        </dl>
+    </div>
+</div>
+{{/debug}}
