@@ -25,9 +25,12 @@ export default class FazPagination extends StacheElement {
         return {
             currentPage: {type: type.convert(Number), default: 1},
             href: String,
+            pageCallback: {type: Object },
             pagesPerBlock: {type: type.convert(Number), default: 10},
             records: {type: type.convert(Number), default: 0},
             recordsPerPage: {type: type.convert(Number), default: 10},
+            firstPageLabel: {type: type.convert(String), default: "First"},
+            lastPageLabel: {type: type.convert(String), default: "Last"},
             previousLabel: {type: type.convert(String), default: "Previous"},
             nextLabel: {type: type.convert(String), default: "Next"},
             debug : {type: type.convert(Boolean), default: false},
@@ -110,6 +113,9 @@ export default class FazPagination extends StacheElement {
             },
             get isLastPage() {
                 return this.currentPageComputed == this.pages;
+            },
+            get hasMultipleBlocks() {
+                return this.blocks > 1;
             }
         };
     }
@@ -121,8 +127,11 @@ export default class FazPagination extends StacheElement {
                 case "debug":
                     attributes["debug"] = attribute.value;
                     break;
-                case "currentpage":
+                case "current-page":
                     attributes["currentPage"] = attribute.value;
+                    break;
+                case "page-callback":
+                    attributes["pageCallback"] = eval(attribute.value);
                     break;
                 case "pagesperblock":
                     attributes["pagesPerBlock"] = attribute.value;
@@ -134,6 +143,7 @@ export default class FazPagination extends StacheElement {
         }
         assign(this, attributes);
         super.connectedCallback();
+        this.callPageCallback(this.currentPage);
     }
 
     /**
@@ -152,12 +162,31 @@ export default class FazPagination extends StacheElement {
         return validHef;
     }
 
-    gotToPrevious() {
-        this.currentPage--;
+    callPageCallback(page) {
+        if (this.pageCallback !== undefined) {
+            this.pageCallback(page, this);
+        }
     }
 
-    gotToNext() {
-        this.currentPage++;
+    goToPage(page) {
+        this.currentPage = page;
+        this.callPageCallback(page);
+    }
+
+    gotToFirstPage() {
+        this.goToPage(1);
+    }
+
+    gotToLastPage() {
+        this.goToPage(this.pages);
+    }
+
+    gotToPreviousPage() {
+        this.goToPage(this.currentPage - 1);
+    }
+
+    gotToNextPage() {
+        this.goToPage(this.currentPage + 1);
     }
 
     static get seal() {
