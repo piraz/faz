@@ -1,0 +1,17 @@
+{
+  "port": 3621,
+  "reporter": "Spec",
+  "timeout": 4,
+  "delay": 1000,
+  "tunnel": {
+    "type": "local"
+  },
+  "launch": {
+    "type": "local"
+  },
+  "browsers": [
+    {
+      "browser": "electron"
+    }
+  ]
+}

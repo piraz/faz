@@ -1,0 +1,50 @@
+{
+  "name": "faz",
+  "version": "0.0.7",
+  "description": "Candango Faz Javascript toolkit.",
+  "main": "faz.js",
+  "repository": "https://github.com/candango/faz.git",
+  "author": "Flavio Garcia <piraz@candango.org>",
+  "license": "Apache-2.0",
+  "private": false,
+  "dependencies": {
+    "bootstrap": "4.4.1",
+    "can": "6.3.0",
+    "jquery": "3.4.0",
+    "less": "3.10.3",
+    "popper.js": "1.16.1"
+  },
+  "scripts": {
+    "run": "http-server",
+    "build": "node build.js && npm run export && npm run lessc",
+    "export": "steal-tools export",
+    "lessc": "lessc stylesheets/faz.less dist/css/faz.css --source-map",
+    "lessc:dev": "npm run lessc:dev:faz && npm run lessc:dev:showcase",
+    "lessc:dev:faz": "lessc stylesheets/faz.less stylesheets/faz.css --source-map",
+    "lessc:dev:showcase": "lessc stylesheets/showcase.less stylesheets/showcase.css --source-map",
+    "test": "npm run test:browser",
+    "test:browser": "testee test/*.html --config=testee.json"
+  },
+  "keywords": [
+    "canjs",
+    "bootstrap",
+    "toolkit"
+  ],
+  "devDependencies": {
+    "http-server": "0.12.1",
+    "qunit": "2.9.3",
+    "steal": "2.2.4",
+    "steal-stache": "5.0.0",
+    "steal-qunit": "2.0.0",
+    "steal-tools": "2.2.5",
+    "rollup": "1.29.1",
+    "testee": "0.9.1",
+    "can-migrate": "2.3.1",
+    "electron": "7.1.10"
+  },
+  "steal": {
+    "plugins": [
+      "steal-stache"
+    ]
+  }
+}
