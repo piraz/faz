@@ -130,6 +130,9 @@ export default class FazPagination extends StacheElement {
                 case "current-page":
                     attributes["currentPage"] = attribute.value;
                     break;
+                case "href":
+                    attributes["href"] = attribute.value;
+                    break;
                 case "page-callback":
                     attributes["pageCallback"] = eval(attribute.value);
                     break;
@@ -143,7 +146,7 @@ export default class FazPagination extends StacheElement {
         }
         assign(this, attributes);
         super.connectedCallback();
-        this.callPageCallback(this.currentPage);
+        this.callPageCallback(this.currentPageComputed);
     }
 
     /**
@@ -159,7 +162,7 @@ export default class FazPagination extends StacheElement {
         if (this.disabled) {
             return voidHref;
         }
-        return validHef;
+        return validHef.replace("{page}", this.currentPageComputed);
     }
 
     callPageCallback(page) {
