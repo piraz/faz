@@ -1,31 +1,25 @@
 import {assign, StacheElement, type} from "can";
-import $ from "jquery";
+
+import paginationTemplate from "./stache/pagination.stache";
 
 export default class FazPagination extends StacheElement {
-    static view =`
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                {{# for(page of pagesInCurrentBlock) }}
-                <li class="page-item{{#if(isCurrentPage(page)}}  active{{/if}}"><a class="page-link" href="#">{{ page }}{{#if(isCurrentPage(page)}}   <span class="sr-only">(current)</span>{{/if}}</a></li>
-                {{/ for }}
-              </ul>
-            </nav>`;
+    static view = paginationTemplate;
 
     static get props() {
         return {
-            isLoading: {type: Boolean, default: true},
             currentPage: {type: type.convert(Number), default: 1},
             pagesPerBlock: {type: type.convert(Number), default: 10},
             records: {type: type.convert(Number), default: 0},
             recordsPerPage: {type: type.convert(Number), default: 10},
-            start: {type: type.convert(Number), default: 1},
-            end: {type: type.convert(Number), default: 1},
+            debug : {type: type.convert(Boolean), default: false},
             get pages() {
                 if (this.records == 0) {
                     return 1;
                 }
-                return Math.floor((this.records/this.recordsPerPage) +
-                    ((this.records % this.recordsPerPage) > 0 ? 1 : 0));
+                let pagesFloor = Math.floor(this.records/this.recordsPerPage);
+                let remainder = this.records % this.recordsPerPage;
+                let addRemainder = remainder > 0 ? 1 : 0;
+                return pagesFloor + addRemainder;
             },
             get currentPageComputed() {
                 if (this.pages < this.currentPage ||
@@ -36,28 +30,29 @@ export default class FazPagination extends StacheElement {
             },
             get recordsInLastPage() {
                 let lastPageRemainder = this.records % this.recordsPerPage;
-                return Math.floor(lastPageRemainder > 0 ? lastPageRemainder :
-                    this.recordsPerPage);
+                return lastPageRemainder > 0 ? lastPageRemainder :
+                    this.recordsPerPage;
             },
             get blocks() {
-                return Math.floor((this.pages / this.pagesPerBlock) +
-                    this.pages % this.pagesPerBlock > 0 ? 1 : 0);
+                let blocksFloor = Math.floor(this.pages / this.pagesPerBlock);
+                let addReminder = this.pages % this.pagesPerBlock > 0 ? 1 : 0;
+                return blocksFloor + addReminder;
             },
             get pagesInLastBlock() {
                 if (this.pages < this.pagesPerBlock) {
                     return this.pages;
                 }
                 let lastBlockRemainder = this.pages % this.pagesPerBlock;
-                return Math.floor(lastBlockRemainder > 0 ? lastBlockRemainder :
-                    this.pagesPerBlock);
+                return lastBlockRemainder > 0 ? lastBlockRemainder :
+                    this.pagesPerBlock;
             },
-            get currentFirstRegister() {
+            get currentFirstRecord() {
                 return (this.currentPageComputed * this.recordsPerPage) -
                     this.recordsPerPage + 1;
             },
-            get currentLastRegister() {
+            get currentLastRecord() {
                 if (this.currentPageComputed == this.pages) {
-                    return this.currentFirstRegister +
+                    return this.currentFirstRecord +
                         this.recordsInLastPage - 1;
                 }
                 return this.currentPageComputed * this.recordsPerPage;
@@ -66,10 +61,11 @@ export default class FazPagination extends StacheElement {
                 if (this.currentPageComputed <= this.pagesPerBlock) {
                     return 1;
                 }
-                return Math.floor(
-                    (this.currentPageComputed / this.pagesPerBlock) +
-                    this.currentPageComputed / this.pagesPerBlock > 0 ? 1 : 0
-                );
+                let currentBlockFloor = Math.floor(
+                    this.currentPageComputed / this.pagesPerBlock);
+                let remainder = this.currentPageComputed % this.pagesPerBlock;
+                let addRemainder = remainder > 0 ? 1 : 0;
+                return currentBlockFloor + addRemainder;
             },
             get currentFirstPage() {
                 return (this.currentBlock * this.pagesPerBlock) -
@@ -93,25 +89,29 @@ export default class FazPagination extends StacheElement {
         };
     }
 
-
     connectedCallback() {
         let attributes = {};
         for(let attribute of this.attributes) {
             switch (attribute.name.toLowerCase()) {
+                case "debug":
+                    attributes["debug"] = attribute.value;
+                    break;
                 case "currentpage":
                     attributes["currentPage"] = attribute.value;
+                    break;
                 case "pagesperblock":
                     attributes["pagesPerBlock"] = attribute.value;
-                default:
-                    attributes[attribute.name.toLowerCase()] = attribute.value;
+                    break;
+                case "records":
+                    attributes["records"] = attribute.value;
                     break;
             }
         }
-        console.log(attributes);
-        console.log(this);
         assign(this, attributes);
         super.connectedCallback();
     }
+
+
 
     static get seal() {
         return true;
