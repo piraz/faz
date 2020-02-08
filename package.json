@@ -45,6 +45,11 @@
   "steal": {
     "plugins": [
       "steal-stache"
-    ]
+    ],
+    "babelOptions": {
+      "plugins": [
+        "transform-class-properties"
+      ]
+    }
   }
 }
