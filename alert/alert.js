@@ -1,12 +1,10 @@
 import {StacheElement, type} from "can";
 import $ from "jquery";
 
+import alertTemplate from "./stache/alert.stache";
+
 export default class FazAlert extends StacheElement {
-    static view =`{{# isLoading}}
-            <div class="alert alert-primary" role="alert">Loading...</div>
-            {{ else }}
-            <div class="alert alert-primary" role="alert">{{{ content }}}</div>
-            {{/ isLoading}}`;
+    static view = alertTemplate;
 
     static get props() {
         return {

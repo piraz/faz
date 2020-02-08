@@ -1,6 +1,6 @@
 import { ObservableObject, type } from "can";
 
-import alertTemplate from "./alert.stache"
+import alertTemplate from "./stache/alert.stache"
 import $ from "jquery";
 
 /**
