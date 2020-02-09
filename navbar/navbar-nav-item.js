@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-import $ from "jquery";
-
-import {ObservableArray, route, RoutePushstate, stache, type} from "can";
+import {ObservableArray, stache, type} from "can";
 
 import { default as  FazItem } from "../item";
 

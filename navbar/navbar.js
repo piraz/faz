@@ -18,7 +18,6 @@ import {
     ajax, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
-import $ from "jquery";
 import { default as ID } from "../id";
 import {default as FazNavbarBrand} from "./navbar-brand";
 import {default as FazNavbarNav} from "./navbar-nav";

@@ -16,8 +16,6 @@
 
 import { default as FazItem } from "../item";
 
-import { stache } from "can";
-
 import navbarBrandTemplate from "./stache/navbar-brand.stache";
 
 /**
