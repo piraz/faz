@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 import { default as FazItem } from "../item";
 
-import { stache } from "can";
+import navbarBrandTemplate from "./stache/navbar-brand.stache";
 
 /**
  *
@@ -29,13 +29,7 @@ import { stache } from "can";
 class FazNavbarBrand extends FazItem {
 
     get html() {
-        let view = stache(
-`{{#if (isLink)}}
-    <a class="navbar-brand" href="{{ href }}">{{{ content }}}</a>
-{{else}}
-    <span class="navbar-brand mb-0 h1">{{{ content }}}</span>
-{{/if}}`
-        );
+        let view = navbarBrandTemplate;
         return view(this);
     }
 

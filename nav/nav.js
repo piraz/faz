@@ -18,7 +18,6 @@ import {
     assign, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
-import $ from "jquery";
 import { default as ID } from "../id";
 import { FazNavItem, FazNavItemList } from "./nav-item";
 import { FazNavTabContent, FazNavTabContentList } from "./nav-tab-content";

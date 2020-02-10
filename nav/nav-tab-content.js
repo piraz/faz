@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-import {
-    assign,
-    DefineList,
-    DefineMap, ObservableArray,
-    ObservableObject,
-    Scope,
-    StacheElement,
-    type
-} from "can";
+import { assign, ObservableArray, type } from "can";
 
 import tabContentTemplate from "./stache/nav-tab-content.stache";
 import {default as FazItem} from "../item";
-import {default as ID} from "../id";
-import {FazNavItem, FazNavItemList} from "./nav-item";
-import $ from "jquery";
 
 /**
  *

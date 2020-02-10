@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Candango Faz Toolkit - Alerts</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/node_modules/steal/steal.js" main="faz/app/pagination"></script>
+    <link href="/stylesheets/faz.css" rel="stylesheet"/>
+    <link href="/stylesheets/showcase.css" rel="stylesheet"/>
+    <!-- Custom styles for this template -->
+</head>
+
+<body>
+<main-navbar></main-navbar>
+
+<main role="main" class="container">
+
+    <h1>Pagination</h1>
+
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-pagination page-callback="showPage" debug="true" records="9"></faz-pagination>
+                <faz-pagination href="#mypagination-{page}" debug="true" current-page="4" records="91"></faz-pagination>
+                <faz-pagination debug="true" current-page="11" records="110"></faz-pagination>
+                <faz-pagination debug="true" current-page="11" records="117"></faz-pagination>
+                <faz-pagination debug="true" current-page="48" records="1267"></faz-pagination>
+                <faz-pagination debug="true" current-page="125" records="1267"></faz-pagination>
+            </li>
+            <li class="list-group-item"><pre class="prettyprint lang-html linenums">&lt;faz-alert&gt;An alert&lt;/faz-alert&gt;</pre>
+            </li>
+        </ul>
+    </div>
+
+    <script language="JavaScript">
+        function showPage(page, pagination){
+            console.log(page);
+            console.log(pagination);
+        }
+    </script>
+
+</main><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst"></script>
+
+</body>
+</html>

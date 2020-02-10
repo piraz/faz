@@ -1,5 +1,5 @@
 {{#if (isLink)}}
-    <a id:from="id" class="navbar-brand" href="{{ href }}">{{{ content }}}</a>
+    <a class="navbar-brand" href="{{ href }}">{{{ content }}}</a>
 {{else}}
-    <span id:from="id" class="navbar-brand mb-0 h1">{{{ content }}}</span>
+    <span class="navbar-brand mb-0 h1">{{{ content }}}</span>
 {{/if}}

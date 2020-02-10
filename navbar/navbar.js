@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,24 +18,11 @@ import {
     ajax, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
-import $ from "jquery";
 import { default as ID } from "../id";
 import {default as FazNavbarBrand} from "./navbar-brand";
 import {default as FazNavbarNav} from "./navbar-nav";
 
-let navbarTemplate =
-`{{# this.isLoading}}
-    <div>Loading...</div>
-{{ else }}
-    <nav id:from="id" class:from="class">
-    {{#brand}}
-        {{{ this.html }}}
-    {{/brand}}
-    {{#nav}}
-        {{ this.html }}
-    {{/nav}}
-    </nav>
-{{/ this.isLoading}}`;
+import navbarTemplate from "./stache/navbar.stache";
 
 export default class FazNavbar extends StacheElement {
     static view = navbarTemplate;
@@ -146,7 +133,7 @@ export default class FazNavbar extends StacheElement {
         for(let attribute of this.attributes) {
             switch (attribute.name) {
                 case "id":
-                    this.id = attribute.value;
+                    this.navbarId = attribute.value;
                     break;
                 case "class":
                     this.extraClasses = attribute.value;

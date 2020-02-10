@@ -25,6 +25,11 @@
         "id": "navNavbar",
         "href": "/navbar",
         "value": "Navbar"
+      },
+      {
+        "id": "navPagination",
+        "href": "/pagination",
+        "value": "Pagination"
       }
     ]
   }

@@ -1,9 +1,9 @@
 import { ObservableObject, StacheElement, type } from "can";
 
+import mainNavbarTemplate from "./stache/main-navbar.stache";
+
 export default class MainNavbar extends StacheElement {
-    static view = `<faz-navbar id="navbarIndex"
-        source="/app/main-navbar-data.json" type="dark"
-        class="navbar-expand-md fixed-top"></faz-navbar>`;
+    static view = mainNavbarTemplate;
 
     static get props() {
         return {

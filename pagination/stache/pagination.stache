@@ -1,0 +1,76 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {{# hasMultipleBlocks}}
+        <li class="page-item{{#if(../isFirstPage}} disabled{{/if}}">
+            <a class="page-link" on:click="../gotToFirstPage()" href:from="../getHref()"{{#if(../isFirstPage}} aria-disabled="true"{{/if}}>{{ ../firstPageLabel }}</a>
+        </li>
+        {{/ hasMultipleBlocks }}
+        <li class="page-item{{#if(isFirstPage}} disabled{{/if}}">
+            <a class="page-link" on:click="gotToPreviousPage()" href:from="getHref()"{{#if(isFirstPage}} aria-disabled="true"{{/if}}>{{ previousLabel }}</a>
+        </li>
+        {{# for(page of pagesInCurrentBlock) }}
+            <li class="page-item{{#if(isCurrentPage(page)}} active{{/if}}">
+                <a class="page-link" on:click="goToPage(page)" href:from="getHref()">{{ page }}{{#if(isCurrentPage(page)}} <span class="sr-only">(current)</span>{{/if}}</a>
+            </li>
+        {{/ for }}
+        <li class="page-item{{#if(isLastPage}} disabled{{/if}}">
+            <a class="page-link" on:click="gotToNextPage()" href:from="getHref()"{{#if(isLastPage}} aria-disabled="true"{{/if}}>{{ nextLabel }}</a>
+        </li>
+        {{# hasMultipleBlocks}}
+            <li class="page-item{{#if(../isLastPage}} disabled{{/if}}">
+                <a class="page-link" on:click="../gotToLastPage()" href:from="../getHref()"{{#if(../isLastPage}} aria-disabled="true"{{/if}}>{{ ../lastPageLabel }}</a>
+            </li>
+        {{/ hasMultipleBlocks }}
+    </ul>
+</nav>
+{{# debug}}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Records Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Records:</dt>
+            <dd class="col-sm-9">{{../records}}</dd>
+            <dt class="col-sm-3">Current First Record:</dt>
+            <dd class="col-sm-9">{{../currentFirstRecord}}</dd>
+            <dt class="col-sm-3">Current Last Record:</dt>
+            <dd class="col-sm-9">{{../currentLastRecord}}</dd>
+        </dl>
+
+        <h5 class="card-title">Pages Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Pages:</dt>
+            <dd class="col-sm-9">{{../pages}}</dd>
+            <dt class="col-sm-3">Current Page:</dt>
+            <dd class="col-sm-9">{{../currentPage}}</dd>
+            <dt class="col-sm-3">Current Page Computed:</dt>
+            <dd class="col-sm-9">{{../currentPageComputed}}</dd>
+            <dt class="col-sm-3">Current First Page:</dt>
+            <dd class="col-sm-9">{{../currentFirstPage}}</dd>
+            <dt class="col-sm-3">Current Last Page:</dt>
+            <dd class="col-sm-9">{{../currentLastPage}}</dd>
+            <dt class="col-sm-3">Records per page:</dt>
+            <dd class="col-sm-9">{{../recordsPerPage}}</dd>
+            <dt class="col-sm-3">Records in last page:</dt>
+            <dd class="col-sm-9">{{../recordsInLastPage}}</dd>
+            <dt class="col-sm-3">Is first page:</dt>
+            <dd class="col-sm-9">{{../isFirstPage}}</dd>
+            <dt class="col-sm-3">Is last page:</dt>
+            <dd class="col-sm-9">{{../isLastPage}}</dd>
+        </dl>
+
+        <h5 class="card-title">Blocks Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Blocks:</dt>
+            <dd class="col-sm-9">{{../blocks}}</dd>
+            <dt class="col-sm-3">Current Block:</dt>
+            <dd class="col-sm-9">{{../currentBlock}}</dd>
+            <dt class="col-sm-3">Pages per Block:</dt>
+            <dd class="col-sm-9">{{../pagesPerBlock}}</dd>
+            <dt class="col-sm-3">Pages in last Block:</dt>
+            <dd class="col-sm-9">{{../pagesInLastBlock}}</dd>
+            <dt class="col-sm-3">Has Multiple Blocks:</dt>
+            <dd class="col-sm-9">{{../hasMultipleBlocks}}</dd>
+        </dl>
+    </div>
+</div>
+{{/debug}}

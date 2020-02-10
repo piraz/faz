@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2019 Flavio Garcia
+ * Copyright 2018-2020 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,9 @@ import { default as FazItem } from "../item";
 import { default as FazNavbarNavItem,
     FazNavbarNavItemList } from "./navbar-nav-item";
 
-import {ObservableObject, type} from "can";
+import { ObservableObject } from "can";
 
 import navTemplate from "./stache/navbar-nav.stache";
-
-import $ from "jquery";
 
 /**
  *

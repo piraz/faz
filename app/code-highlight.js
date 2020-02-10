@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 import hljs from "highlight.js/lib/highlight";
 import "highlightjs-line-numbers.js";
 import xml from "highlight.js/lib/languages/xml";

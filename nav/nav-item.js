@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import $ from "jquery";
 
 import {assign, ObservableArray, type} from "can";
 
