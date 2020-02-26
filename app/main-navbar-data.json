@@ -5,7 +5,7 @@
     "value": "Faz"
   },
   "nav": {
-    "items": [
+    "children": [
       {
         "id": "navIndex",
         "href": "/",
@@ -15,6 +15,11 @@
         "id": "navAlert",
         "href": "/alert",
         "value": "Alert"
+      },
+      {
+        "id": "navBreadcrumb",
+        "href": "/breadcrumb",
+        "value": "Breadcrumb"
       },
       {
         "id": "navNav",
