@@ -1,10 +1,7 @@
-{{# brand }}
-    {{ this.html }}
-{{/ brand }}
-<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-        {{#each (items, item=value)}}
+<div class="collapse navbar-collapse" id:from="id">
+    <ul class="navbar-nav">
+        {{#each (children, item=value)}}
             {{ item.html }}
         {{/each}}
-    </div>
+    </ul>
 </div>

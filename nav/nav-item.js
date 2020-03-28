@@ -109,7 +109,26 @@ export class FazNavItem extends FazItem {
         this.parent = parent;
     }
 
-    activate() {
+    activate(element, event) {
+        if(element !== undefined) {
+            // Responsive Dropdown Submenu fix
+            // Based on https://codepen.io/surjithctly/pen/PJqKzQ
+            if(this.dropdown) {
+                if (this.isRoot) {
+                    $('.dropdown-submenu .show').removeClass("show");
+                } else {
+                    if (!$(element).next().hasClass("show")) {
+                        $(element).parents(".dropdown-menu").first().find(
+                            ".show").removeClass("show");
+                    }
+                    let subMenu = $(element).next(".dropdown-menu");
+                    subMenu.toggleClass('show');
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }
+        }
+
         if (!this.disabled) {
             if (this.parent != null) {
                 this.parent.items.active.forEach(function(child) {
@@ -194,46 +213,6 @@ export class FazNavItem extends FazItem {
             this.content = element.innerHTML;
         }
     }
-
-    process(parent, element, activeItem) {
-        this.parent = parent;
-        //if(this.isRoot) {
-            element.detach();
-        //}
-        this.element = element;
-        this.id = this.element.prop("id");
-        if(this.element.attr("disabled") !== undefined) {
-            this.disabled = this.element.attr("disabled");
-        }
-        if(activeItem != "" && this.id == activeItem) {
-            this.active = true;
-        }
-        if(this.isDropdown) {
-            this.dropdown = true;
-            this.element.children().each(function(_, child) {
-                let tagName = $(child).prop("tagName").toLowerCase();
-                if(tagName == "title") {
-                    this.value = $(child).html();
-                } else if(tagName == "children") {
-                    $(child).each(function(_, item) {
-                        $(item).children().each(function(_, itemChild) {
-                            let navItem = new FazNavItem();
-                            navItem.process(this, $(itemChild), activeItem);
-                            this.children.push(navItem);
-                        }.bind(this));
-                    }.bind(this));
-                }
-            }.bind(this));
-        } else {
-            this.value = this.element.html();
-        }
-        if(this.element.attr("href") != undefined) {
-            this.href = this.element.attr("href");
-        }
-        if(this.element.attr("target") != undefined) {
-            this.target = this.element.attr("target");
-        }
-    }
 }
 
 export class FazNavItemList extends ObservableArray {
@@ -251,25 +230,3 @@ export class FazNavItemList extends ObservableArray {
 
     static items = type.convert(FazNavItem);
 }
-
-steal.done().then(function() {
-    // Responsive Dropdown Submenu fix
-    // Got from https://codepen.io/surjithctly/pen/PJqKzQ
-    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
-      if (!$(this).next().hasClass('show')) {
-        $(this).parents('.dropdown-menu').first().find(
-            '.show').removeClass("show");
-      }
-
-      let subMenu = $(this).next(".dropdown-menu");
-
-      subMenu.toggleClass('show');
-
-      $(this).parents('li.nav-item.dropdown.show').on(
-          'hidden.bs.dropdown', function(e) {
-        $('.dropdown-submenu .show').removeClass("show");
-      });
-
-      return false;
-    });
-});

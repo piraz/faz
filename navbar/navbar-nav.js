@@ -22,6 +22,7 @@ import { default as FazNavbarNavItem,
 import { ObservableObject } from "can";
 
 import navTemplate from "./stache/navbar-nav.stache";
+import {FazNavItem} from "../nav/nav-item";
 
 /**
  *
@@ -35,7 +36,7 @@ class FazNavbarNav extends FazItem {
     static get props() {
         return $.extend(super.props, {
             brand: ObservableObject,
-            items: {
+            children: {
                 type: FazNavbarNavItemList,
                 get default() {
                     return new FazNavbarNavItemList([]);
@@ -49,20 +50,26 @@ class FazNavbarNav extends FazItem {
     }
 
     process(parent, element) {
-        element.find("faz-navbar-nav-item").each(function (_, item) {
-            this.processItem($(item));
+        this.parent = parent;
+        $(element).detach();
+        element.querySelectorAll("children > faz-navbar-nav-item"
+        ).forEach(function(item) {
+            let navbarNavItem = new FazNavbarNavItem();
+            navbarNavItem.process(this, item);
+            this.children.push(navbarNavItem);
         }.bind(this));
-        element.find("faz-navbar-nav-item").each(function (_, item) {
-            this.processItem($(item));
-        }.bind(this));
-        this.content = element.html();
+        console.log(this.children);
+
+        //this.content = element.html();
     }
 
     processData(parent, data) {
-        data.items.forEach(function(item) {
+        this.parent = parent;
+
+        data.children.forEach(function(item) {
             let navbarNavItem = new FazNavbarNavItem();
             navbarNavItem.processData(this, item);
-            this.items.push(navbarNavItem);
+            this.children.push(navbarNavItem);
         }.bind(this));
     }
 
@@ -70,7 +77,7 @@ class FazNavbarNav extends FazItem {
         item.detach();
         let navbarNavItem = new FazNavbarNavItem();
         navbarNavItem.process(this, item);
-        this.items.push(navbarNavItem);
+        this.children.push(navbarNavItem);
     }
 
     static get seal() {
