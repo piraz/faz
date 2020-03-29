@@ -1,11 +1,12 @@
 import QUnit from "steal-qunit";
 
-import { default as NavItem } from "nav/nav-item";
-import NavViewModel from "nav/nav-view-model";
+import { default as FazNav } from "nav/nav";
+import { FazNavItem } from "nav/nav-item";
+import $ from "jquery"
 
 QUnit.module("faz/nav/nav-item");
 
-let item = new NavItem();
+let item = new FazNavItem();
 
 QUnit.test("NavItem defaults.", function(assert) {
     assert.equal(
@@ -32,7 +33,7 @@ QUnit.test("NavItem getHref.", function(assert) {
     );
 
     item.disabled = false;
-    item.parent = new NavViewModel();
+    item.parent = new FazNav();
 
     assert.equal(
         item.getHref(),
@@ -66,19 +67,19 @@ QUnit.test("NavItem getHref.", function(assert) {
     assert.equal(
         item.getHref(),
         item.href,
-        "When enabled and parent tabs isn't tre and url isn't empty: \"item.html\"."
+        "When enabled and parent tabs isn't true and url isn't empty: \"item.html\"."
     );
 });
 
 QUnit.module("faz/nav/nav-view-model");
 
-let viewModel = new NavViewModel();
+let fazNav = new FazNav();
 
-QUnit.test("NavViewModel defaults.", function(assert) {
+QUnit.test("FazNav defaults.", function(assert) {
     assert.equal(
-        viewModel.justify,
+        fazNav.justify,
         "left",
         "View model justify default is left."
     );
-    assert.equal(viewModel.fill, false, "View model fill default is false.");
+    assert.equal(fazNav.fill, false, "View model fill default is false.");
 });

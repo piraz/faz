@@ -1,0 +1,7 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {{#each (items, item=value)}}
+            {{ item.html }}
+        {{/each}}
+    </ol>
+</nav>

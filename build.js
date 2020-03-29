@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var stealTools = require("steal-tools");
+let stealTools = require("steal-tools");
 
 stealTools.build({
     main: [

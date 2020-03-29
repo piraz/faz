@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {ObservableArray, stache, type} from "can";
+import {assign, ObservableArray, stache, type} from "can";
 
 import { default as  FazItem } from "../item";
 
@@ -50,10 +50,8 @@ class FazNavbarNavItem extends FazItem {
     get html() {
         let view = stache(
         `<li class="nav-item">
-            <a class:from="class" {{#if isLink}}href:from="getHref()"{{/if}}>
-            {{ value }}
-            </a>
-        </li>`
+    <a id:from="id" class:from="class" {{#if isLink}}href:from="getHref()"{{/if}}>{{ value }}</a>
+</li>`
         );
         return view(this);
     }
@@ -101,9 +99,17 @@ class FazNavbarNavItem extends FazItem {
     process(parent, element) {
         this.parent = parent;
         this.element = element;
-        this.value = element.html();
-        this.href = this.element.attr("href");
-        this.active = this.element.attr("current") === undefined ? false: true;
+        for(let attribute of element.attributes) {
+            switch (attribute.name.toLowerCase()) {
+                case "current":
+                    this.active = true;
+                    break;
+                case "href":
+                    this.href = attribute.value;
+                    break;
+            }
+        }
+        this.value = element.innerHTML;
     }
     processData(parent, data) {
         this.parent = parent;

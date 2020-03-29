@@ -102,7 +102,7 @@ export default class FazNavbar extends StacheElement {
     }
 
     processNav(nav) {
-        nav.detach();
+        $(nav).detach();
         if(!this.nav) {
             let navbarNav = new FazNavbarNav();
             navbarNav.process(this, nav);
@@ -151,14 +151,16 @@ export default class FazNavbar extends StacheElement {
             this.processBrand($(brand));
         }.bind(this));
 
-        if(!this.source) {
-            console.log("Finished connected callback " + this.id);
-        }
+        $(this).find("faz-navbar-nav").each(function (_, nav) {
+            this.processNav(nav);
+        }.bind(this));
+
         this.isLoading = false;
         super.connectedCallback();
     }
 
     connected() {
+        console.log(this.source);
         if(this.source!="") {
             this.isLoading = true;
             ajax({
