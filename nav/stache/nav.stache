@@ -1,37 +1,41 @@
-{{#hasTabContents}}
-    {{#if(../vertical)}}
-        <div class="row">
-            <div class="col-3">
-                <div class:from="../componentClass" id:from="../id" role="tablist" aria-orientation:from="../orientation">
-                    {{#each (scope.top.items, item=value)}}
-                        {{ item.html }}
-                    {{/each}}
+{{# this.isLoading}}
+    <div>Loading...</div>
+{{ else }}
+    {{#hasTabContents}}
+        {{#if(../vertical)}}
+            <div class="row">
+                <div class="col-3">
+                    <div class:from="../componentClass" id:from="../id" role="tablist" aria-orientation:from="../orientation">
+                        {{#each (scope.top.items, item=value)}}
+                            {{ item.html }}
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="tab-content">
+                        {{#each (scope.top.tabContents, tabContent=value)}}
+                            {{ tabContent.html }}
+                        {{/each}}
+                    </div>
                 </div>
             </div>
-            <div class="col-9">
-                <div class="tab-content">
-                    {{#each (scope.top.tabContents, tabContent=value)}}
-                        {{ tabContent.html }}
-                    {{/each}}
-                </div>
+        {{else}}
+            <div class:from="../componentClass" id:from="../id" role="tablist" aria-orientation:from="../orientation">
+                {{#each (../items, item=value)}}
+                    {{ item.html }}
+                {{/each}}
             </div>
-        </div>
-    {{else}}
-        <div class:from="../componentClass" id:from="../id" role="tablist" aria-orientation:from="../orientation">
-            {{#each (../items, item=value)}}
-                {{ item.html }}
+        {{/if}}
+        <div class="tab-content">
+            {{#each (../tabContents, tabContent=value)}}
+                {{ tabContent.html }}
             {{/each}}
         </div>
-    {{/if}}
-    <div class="tab-content">
-        {{#each (../tabContents, tabContent=value)}}
-            {{ tabContent.html }}
-        {{/each}}
-    </div>
-{{else}}
-    <nav class:from="componentClass" id:from="id" aria-orientation:from="orientation">
-        {{#each (scope.top.items, item=value)}}
-            {{ item.html }}
-        {{/each}}
-    </nav>
-{{/hasTabContents}}
+    {{else}}
+        <nav class:from="componentClass" id:from="id" aria-orientation:from="orientation">
+            {{#each (scope.top.items, item=value)}}
+                {{ item.html }}
+            {{/each}}
+        </nav>
+    {{/hasTabContents}}
+{{/ this.isLoading }}

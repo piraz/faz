@@ -100,7 +100,12 @@ export default class FazNav extends StacheElement {
         return DeepObservable;
     }
 
+    show() {
+        $(this).addClass("faz-nav-rendered");
+    }
+
     connectedCallback() {
+        this.show();
         let attributes = {};
         for(let attribute of this.attributes) {
 
@@ -127,7 +132,7 @@ export default class FazNav extends StacheElement {
         };
         this.querySelectorAll("faz-nav > faz-nav-item").forEach(function(item) {
             let navItem = new FazNavItem();
-            navItem.processElement(this, item);
+            navItem.processElement(this, item, true);
             this.items.push(navItem);
         }.bind(this));
 
