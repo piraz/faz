@@ -100,7 +100,12 @@ export default class FazNav extends StacheElement {
         return DeepObservable;
     }
 
+    show() {
+        $(this).addClass("faz-nav-rendered");
+    }
+
     connectedCallback() {
+        this.show();
         let attributes = {};
         for(let attribute of this.attributes) {
 
