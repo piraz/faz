@@ -40,16 +40,10 @@ export class FazNavItem extends FazItem {
                 return new FazNavItemList([]);
             }},
             root: "*",
+            isRoot: {type: type.convert(Boolean), default: false},
             value: String,
             title: String
         });
-    }
-
-    get isRoot() {
-        if(this.parent!== undefined) {
-            return this.parent.constructor.name == "FazNav";
-        }
-        return false;
     }
 
     get ariaControls() {
@@ -174,10 +168,12 @@ export class FazNavItem extends FazItem {
         return validHef;
     }
 
-    processElement(parent, element) {
+    processElement(parent, element, isRoot=false) {
         this.parent = parent;
-        if (parent.constructor.name == "FazNav") {
+
+        if (isRoot) {
             this.root = parent;
+            this.isRoot = true;
         } else {
             this.root = parent.root;
         }
