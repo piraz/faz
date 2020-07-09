@@ -8,10 +8,11 @@
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "bootstrap": "4.4.1",
-    "can": "6.4.0",
+    "bootstrap": "4.5.0",
+    "bootstrap-icons": "1.0.0-alpha5",
+    "can": "6.5.0",
     "jquery": "3.5.0",
-    "less": "3.11.1",
+    "less": "3.11.3",
     "popper.js": "1.16.1"
   },
   "scripts": {
@@ -31,17 +32,16 @@
     "toolkit"
   ],
   "devDependencies": {
-    "http-server": "0.12.1",
-    "qunit": "2.9.3",
+    "http-server": "0.12.3",
+    "qunit": "2.10.1",
     "steal": "2.2.4",
     "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.6",
     "rollup": "1.32.1",
     "testee": "0.9.1",
-    "can-migrate": "2.3.2",
-    "electron": "7.2.1",
-    "bootswatch": "4.4.1"
+    "electron": "7.3.2",
+    "bootswatch": "4.5.0"
   },
   "steal": {
     "plugins": [
