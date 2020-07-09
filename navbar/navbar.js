@@ -21,6 +21,7 @@ import {
 import { default as ID } from "../id";
 import {default as FazNavbarBrand} from "./navbar-brand";
 import {default as FazNavbarNav} from "./navbar-nav";
+import FazNavbarToggler from "./navbar-toggler";
 
 import navbarTemplate from "./stache/navbar.stache";
 
@@ -42,6 +43,7 @@ export default class FazNavbar extends StacheElement {
             },
             source: {type: String, default: ""},
             brand: ObservableObject,
+            toggler: ObservableObject,
             nav: ObservableObject,
             extraClasses: String,
             type: {type: type.convert(String), default: "light"},
@@ -121,6 +123,18 @@ export default class FazNavbar extends StacheElement {
         } else {
             console.warn("Faz Navbar nav is unique. Please remove " +
                 "extra navs declared into this object.")
+        }
+    }
+
+    processToggler(toggler) {
+        $(toggler).detach();
+        if(!this.toggler) {
+            let navbarToggler = new FazNavbarToggler();
+            navbarToggler.process(toggler);
+            this.toggler = navbarToggler;
+        } else {
+            console.warn("Faz Navbar toggler is unique. Please remove " +
+                "extra togglers declared into this object.")
         }
     }
 

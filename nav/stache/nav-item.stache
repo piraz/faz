@@ -1,5 +1,6 @@
 {{# dropdown }}
     {{# ../isRoot }}
+    <!-- nav root dropdowns-->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" on:click="../activate(scope.element)" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ ../content }}</a>
         <ul class="dropdown-menu">
@@ -9,6 +10,7 @@
         </ul>
     </li>
     {{else}}
+    <!-- Dropdown items dropdowns -->
     <li class="dropdown-submenu">
         <a class="dropdown-item dropdown-toggle" on:click="../activate(scope.element, scope.event)" href="#">{{ ../content }}</a>
         <ul class="dropdown-menu">
@@ -20,11 +22,13 @@
     {{/ ../isRoot }}
 {{else}}
     {{# isRoot }}
+    <!-- nav roots and tabs items -->
     <li class="nav-item">
-        <a id:from="../id" class:from="../class" target:from="../target" href:from="../getHref()" aria-controls:from="../ariaControls" aria-selected:from="../ariaSelected">{{ ../content }}</a>
+        <a id:from="../id" class:from="../class" target:from="../target" on:click="../activate(scope.element, scope.event)" href:from="../getHref()" aria-controls:from="../ariaControls" aria-selected:from="../ariaSelected">{{ ../content }}</a>
     </li>
     {{else}}
     <li>
+        <!-- Dropdown items without parent -->
         <a id:from="id" class="dropdown-item buga" role="tab" target:from="target"  href:from="getHref()">{{ content }}</a>
     </li>
     {{/ isRoot }}
