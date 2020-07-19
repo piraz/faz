@@ -10,9 +10,10 @@
   "dependencies": {
     "bootstrap": "4.5.0",
     "bootstrap-icons": "1.0.0-alpha5",
+    "bootswatch": "4.5.0",
     "can": "6.5.0",
     "jquery": "3.5.0",
-    "less": "3.11.3",
+    "less": "3.12.2",
     "popper.js": "1.16.1"
   },
   "scripts": {
@@ -38,10 +39,9 @@
     "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.6",
-    "rollup": "1.32.1",
+    "rollup": "2.22.1",
     "testee": "0.9.1",
-    "electron": "7.3.2",
-    "bootswatch": "4.5.0"
+    "electron": "9.1.0"
   },
   "steal": {
     "plugins": [
