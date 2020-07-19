@@ -40,6 +40,7 @@ class FazItem extends ObservableObject {
             element: type.convert(ObservableObject),
             href: String,
             parent: "*",
+            type: String,
             get isLink() {
                 return this.href !== undefined;
             }
