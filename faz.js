@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export {default as FazForm} from "./form";
+
 export * from "./components";
