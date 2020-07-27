@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
+import { type } from "can";
 import { default as FazItem } from "../item";
-
 import navbarTogglerTemplate from "./stache/navbar-toggler.stache";
-import {type} from "can";
-import {FazNavbarNavItemList} from "./navbar-nav-item";
 
 /**
  *

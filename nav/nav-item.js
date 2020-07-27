@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-
-import {assign, ObservableArray, type} from "can";
-
+import { assign, ObservableArray, type } from "can";
 import { default as  FazItem } from "../item";
-
 import itemTemplate from "./stache/nav-item.stache";
-
 
 /**
  *

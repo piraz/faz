@@ -18,11 +18,11 @@ import {
     ajax, DeepObservable, ObservableArray, ObservableObject, StacheElement, type
 } from "can";
 
-import ID from "../id";
-import FazItem from "../item";
-import FazNavbarBrand from "./navbar-brand";
-import FazNavbarNav from "./navbar-nav";
-import FazNavbarToggler from "./navbar-toggler";
+import { default as ID } from "../id";
+import { default as FazItem } from "../item";
+import { default as FazNavbarBrand } from "./navbar-brand";
+import { default as FazNavbarNav } from "./navbar-nav";
+import { default as FazNavbarToggler } from "./navbar-toggler";
 
 import navbarTemplate from "./stache/navbar.stache";
 import {FazNavbarNavItemList} from "./navbar-nav-item";

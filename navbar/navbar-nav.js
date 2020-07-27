@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
+import { ObservableObject } from "can";
 import { default as FazItem } from "../item";
-
 import { default as FazNavbarNavItem,
     FazNavbarNavItemList } from "./navbar-nav-item";
-
-import { ObservableObject } from "can";
-
 import navTemplate from "./stache/navbar-nav.stache";
-import {FazNavItem} from "../nav/nav-item";
 
 /**
  *

@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import {assign, ObservableArray, stache, type} from "can";
-
+import { ObservableArray, stache, type } from "can";
 import { default as  FazItem } from "../item";
-
-import FazNavbarNav from "./navbar-nav";
+import {default as FazNavbarNav } from "./navbar-nav";
 
 /**
  *
