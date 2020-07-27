@@ -16,11 +16,9 @@
 
 import { FazForm, FazNavbar } from "../faz";
 
-import { MainNavbar } from "../app/main-navbar";
+import { default as MainNavbar } from "../app/main-navbar";
 
 import formExampleTemplate  from "./stache/form-example.stache";
-import {type} from "can";
-import {FazNavItemList} from "../nav/nav-item";
 
 export default class FormExample extends FazForm {
     static view = formExampleTemplate;
