@@ -15,10 +15,10 @@
  */
 
 import { default as ID } from "./id";
-import { ObservableObject, type } from "can";
-import DeepObservable from "can-deep-observable";
+import { StacheElement, type, DeepObservable } from "can";
 
-class FazItem extends ObservableObject {
+
+class FazForm extends StacheElement {
     static get props() {
         return {
             id: {
@@ -28,6 +28,8 @@ class FazItem extends ObservableObject {
                 }
             },
             active: {type: type.convert(Boolean), default: false},
+            method: {type: String, default: "get"},
+            isLoading: {type: Boolean, default: true},
             // Content should be written like that so we stop main-navbar stop
             // to alter the first navbar from the example. It seems like somehow
             // they were sharing or invading contents.
@@ -37,15 +39,37 @@ class FazItem extends ObservableObject {
                     return "";
                 }
             },
-            element: type.convert(ObservableObject),
-            href: String,
-            parent: "*",
-            type: String,
-            get isLink() {
-                return this.href !== undefined;
-            }
+            action: String,
+            parent: "*"
         };
     }
+
+    initForm() {
+        for(let attribute of this.attributes) {
+            console.log(attribute);
+            switch (attribute.name) {
+                case "action":
+                    this.action = attribute.value;
+                    break;
+                case "method":
+                    this.action = attribute.value;
+                    break;
+                case "active":
+                    this.active = attribute.value;
+                    break;
+            }
+        }
+    }
+
+    connectedCallback() {
+        this.initForm();
+        super.connectedCallback();
+        this.isLoading = false;
+        this.show();
+        console.log(this);
+    }
+
+    show() {}
 
     static get propertyDefaults() {
         return DeepObservable;
@@ -57,4 +81,4 @@ class FazItem extends ObservableObject {
 
 }
 
-export default FazItem;
+export default FazForm;

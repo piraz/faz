@@ -1,0 +1,22 @@
+<h1>Form Example</h1>
+
+<form method:from="method" action:from="action">
+    <div class="form-group">
+        <div class="card">
+            <h5 class="card-header">Form Example</h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="property1">Property 1</label>
+                    <input type="text" class="form-control" id="property1" name="property1" aria-describedby="property1" placeholder="Enter property 1" onkeyup:from="updateProperty1" value:to="property1">
+                    <small id="property1Help" class="form-text text-muted">{{#if property1Empty}}Here we add property 1.{{/if}}</small>
+                </div>
+                <div class="form-group">
+                    <label for="property2">Property 2</label>
+                    <input type="number" class="form-control" id="property2" name="property2" aria-describedby="property2" placeholder="Enter the property 2" onchange:from="updateProperty2" value:to="property2">
+                    <small id="property2Help" class="form-text text-muted">{{#if property2Empty}}Here we add property 2.{{/if}}</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

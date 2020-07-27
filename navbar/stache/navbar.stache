@@ -2,11 +2,8 @@
     <div>Loading...</div>
 {{ else }}
     <nav id:from="id" class:from="class">
-    {{#brand}}
+    {{#items}}
         {{{ this.html }}}
-    {{/brand}}
-    {{#nav}}
-        {{ this.html }}
-    {{/nav}}
+    {{/items}}
     </nav>
 {{/ this.isLoading}}

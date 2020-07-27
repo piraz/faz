@@ -58,9 +58,6 @@ class FazNavbarNav extends FazItem {
             navbarNavItem.process(this, item);
             this.children.push(navbarNavItem);
         }.bind(this));
-        console.log(this.children);
-
-        //this.content = element.html();
     }
 
     processData(parent, data) {

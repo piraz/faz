@@ -1,41 +1,45 @@
 {
-  "brand": {
-    "id": "brandFaz",
-    "href": "/",
-    "value": "Faz"
-  },
-  "nav": {
-    "children": [
-      {
-        "id": "navIndex",
-        "href": "/",
-        "value": "Index"
-      },
-      {
-        "id": "navAlert",
-        "href": "/alert",
-        "value": "Alert"
-      },
-      {
-        "id": "navBreadcrumb",
-        "href": "/breadcrumb",
-        "value": "Breadcrumb"
-      },
-      {
-        "id": "navNav",
-        "href": "/nav",
-        "value": "Nav"
-      },
-      {
-        "id": "navNavbar",
-        "href": "/navbar",
-        "value": "Navbar"
-      },
-      {
-        "id": "navPagination",
-        "href": "/pagination",
-        "value": "Pagination"
-      }
-    ]
-  }
+  "items": [
+    {
+      "type": "faz-navbar-brand",
+      "id": "brandFaz",
+      "href": "/",
+      "value": "Faz"
+    },
+    {
+      "type": "faz-navbar-nav",
+      "children": [
+        {
+          "id": "navIndex",
+          "href": "/",
+          "value": "Index"
+        },
+        {
+          "id": "navAlert",
+          "href": "/alert",
+          "value": "Alert"
+        },
+        {
+          "id": "navBreadcrumb",
+          "href": "/breadcrumb",
+          "value": "Breadcrumb"
+        },
+        {
+          "id": "navNav",
+          "href": "/nav",
+          "value": "Nav"
+        },
+        {
+          "id": "navNavbar",
+          "href": "/navbar",
+          "value": "Navbar"
+        },
+        {
+          "id": "navPagination",
+          "href": "/pagination",
+          "value": "Pagination"
+        }
+      ]
+    }
+  ]
 }
