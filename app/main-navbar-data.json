@@ -25,6 +25,11 @@
           "value": "Breadcrumb"
         },
         {
+          "id": "navForm",
+          "href": "/form",
+          "value": "Form"
+        },
+        {
           "id": "navNav",
           "href": "/nav",
           "value": "Nav"
