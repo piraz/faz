@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { default as ID } from "./id";
+import { default as ID } from "../id";
 import { DeepObservable, StacheElement, type } from "can";
 
 
