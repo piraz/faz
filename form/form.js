@@ -39,6 +39,12 @@ export default class FazForm extends StacheElement {
                     return "";
                 }
             },
+            message: {type: String, default: ""},
+            errors: {type: type.convert(ObservableArray),
+                get default() {
+                    return new ObservableArray([]);
+                }
+            },
             action: String,
             parent: "*"
         };
@@ -66,10 +72,17 @@ export default class FazForm extends StacheElement {
         super.connectedCallback();
         this.isLoading = false;
         this.show();
-        console.log(this);
     }
 
     show() {}
+
+    get hasMessage() {
+        return this.message !== "";
+    }
+
+    get hasErrors() {
+        return this.errors.length > 0;
+    }
 
     static get propertyDefaults() {
         return DeepObservable;
