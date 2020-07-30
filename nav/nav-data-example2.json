@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "type": "faz-nav-item",
+      "id": "activeData1",
+      "value": "Active Data 1"
+    },
+    {
+      "type": "faz-nav-item",
+      "id": "item1Data1",
+      "value": "Item 1 Data 1",
+      "children": [
+        {
+          "type": "faz-nav-item",
+          "id": "item1Child1Data1",
+          "value": "Item1 Child 1 Data1"
+        }
+      ]
+    },
+    {
+      "type": "faz-nav-item",
+      "id": "item2Data",
+      "value": "Item 2 Data 1"
+    },
+    {
+      "type": "faz-nav-item",
+      "id": "disabledData",
+      "value": "Disabled Data 1",
+      "disabled": "true"
+    }
+  ]
+}

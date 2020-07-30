@@ -29,7 +29,7 @@
     {{else}}
     <li>
         <!-- Dropdown items without parent -->
-        <a id:from="id" class="dropdown-item buga" role="tab" target:from="target"  href:from="getHref()">{{ content }}</a>
+        <a id:from="id" class="dropdown-item" role="tab" target:from="target"  href:from="getHref()">{{ content }}</a>
     </li>
     {{/ isRoot }}
 {{/ dropdown }}

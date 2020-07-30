@@ -15,6 +15,7 @@
  */
 
 import {
+    ajax,
     assign, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
@@ -33,8 +34,16 @@ export default class FazNav extends StacheElement {
         return {
             id: {type: type.convert(String), default: ID.random},
             active: String,
-            isLoading: {type: type.convert(Boolean), default: true},
+            data: {
+                type: ObservableObject,
+                get default(){
+                    return new ObservableObject({
+                        "items": undefined
+                    });
+                }
+            },
             element: ObservableObject,
+            isLoading: {type: type.convert(Boolean), default: true},
             items: {type: FazNavItemList, get default() {
                 return new FazNavItemList([]);
             }},
@@ -47,6 +56,7 @@ export default class FazNav extends StacheElement {
             justify: {type: type.convert(String), default: "left"},
             page: String,
             pills: {type: type.convert(Boolean), default: false},
+            source: String,
             tabs: {type: type.convert(Boolean), default: false},
             vertical: {type: type.convert(Boolean), default: false},
             get hasTabContents() {
@@ -100,6 +110,26 @@ export default class FazNav extends StacheElement {
         return DeepObservable;
     }
 
+    processData() {
+        if(this.data !== undefined) {
+            if (this.data.items !== undefined) {
+                this.data.items.forEach(function(item) {
+                    switch (item.type.toLowerCase()) {
+                        case "faz-nav-item":
+                            this.items.push(this.processItemData(item));
+                            break;
+                    }
+                }.bind(this));
+            }
+        }
+    }
+
+    processItemData(data) {
+        let item = new FazNavItem();
+        item.processData(this, data, true);
+        return item;
+    }
+
     show() {
         $(this).addClass("faz-nav-rendered");
     }
@@ -149,21 +179,27 @@ export default class FazNav extends StacheElement {
                 navTabContent.element = tabContent;
                 this.tabContents.push(navTabContent);
         }.bind(this));
-
-
         this.isLoading = false;
         super.connectedCallback();
+    }
+
+    connected() {
+        if(this.source) {
+            this.isLoading = true;
+            ajax({
+                url: this.source,
+            }).then(function(response) {
+                this.data = new ObservableObject(response);
+                this.processData()
+                this.isLoading = false;
+            }.bind(this));
+        }
         this.items.forEach(function(item){
             item.setParent(this);
         }.bind(this));
-
         if (this.hasTabContents) {
             this.items.active[0].activate();
         }
-    }
-
-    getVMItemValue (item) {
-        return this.getItemValue(item);
     }
 
     getComponentId () {
