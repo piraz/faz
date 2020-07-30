@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+export { default as FazForm } from "./form/form";
 export { default as FazAlert } from "./alert/alert";
 export { default as FazBreadcrumb} from "./breadcrumb/breadcrumb";
 export { default as FazNav } from "./nav/nav";

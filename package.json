@@ -1,6 +1,6 @@
 {
   "name": "faz",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Candango Faz Javascript toolkit.",
   "main": "faz.js",
   "repository": "https://github.com/candango/faz.git",
@@ -39,9 +39,8 @@
     "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.6",
-    "rollup": "2.22.1",
     "testee": "0.9.1",
-    "electron": "9.1.0"
+    "electron": "9.1.1"
   },
   "steal": {
     "plugins": [

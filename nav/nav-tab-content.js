@@ -15,9 +15,8 @@
  */
 
 import { assign, ObservableArray, type } from "can";
-
-import tabContentTemplate from "./stache/nav-tab-content.stache";
 import {default as FazItem} from "../item";
+import tabContentTemplate from "./stache/nav-tab-content.stache";
 
 /**
  *

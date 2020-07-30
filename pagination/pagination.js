@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import {assign, StacheElement, type} from "can";
-
+import { assign, StacheElement, type } from "can";
 import paginationTemplate from "./stache/pagination.stache";
 
 export default class FazPagination extends StacheElement {

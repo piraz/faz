@@ -15,8 +15,7 @@
  */
 
 import { default as ID } from "./id";
-import { ObservableObject, type } from "can";
-import DeepObservable from "can-deep-observable";
+import { DeepObservable, ObservableObject, type } from "can";
 
 class FazItem extends ObservableObject {
     static get props() {

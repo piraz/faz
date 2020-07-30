@@ -21,6 +21,7 @@ stealTools.build({
         "faz/faz",
         "faz/index",
         "faz/app/alert",
+        "faz/app/form",
         "faz/app/nav",
         "faz/app/navbar",
         "faz/app/pagination"

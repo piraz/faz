@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-
-import {assign, ObservableArray, type} from "can";
-
+import { ObservableArray, type } from "can";
 import { default as  FazItem } from "../item";
-
 import itemTemplate from "./stache/breadcrumb-item.stache";
-
 
 export class FazBreadcrumbItem extends FazItem {
 

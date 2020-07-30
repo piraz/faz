@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { default as ID } from "./id";
-import { StacheElement, type, DeepObservable } from "can";
+import { default as ID } from "../id";
+import { DeepObservable, StacheElement, type } from "can";
 
 
-class FazForm extends StacheElement {
+export default class FazForm extends StacheElement {
     static get props() {
         return {
             id: {
@@ -80,5 +80,3 @@ class FazForm extends StacheElement {
     }
 
 }
-
-export default FazForm;

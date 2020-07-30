@@ -15,10 +15,8 @@
  */
 
 import {StacheElement, type} from "can";
-
+import { FazBreadcrumbItem, FazBreadcrumbItemList } from "./breadcrumb-item";
 import breadcrumbTemplate from "./stache/breadcrumb.stache";
-import {FazBreadcrumbItem, FazBreadcrumbItemList} from "./breadcrumb-item";
-
 
 export default class FazBreadcrumb extends StacheElement {
     static view = breadcrumbTemplate;
