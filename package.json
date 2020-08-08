@@ -8,10 +8,10 @@
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "bootstrap": "4.5.0",
+    "bootstrap": "4.5.1",
     "bootstrap-icons": "1.0.0-alpha5",
-    "bootswatch": "4.5.0",
-    "can": "6.5.0",
+    "bootswatch": "4.5.1",
+    "can": "6.6.0",
     "jquery": "3.5.0",
     "less": "3.12.2",
     "popper.js": "1.16.1"
@@ -40,7 +40,7 @@
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.6",
     "testee": "0.9.1",
-    "electron": "9.1.1"
+    "electron": "9.2.0"
   },
   "steal": {
     "plugins": [
