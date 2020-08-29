@@ -15,9 +15,69 @@
  */
 
 import { default as ID } from "./id";
-import { DeepObservable, ObservableObject, type } from "can";
+import {
+    DeepObservable, ObservableArray, ObservableObject, StacheElement, type
+} from "can";
+
 
 class FazItem extends ObservableObject {
+    static get props() {
+        return {
+            id: {
+                type: type.convert(String),
+                get default() {
+                    return ID.random;
+                }
+            },
+            active: {type: type.convert(Boolean), default: false},
+            // Content should be written like that so we stop main-navbar stop
+            // to alter the first navbar from the example. It seems like somehow
+            // they were sharing or invading contents.
+            content: {
+                type: type.convert(String),
+                get default() {
+                    return "";
+                }
+            },
+            element: type.convert(ObservableObject),
+            href: String,
+            parent: "*",
+            type: String,
+            get isLink() {
+                return this.href !== undefined;
+            }
+        };
+    }
+
+    static get propertyDefaults() {
+        return DeepObservable;
+    }
+
+    static get seal() {
+        return true;
+    }
+
+}
+
+export class FazItemList extends ObservableArray {
+    static get props() {
+        return {
+            get enabled() {
+                return this.filter({disabled: false});
+            },
+
+            get active() {
+                return this.filter({active: true});
+            }
+        };
+    }
+
+    static get items() {
+        return type.convert(FazItem);
+    }
+}
+
+export class FazStacheElement extends StacheElement {
     static get props() {
         return {
             id: {
