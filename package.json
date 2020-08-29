@@ -8,9 +8,9 @@
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
-    "bootstrap": "4.5.1",
+    "bootstrap": "4.5.2",
     "bootstrap-icons": "1.0.0-alpha5",
-    "bootswatch": "4.5.1",
+    "bootswatch": "4.5.2",
     "can": "6.6.0",
     "jquery": "3.5.0",
     "less": "3.12.2",
@@ -34,13 +34,13 @@
   ],
   "devDependencies": {
     "http-server": "0.12.3",
-    "qunit": "2.10.1",
+    "qunit": "2.11.1",
     "steal": "2.2.4",
     "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
     "steal-tools": "2.2.6",
     "testee": "0.9.1",
-    "electron": "9.2.0"
+    "electron": "9.2.1"
   },
   "steal": {
     "plugins": [
