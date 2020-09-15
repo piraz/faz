@@ -17,6 +17,7 @@
 import { ObservableArray, stache, type } from "can";
 import { default as  FazItem } from "../item";
 import {default as FazNavbarNav } from "./navbar-nav";
+import navbarNavItemTemplate from "./stache/navbar-nav-item.stache";
 
 /**
  *
@@ -26,7 +27,7 @@ import {default as FazNavbarNav } from "./navbar-nav";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-class FazNavbarNavItem extends FazItem {
+export default class FazNavbarNavItem extends FazItem {
 
     static get props() {
         return $.extend(super.props, {
@@ -46,11 +47,7 @@ class FazNavbarNavItem extends FazItem {
         return this.parent.constructor.name == "FazNavbarNav";
     }
     get html() {
-        let view = stache(
-        `<li class="nav-item">
-    <a id:from="id" class:from="class" {{#if isLink}}href:from="getHref()"{{/if}}>{{ value }}</a>
-</li>`
-        );
+        let view = navbarNavItemTemplate;
         return view(this);
     }
     /**
@@ -136,5 +133,3 @@ export class FazNavbarNavItemList extends ObservableArray {
         return type.convert(FazNavbarNavItem);
     }
 }
-
-export default FazNavbarNavItem;

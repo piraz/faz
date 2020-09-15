@@ -21,7 +21,7 @@ import {
 import { default as ID } from "../id";
 import { FazItemList } from "../item";
 import { default as FazNavbarBrand } from "./navbar-brand";
-import { default as FazNavbarNav } from "./navbar-nav";
+import { default as FazNavbarCollapse } from "./navbar-collapse";
 import { default as FazNavbarToggler } from "./navbar-toggler";
 
 import navbarTemplate from "./stache/navbar.stache";
@@ -83,8 +83,8 @@ export default class FazNavbar extends StacheElement {
                         case "faz-navbar-brand":
                             this.items.push(this.processBrandData(item));
                             break;
-                        case "faz-navbar-nav":
-                            this.items.push(this.processNavData(item));
+                        case "faz-navbar-collapse":
+                            this.items.push(this.processCollapseData(item));
                             break;
                         case "faz-navbar-toggler":
                             this.items.push(this.processTogglerData(item));
@@ -107,16 +107,16 @@ export default class FazNavbar extends StacheElement {
         return brand;
     }
 
-    processNav(element) {
-        let nav = new FazNavbarNav();
-        nav.process(this, element);
-        return nav;
+    processCollapse(element) {
+        let collapse = new FazNavbarCollapse();
+        collapse.process(this, element);
+        return collapse;
     }
 
-    processNavData(data) {
-        let nav = new FazNavbarNav();
-        nav.processData(this, data);
-        return nav;
+    processCollapseData(data) {
+        let collapse = new FazNavbarCollapse();
+        collapse.processData(this, data);
+        return collapse;
     }
 
     processToggler(element) {
@@ -161,8 +161,8 @@ export default class FazNavbar extends StacheElement {
                     this.items.push(this.processBrand(child));
                     childrenToDelete.push(child);
                     break;
-                case "faz-navbar-nav":
-                    this.items.push(this.processNav(child));
+                case "faz-navbar-collapse":
+                    this.items.push(this.processCollapse(child));
                     childrenToDelete.push(child);
                     break;
                 case "faz-navbar-toggler":

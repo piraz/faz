@@ -23,7 +23,7 @@ import navbarTogglerTemplate from "./stache/navbar-toggler.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-class FazNavbarToggler extends FazItem {
+export default class FazNavbarToggler extends FazItem {
 
     static get props() {
         return $.extend(super.props, {
@@ -82,5 +82,3 @@ class FazNavbarToggler extends FazItem {
         }
     }
 }
-
-export default FazNavbarToggler;

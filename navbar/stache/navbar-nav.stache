@@ -1,7 +1,5 @@
-<div class="collapse navbar-collapse" id:from="id">
-    <ul class="navbar-nav">
-        {{#each (children, item=value)}}
-            {{ item.html }}
-        {{/each}}
-    </ul>
-</div>
+<ul class="navbar-nav">
+    {{#each (items, item=value)}}
+        {{ item.html }}
+    {{/each}}
+</ul>

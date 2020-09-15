@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { default as FazItem} from "../item";
-import { default as FazNavbarNavItem,
-    FazNavbarNavItemList } from "./navbar-nav-item";
-import navTemplate from "./stache/navbar-nav.stache";
+import { default as FazItem, FazItemList } from "../item";
+import {default as FazNavbarBrand} from "./navbar-brand";
+import {default as FazNavbarNav} from "./navbar-nav";
+import navCollapseTemplate from "./stache/navbar-collapse.stache";
 
 /**
  *
@@ -27,32 +27,44 @@ import navTemplate from "./stache/navbar-nav.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-export default class FazNavbarNav extends FazItem {
+export default class FazNavbarCollapse extends FazItem {
     static get props() {
         return $.extend(super.props, {
             items: {
-                type: FazNavbarNavItemList,
+                type: FazItemList,
                 get default() {
-                    return new FazNavbarNavItemList([]);
+                    return new FazItemList([]);
                 }
             }
         });
     }
 
     get html() {
-        return navTemplate(this);
+        return navCollapseTemplate(this);
     }
 
-    processItem(child) {
-        let navbarNavItem = new FazNavbarNavItem();
-        navbarNavItem.process(this, child);
-        this.items.push(navbarNavItem);
+    processBrand(element) {
+        let brand = new FazNavbarBrand();
+        brand.process($(element));
+        return brand;
     }
 
-    processItemData(data) {
-        let navbarNavItem = new FazNavbarNavItem();
-        navbarNavItem.processData(this, data);
-        this.items.push(navbarNavItem);
+    processBrandData(data) {
+        let brand = new FazNavbarBrand();
+        brand.processData(data);
+        return brand;
+    }
+
+    processNav(element) {
+        let nav = new FazNavbarNav();
+        nav.process(this, element);
+        return nav;
+    }
+
+    processNavData(data) {
+        let nav = new FazNavbarNav();
+        nav.processData(this, data);
+        return nav;
     }
 
     process(parent, element) {
@@ -67,8 +79,11 @@ export default class FazNavbarNav extends FazItem {
         for (let i = 0; i < element.children.length; i++) {
             let child = element.children[i];
             switch (child.tagName.toLowerCase()) {
-                case "faz-navbar-nav-item":
-                    this.processItem(child);
+                case "faz-navbar-brand":
+                    this.items.push(this.processBrand(child));
+                    break;
+                case "faz-navbar-nav":
+                    this.items.push(this.processNav(child));
                     break;
             }
         }
@@ -82,7 +97,14 @@ export default class FazNavbarNav extends FazItem {
         }
         if (data.items !== undefined) {
             data.items.forEach(function(item) {
-                this.processItemData(item);
+                switch (item.type.toLowerCase()) {
+                    case "faz-navbar-brand":
+                        this.items.push(this.processBrandData(item));
+                        break;
+                    case "faz-navbar-nav":
+                        this.items.push(this.processNavData(item));
+                        break;
+                }
             }.bind(this));
         }
     }
