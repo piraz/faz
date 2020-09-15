@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-import { type } from "can";
 import { default as FazItem } from "../item";
 import navbarTogglerTemplate from "./stache/navbar-toggler.stache";
 
 /**
  *
- *
- * TODO: Check https://www.codeply.com/go/ji5ijk6yJ4 for submenu on hover
  * @constructor
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-class FazNavbarToggler extends FazItem {
+export default class FazNavbarToggler extends FazItem {
 
     static get props() {
         return $.extend(super.props, {
-            target: {type: type.convert(String), default: ""},
+            target: {type: String, default: ""},
+            label: {type: String, default: ""},
             value: String
         });
     }
@@ -40,18 +38,28 @@ class FazNavbarToggler extends FazItem {
         return view(this);
     }
 
-    process(element) {
-        if(element.attr("id") !== undefined) {
-            this.id = element.attr("id");
-        }
-        if(element.attr("href") !== undefined) {
-            this.href = element.attr("href");
-        }
-        if(element.attr("label") !== undefined) {
-            this.href = element.attr("label");
-        }
+    get dataTarget() {
+        return "#" + this.target;
+    }
 
-        this.content = element.html();
+    process(element) {
+        for(let attribute of element.attributes) {
+            switch (attribute.name.toLowerCase()) {
+                case "id":
+                    this.id = attribute.value;
+                    break;
+                case "href":
+                    this.href = attribute.value;
+                    break;
+                case "label":
+                    this.label = attribute.value;
+                    break;
+                case "target":
+                    this.target = attribute.value;
+                    break;
+            }
+        }
+        this.content = element.innerHTML;
         this.element = element;
     }
 
@@ -63,7 +71,14 @@ class FazNavbarToggler extends FazItem {
         if(data.href !== undefined) {
             this.href = data.href;
         }
+        if(data.label !== undefined) {
+            this.label = data.label;
+        }
+        if(data.target !== undefined) {
+            this.target = data.target;
+        }
+        if(data.value !== undefined) {
+            this.content = data.value;
+        }
     }
 }
-
-export default FazNavbarToggler;

@@ -17,6 +17,7 @@
 import { assign, ObservableArray, type } from "can";
 import { default as  FazItem } from "../item";
 import itemTemplate from "./stache/nav-item.stache";
+import {default as FazNavbarNavItem} from "../navbar/navbar-nav-item";
 
 /**
  *
@@ -162,6 +163,36 @@ export class FazNavItem extends FazItem {
             }
         }
         return validHef;
+    }
+
+    processData(parent, data, isRoot=false) {
+        this.parent = parent;
+
+        if (isRoot) {
+            this.root = parent;
+            this.isRoot = true;
+        } else {
+            this.root = parent.root;
+        }
+
+        let children = undefined;
+
+        if(data.children !== undefined) {
+            children = data.children;
+            delete data.children;
+        }
+
+        assign(this, data);
+
+        if(children !== undefined) {
+            children.forEach(function (child) {
+                let navItem = new FazNavItem();
+                navItem.processData(this, child);
+                this.items.push(navItem);
+            }.bind(this));
+        }
+
+        this.content = data.value;
     }
 
     processElement(parent, element, isRoot=false) {

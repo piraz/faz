@@ -1,0 +1,5 @@
+<div class="collapse navbar-collapse" id:from="id">
+    {{#items}}
+        {{{ this.html }}}
+    {{/items}}
+</div>

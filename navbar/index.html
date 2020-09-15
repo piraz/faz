@@ -14,9 +14,9 @@
     <link href="/stylesheets/faz.css" rel="stylesheet"/>
     <link href="/stylesheets/showcase.css" rel="stylesheet"/>
     <!-- Production -->
-    <!--<script src="/dist/steal.production.js" main="faz/app/navbar"></script>-->
+    <script src="/dist/steal.production.js" main="faz/app/navbar"></script>
     <!-- Development -->
-    <script src="/node_modules/steal/steal.js" main="faz/app/navbar"></script>
+    <!--<script src="/node_modules/steal/steal.js" main="faz/app/navbar"></script>-->
 </head>
 
 <body>
@@ -60,38 +60,79 @@
         </ul>
     </div>
 
-
     <h3>Link. Type dark. Extra class bg-dark. Square image size 30.</h3>
 
-    <faz-navbar id="navbarImage" type="dark" class="bg-dark">
-        <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" alt=""></faz-navbar-brand>
-    </faz-navbar>
-
-
-    <h3>Link. Type dark. Extra class bg-dark. Square image size 30 and text.</h3>
-
-    <faz-navbar id="navbarImageText" type="dark" class="bg-dark">
-        <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            Faz Toolkit
-        </faz-navbar-brand>
-    </faz-navbar>
-
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-navbar id="navbarImage" type="dark" class="bg-dark">
+                    <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" alt=""></faz-navbar-brand>
+                </faz-navbar>
+            </li>
+        </ul>
+    </div>
 
     <h3>Link. Type dark. Extra class bg-dark. Square image size 30 and text.</h3>
 
-    <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md">
-        <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            Faz Toolkit aaa
-        </faz-navbar-brand>
-        <faz-navbar-toggler><span class="navbar-toggler-icon"></span></faz-navbar-toggler>
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-navbar id="navbarImageText" type="dark" class="bg-dark">
+                    <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Faz Toolkit
+                    </faz-navbar-brand>
+                </faz-navbar>
+            </li>
+        </ul>
+    </div>
 
-        <faz-navbar-nav>
-            <children>
-                <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
-                <faz-navbar-nav-item id="test1" href="#test">Test 1</faz-navbar-nav-item>
-            </children>
-        </faz-navbar-nav>
-    </faz-navbar>
+    <h2>Nav</h2>
+
+    <h3>Brand outside the nav</h3>
+
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md">
+
+                    <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Faz Toolkit aaa
+                    </faz-navbar-brand>
+
+                    <faz-navbar-toggler target="fazNavbarNavBrandInsideNav1"><span class="navbar-toggler-icon"></span></faz-navbar-toggler>
+
+                    <faz-navbar-nav id="fazNavbarNavBrandInsideNav1">
+                        <children>
+                            <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
+                            <faz-navbar-nav-item id="test1" href="#test">Test 1</faz-navbar-nav-item>
+                        </children>
+                    </faz-navbar-nav>
+                </faz-navbar>
+            </li>
+        </ul>
+    </div>
+
+    <h3>Brand inside the nav</h3>
+
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md">
+                    <faz-navbar-toggler target="fazNavbarNavBrandInsideNav2"><span class="navbar-toggler-icon"></span></faz-navbar-toggler>
+
+                    <faz-navbar-collapse id="fazNavbarNavBrandInsideNav2">
+                        <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Brand inside the nav
+                        </faz-navbar-brand>
+                        <faz-navbar-nav>
+                            <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
+                            <faz-navbar-nav-item id="test1" href="#test">Test 1</faz-navbar-nav-item>
+                        </faz-navbar-nav>
+                    </faz-navbar-collapse>
+                </faz-navbar>
+            </li>
+        </ul>
+    </div>
 
 
 </main><!-- /.container -->

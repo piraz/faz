@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "type": "faz-nav-item",
+      "id": "activeData",
+      "value": "Active"
+    },
+    {
+      "type": "faz-nav-item",
+      "id": "item1Data",
+      "value": "Item 1 Data"
+    },
+    {
+      "type": "faz-nav-item",
+      "id": "item2Data",
+      "value": "Item 2 Data"
+    },
+    {
+      "type": "faz-nav-item",
+      "id": "disabledData",
+      "value": "Disabled Data",
+      "disabled": "true"
+    }
+  ]
+}

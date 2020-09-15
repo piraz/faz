@@ -1,48 +1,59 @@
 {
   "items": [
     {
-      "type": "faz-navbar-brand",
-      "id": "brandFaz",
-      "href": "/",
-      "value": "Faz"
+      "type": "faz-navbar-toggler",
+      "target": "mainNavbarNav",
+      "value": "<span class=\"navbar-toggler-icon\"></span>"
     },
     {
-      "type": "faz-navbar-nav",
-      "children": [
+      "type": "faz-navbar-collapse",
+      "id": "mainNavbarNav",
+      "items": [
         {
-          "id": "navIndex",
+          "type": "faz-navbar-brand",
+          "id": "brandFaz",
           "href": "/",
-          "value": "Index"
+          "value": "Faz"
         },
         {
-          "id": "navAlert",
-          "href": "/alert",
-          "value": "Alert"
-        },
-        {
-          "id": "navBreadcrumb",
-          "href": "/breadcrumb",
-          "value": "Breadcrumb"
-        },
-        {
-          "id": "navForm",
-          "href": "/form",
-          "value": "Form"
-        },
-        {
-          "id": "navNav",
-          "href": "/nav",
-          "value": "Nav"
-        },
-        {
-          "id": "navNavbar",
-          "href": "/navbar",
-          "value": "Navbar"
-        },
-        {
-          "id": "navPagination",
-          "href": "/pagination",
-          "value": "Pagination"
+          "type": "faz-navbar-nav",
+          "items": [
+            {
+              "id": "navIndex",
+              "href": "/",
+              "value": "Index"
+            },
+            {
+              "id": "navAlert",
+              "href": "/alert",
+              "value": "Alert"
+            },
+            {
+              "id": "navBreadcrumb",
+              "href": "/breadcrumb",
+              "value": "Breadcrumb"
+            },
+            {
+              "id": "navForm",
+              "href": "/form",
+              "value": "Form"
+            },
+            {
+              "id": "navNav",
+              "href": "/nav",
+              "value": "Nav"
+            },
+            {
+              "id": "navNavbar",
+              "href": "/navbar",
+              "value": "Navbar"
+            },
+            {
+              "id": "navPagination",
+              "href": "/pagination",
+              "value": "Pagination"
+            }
+          ]
         }
       ]
     }
