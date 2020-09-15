@@ -15,17 +15,16 @@
  */
 
 import {
-    ajax, DeepObservable, ObservableArray, ObservableObject, StacheElement, type
+    ajax, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
 import { default as ID } from "../id";
-import { default as FazItem } from "../item";
+import { FazItemList } from "../item";
 import { default as FazNavbarBrand } from "./navbar-brand";
 import { default as FazNavbarNav } from "./navbar-nav";
 import { default as FazNavbarToggler } from "./navbar-toggler";
 
 import navbarTemplate from "./stache/navbar.stache";
-import {FazNavbarNavItemList} from "./navbar-nav-item";
 
 export default class FazNavbar extends StacheElement {
     static view = navbarTemplate;
@@ -44,9 +43,9 @@ export default class FazNavbar extends StacheElement {
             },
             source: {type: String, default: ""},
             items: {
-                type: FazNavbarItemList,
+                type: FazItemList,
                 get default() {
-                    return new FazNavbarItemList([]);
+                    return new FazItemList([]);
                 }
             },
             brand: ObservableObject,
@@ -87,6 +86,9 @@ export default class FazNavbar extends StacheElement {
                         case "faz-navbar-nav":
                             this.items.push(this.processNavData(item));
                             break;
+                        case "faz-navbar-toggler":
+                            this.items.push(this.processTogglerData(item));
+                            break;
                     }
                 }.bind(this));
             }
@@ -117,16 +119,16 @@ export default class FazNavbar extends StacheElement {
         return nav;
     }
 
-    processToggler(toggler) {
-        $(toggler).detach();
-        if(!this.toggler) {
-            let navbarToggler = new FazNavbarToggler();
-            navbarToggler.process(toggler);
-            this.toggler = navbarToggler;
-        } else {
-            console.warn("Faz Navbar toggler is unique. Please remove " +
-                "extra togglers declared into this object.")
-        }
+    processToggler(element) {
+        let toggler = new FazNavbarToggler();
+        toggler.process(element);
+        return toggler;
+    }
+
+    processTogglerData(data) {
+        let toggler = new FazNavbarToggler();
+        toggler.processData(data);
+        return toggler;
     }
 
     show() {
@@ -138,7 +140,7 @@ export default class FazNavbar extends StacheElement {
         for(let attribute of this.attributes) {
             switch (attribute.name) {
                 case "id":
-                    this.navbarId = attribute.value;
+                    this.id = attribute.value;
                     break;
                 case "class":
                     this.extraClasses = attribute.value;
@@ -161,6 +163,10 @@ export default class FazNavbar extends StacheElement {
                     break;
                 case "faz-navbar-nav":
                     this.items.push(this.processNav(child));
+                    childrenToDelete.push(child);
+                    break;
+                case "faz-navbar-toggler":
+                    this.items.push(this.processToggler(child));
                     childrenToDelete.push(child);
                     break;
             }
@@ -189,24 +195,6 @@ export default class FazNavbar extends StacheElement {
 
     static get seal() {
         return true;
-    }
-}
-
-export class FazNavbarItemList extends ObservableArray {
-    static get props() {
-        return {
-            get enabled() {
-                return this.filter({disabled: false});
-            },
-
-            get active() {
-                return this.filter({active: true});
-            }
-        };
-    }
-
-    static get items() {
-        return type.convert(FazItem);
     }
 }
 
