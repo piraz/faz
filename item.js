@@ -77,7 +77,7 @@ export class FazItemList extends ObservableArray {
     }
 }
 
-export class FazStacheElement extends StacheElement {
+export class FazStacheItem extends StacheElement {
     static get props() {
         return {
             id: {
@@ -100,11 +100,27 @@ export class FazStacheElement extends StacheElement {
             href: String,
             parent: "*",
             type: String,
+            isLoading: {type: Boolean, default: true},
             get isLink() {
                 return this.href !== undefined;
             }
         };
     }
+
+    connectedCallback() {
+        this.content = this.innerHTML;
+        this.beforeConnectedCallback();
+        super.connectedCallback();
+        this.afterConnectedCallback();
+        this.isLoading = false;
+        this.show();
+    }
+
+    afterConnectedCallback() {}
+
+    beforeConnectedCallback() {}
+
+    show() {}
 
     static get propertyDefaults() {
         return DeepObservable;
