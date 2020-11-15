@@ -52,7 +52,6 @@ export default class FazForm extends StacheElement {
 
     initForm() {
         for(let attribute of this.attributes) {
-            console.log(attribute);
             switch (attribute.name) {
                 case "action":
                     this.action = attribute.value;
