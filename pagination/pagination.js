@@ -24,6 +24,7 @@ export default class FazPagination extends StacheElement {
         return {
             currentPage: {type: type.convert(Number), default: 1},
             href: String,
+            initCallback: {type: Object },
             pageCallback: {type: Object },
             pagesPerBlock: {type: type.convert(Number), default: 10},
             records: {type: type.convert(Number), default: 0},
@@ -126,13 +127,15 @@ export default class FazPagination extends StacheElement {
                 case "debug":
                     attributes["debug"] = attribute.value;
                     break;
-                case "current-page":
+                case "currentpage":
                     attributes["currentPage"] = attribute.value;
                     break;
                 case "href":
                     attributes["href"] = attribute.value;
                     break;
-                case "page-callback":
+                case "initcallback":
+                    attributes["initCallback"] = eval(attribute.value);
+                case "pagecallback":
                     attributes["pageCallback"] = eval(attribute.value);
                     break;
                 case "pagesperblock":
@@ -144,6 +147,7 @@ export default class FazPagination extends StacheElement {
             }
         }
         assign(this, attributes);
+        this.callInitCallback();
         super.connectedCallback();
         this.callPageCallback(this.currentPageComputed);
     }
@@ -162,6 +166,12 @@ export default class FazPagination extends StacheElement {
             return voidHref;
         }
         return validHef.replace("{page}", this.currentPageComputed);
+    }
+
+    callInitCallback() {
+        if (this.initCallback !== undefined) {
+            this.initCallback(this);
+        }
     }
 
     callPageCallback(page) {
