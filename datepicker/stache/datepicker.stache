@@ -1,0 +1,42 @@
+<div id:from="id" class:from="componentClass">
+    <div class="row border-0 m-0 p-1 seven-cols" >
+        <div class="col-md-1 m-0 p-1 text-center">
+            <button type="button" class="btn btn-sm btn-light" on:click="goToPreviousMonth()">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+            </svg>
+            </button>
+        </div>
+        <div class="col-md-5 m-0 p-1 text-center">
+            <button type="button" class="btn btn-sm btn-light font-weight-bold">{{monthName}}</button>
+            <button type="button" class="btn btn-sm btn-light font-weight-bold">{{year}}</button>
+        </div>
+        <div class="col-md-1 m-0 p-1 text-center">
+            <button type="button" class="btn btn-sm btn-light" on:click="goToNextMonth()">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg>
+            </button>
+        </div>
+    </div>
+    <div class="row m-0 p-0 seven-cols">
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">Su</div>
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">Mo</div>
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">Tu</div>
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">We</div>
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">Th</div>
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">Fr</div>
+        <div class="col-md-1 m-0 p-1 text-center font-weight-bold">Sa</div>
+    </div>
+    {{# for(days of dateMatrix) }}
+    <div class="row m-0 p-0 seven-cols">
+    {{# for(day of days) }}
+        <div class="col-md-1 m-0 p-1 text-center">
+            <button type="button" value="{{day}}" on:click="dispatchDayClick(scope.event, day)" class:from="getDayLinkClass(day)">
+            {{day.getDate()}}
+            </button>
+        </div>
+    {{/for}}
+    </div>
+    {{/for}}
+</div>

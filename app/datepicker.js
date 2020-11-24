@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-export { default as FazForm } from "./form/form";
-export { default as FazAlert } from "./alert/alert";
-export { default as FazBreadcrumb} from "./breadcrumb/breadcrumb";
-export { default as FazDatepicker} from "./datepicker/datepicker";
-export { default as FazInputDatepicker} from "./datepicker/input-datepicker";
-export { default as FazNav } from "./nav/nav";
-export { default as FazNavbar} from "./navbar/navbar";
-export { default as FazPagination} from "./pagination/pagination";
+import { FazInputDatepicker, FazDatepicker, FazNavbar } from "../faz";
+
+import MainNavbar from "../app/main-navbar";

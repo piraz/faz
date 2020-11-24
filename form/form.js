@@ -15,7 +15,7 @@
  */
 
 import { default as ID } from "../id";
-import { DeepObservable, StacheElement, type } from "can";
+import { DeepObservable, ObservableArray, StacheElement, type } from "can";
 
 
 export default class FazForm extends StacheElement {
@@ -52,7 +52,6 @@ export default class FazForm extends StacheElement {
 
     initForm() {
         for(let attribute of this.attributes) {
-            console.log(attribute);
             switch (attribute.name) {
                 case "action":
                     this.action = attribute.value;
