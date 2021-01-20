@@ -23,7 +23,10 @@ export default class FazPagination extends StacheElement {
     static get props() {
         return {
             currentPage: {type: type.convert(Number), default: 1},
+            debug : {type: type.convert(Boolean), default: false},
+            disabled: {type: type.convert(Boolean), default: false},
             href: String,
+            initCallback: {type: Object },
             pageCallback: {type: Object },
             pagesPerBlock: {type: type.convert(Number), default: 10},
             records: {type: type.convert(Number), default: 0},
@@ -32,7 +35,30 @@ export default class FazPagination extends StacheElement {
             lastPageLabel: {type: type.convert(String), default: "Last"},
             previousLabel: {type: type.convert(String), default: "Previous"},
             nextLabel: {type: type.convert(String), default: "Next"},
-            debug : {type: type.convert(Boolean), default: false},
+            get firstPreviousButtonClass() {
+                let classes = ["page-item"];
+                if (this.isFirstPage || this.disabled) {
+                    classes.push("disabled");
+                }
+                return classes.join(" ");
+            },
+            get lastNextButtonClass() {
+                let classes = ["page-item"];
+                if (this.isLastPage || this.disabled) {
+                    classes.push("disabled");
+                }
+                return classes.join(" ");
+            },
+            getBlockButtonClass(page) {
+                let classes = ["page-item"];
+                if (this.isCurrentPage(page)) {
+                    classes.push("active");
+                }
+                if (this.disabled) {
+                    classes.push("disabled");
+                }
+                return classes.join(" ");
+            },
             get pages() {
                 if (this.records == 0) {
                     return 1;
@@ -126,13 +152,18 @@ export default class FazPagination extends StacheElement {
                 case "debug":
                     attributes["debug"] = attribute.value;
                     break;
-                case "current-page":
+                case "disabled":
+                    attributes["disabled"] = attribute.value;
+                    break;
+                case "currentpage":
                     attributes["currentPage"] = attribute.value;
                     break;
                 case "href":
                     attributes["href"] = attribute.value;
                     break;
-                case "page-callback":
+                case "initcallback":
+                    attributes["initCallback"] = eval(attribute.value);
+                case "pagecallback":
                     attributes["pageCallback"] = eval(attribute.value);
                     break;
                 case "pagesperblock":
@@ -144,6 +175,7 @@ export default class FazPagination extends StacheElement {
             }
         }
         assign(this, attributes);
+        this.callInitCallback();
         super.connectedCallback();
         this.callPageCallback(this.currentPageComputed);
     }
@@ -162,6 +194,12 @@ export default class FazPagination extends StacheElement {
             return voidHref;
         }
         return validHef.replace("{page}", this.currentPageComputed);
+    }
+
+    callInitCallback() {
+        if (this.initCallback !== undefined) {
+            this.initCallback(this);
+        }
     }
 
     callPageCallback(page) {

@@ -1,23 +1,23 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         {{# hasMultipleBlocks}}
-        <li class="page-item{{#if(../isFirstPage}} disabled{{/if}}">
+        <li class:from="../firstPreviousButtonClass">
             <a class="page-link" on:click="../gotToFirstPage()" href:from="../getHref()"{{#if(../isFirstPage}} aria-disabled="true"{{/if}}>{{ ../firstPageLabel }}</a>
         </li>
         {{/ hasMultipleBlocks }}
-        <li class="page-item{{#if(isFirstPage}} disabled{{/if}}">
+        <li class:from="firstPreviousButtonClass">
             <a class="page-link" on:click="gotToPreviousPage()" href:from="getHref()"{{#if(isFirstPage}} aria-disabled="true"{{/if}}>{{ previousLabel }}</a>
         </li>
         {{# for(page of pagesInCurrentBlock) }}
-            <li class="page-item{{#if(isCurrentPage(page)}} active{{/if}}">
+            <li class:from="getBlockButtonClass(page)">
                 <a class="page-link" on:click="goToPage(page)" href:from="getHref()">{{ page }}{{#if(isCurrentPage(page)}} <span class="sr-only">(current)</span>{{/if}}</a>
             </li>
         {{/ for }}
-        <li class="page-item{{#if(isLastPage}} disabled{{/if}}">
+        <li class:from="lastNextButtonClass">
             <a class="page-link" on:click="gotToNextPage()" href:from="getHref()"{{#if(isLastPage}} aria-disabled="true"{{/if}}>{{ nextLabel }}</a>
         </li>
         {{# hasMultipleBlocks}}
-            <li class="page-item{{#if(../isLastPage}} disabled{{/if}}">
+            <li class:from="../lastNextButtonClass">
                 <a class="page-link" on:click="../gotToLastPage()" href:from="../getHref()"{{#if(../isLastPage}} aria-disabled="true"{{/if}}>{{ ../lastPageLabel }}</a>
             </li>
         {{/ hasMultipleBlocks }}
@@ -26,6 +26,11 @@
 {{# debug}}
 <div class="card">
     <div class="card-body">
+        <h5 class="card-title">Component State Information</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Disabled:</dt>
+            <dd class="col-sm-9">{{../disabled}}</dd>
+        </dl>
         <h5 class="card-title">Records Information</h5>
         <dl class="row">
             <dt class="col-sm-3">Records:</dt>
