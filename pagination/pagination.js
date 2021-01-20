@@ -23,6 +23,8 @@ export default class FazPagination extends StacheElement {
     static get props() {
         return {
             currentPage: {type: type.convert(Number), default: 1},
+            debug : {type: type.convert(Boolean), default: false},
+            disabled: {type: type.convert(Boolean), default: false},
             href: String,
             initCallback: {type: Object },
             pageCallback: {type: Object },
@@ -33,7 +35,30 @@ export default class FazPagination extends StacheElement {
             lastPageLabel: {type: type.convert(String), default: "Last"},
             previousLabel: {type: type.convert(String), default: "Previous"},
             nextLabel: {type: type.convert(String), default: "Next"},
-            debug : {type: type.convert(Boolean), default: false},
+            get firstPreviousButtonClass() {
+                let classes = ["page-item"];
+                if (this.isFirstPage || this.disabled) {
+                    classes.push("disabled");
+                }
+                return classes.join(" ");
+            },
+            get lastNextButtonClass() {
+                let classes = ["page-item"];
+                if (this.isLastPage || this.disabled) {
+                    classes.push("disabled");
+                }
+                return classes.join(" ");
+            },
+            getBlockButtonClass(page) {
+                let classes = ["page-item"];
+                if (this.isCurrentPage(page)) {
+                    classes.push("active");
+                }
+                if (this.disabled) {
+                    classes.push("disabled");
+                }
+                return classes.join(" ");
+            },
             get pages() {
                 if (this.records == 0) {
                     return 1;
@@ -126,6 +151,9 @@ export default class FazPagination extends StacheElement {
             switch (attribute.name.toLowerCase()) {
                 case "debug":
                     attributes["debug"] = attribute.value;
+                    break;
+                case "disabled":
+                    attributes["disabled"] = attribute.value;
                     break;
                 case "currentpage":
                     attributes["currentPage"] = attribute.value;
