@@ -6,12 +6,11 @@
   "repository": "https://github.com/candango/faz.git",
   "author": "Flavio Garcia <piraz@candango.org>",
   "license": "Apache-2.0",
-  "private": false,
   "dependencies": {
-    "bootstrap": "4.5.2",
+    "bootstrap": "4.5.3",
     "bootstrap-icons": "1.0.0",
-    "bootswatch": "4.5.2",
-    "can": "6.6.0",
+    "bootswatch": "4.5.3",
+    "can": "6.6.1",
     "jquery": "3.5.0",
     "less": "3.12.2",
     "popper.js": "1.16.1"
@@ -33,15 +32,15 @@
     "toolkit"
   ],
   "devDependencies": {
-    "codemirror": "5.57.0",
+    "codemirror": "5.58.2",
+    "electron": "10.1.5",
     "http-server": "0.12.3",
-    "qunit": "2.11.2",
+    "qunit": "2.12.0",
     "steal": "2.2.4",
-    "steal-stache": "5.0.0",
     "steal-qunit": "2.0.0",
+    "steal-stache": "5.0.0",
     "steal-tools": "2.2.6",
-    "testee": "0.9.1",
-    "electron": "9.3.1"
+    "testee": "0.9.1"
   },
   "steal": {
     "plugins": [
