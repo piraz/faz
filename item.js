@@ -122,6 +122,23 @@ export class FazStacheItem extends StacheElement {
 
     show() {}
 
+    elementClasses(element) {
+        return element.className.split(" ");
+    }
+
+    elementAddClass(element, className) {
+        this.elementRemoveClass(element, className);
+        let classes = this.elementClasses(element);
+        classes.push(className);
+        element.className = classes.join(" ");
+    }
+
+    elementRemoveClass(element, className) {
+        element.className = this.elementClasses(element).filter(
+            item => {return item != className}
+        ).join(" ");
+    }
+
     static get propertyDefaults() {
         return DeepObservable;
     }
