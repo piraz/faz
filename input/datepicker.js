@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import FazDatepicker from "./datepicker";
+import FazDatepicker from "../datepicker/datepicker";
 import { domEvents }  from "can";
 import DateUtil from "../date";
 import { FazStacheItem } from "../item";
-import inputDatepickerTemplate from "./stache/input-datepicker.stache";
+import inputDatepickerTemplate from "./stache/datepicker.stache";
 
 
 export default class FazInputDatepicker extends FazStacheItem {
