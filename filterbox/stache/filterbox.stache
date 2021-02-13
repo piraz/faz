@@ -12,10 +12,20 @@
     {{#displayFilter}}
     <div style="position: absolute; margin-top: 5px; width: 100%;" on:mouseover="scope.top.beOverListGroup()" on:mouseout="scope.top.leaveListGroup()">
         <div class="list-group">
-            {{#each (../filteredItems, item=value)}}
-                <a href="#" class="list-group-item list-group-item-action" item-value="{{ item.value }}" item-name="{{ item.name }}" on:click="scope.top.selectOption(scope.event.target)" on:mouseover="scope.top.activateOption(scope.event.target)" on:mouseleave="scope.top.deactivateOption(scope.event.target)">
+            {{#each (../filteredItemsUncategorized, item=value)}}
+                <a href="#" class="list-group-item list-group-item-action" item-value="{{ item.value }}" item-name="{{ item.name }}" on:click="scope.top.selectOption(scope.event.target)" on:mouseover="scope.top.activateOption(scope.event.target)" on:mouseout="scope.top.deactivateOption(scope.event.target)">
                     {{ item.name }}
                 </a>
+            {{/each}}
+            {{#each (../categories, category=value)}}
+                <a href="#" class="list-group-item list-group-item-action list-group-item-dark" item-name="{{ item.name }}" >
+                    <h5 class="mb-1">{{ category }}</h5>
+                </a>
+                {{#each (../../filteredItemsByCategory(category), item=value)}}
+                    <a href="#" class="list-group-item list-group-item-action" item-value="{{ item.value }}" item-name="{{ item.name }}" on:click="scope.top.selectOption(scope.event.target)" on:mouseover="scope.top.activateOption(scope.event.target)" on:mouseout="scope.top.deactivateOption(scope.event.target)">
+                        {{ item.name }}
+                    </a>
+                {{/each}}
             {{/each}}
         </div>
     </div>
