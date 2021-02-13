@@ -23,3 +23,4 @@ export { default as FazFilterbox} from "./input/filterbox";
 export { default as FazNav } from "./nav/nav";
 export { default as FazNavbar} from "./navbar/navbar";
 export { default as FazPagination} from "./pagination/pagination";
+export { default as FazPicklist} from "./input/picklist";

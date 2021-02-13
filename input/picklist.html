@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Candango Faz Toolkit - Picklist</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/faz.css" rel="stylesheet"/>
+    <link href="/stylesheets/showcase.css" rel="stylesheet"/>
+    <!-- Production -->
+    <!--<script src="/dist/steal.production.js" main="faz/app/datepicker"></script>-->
+    <!-- Development -->
+    <script src="/node_modules/steal/steal.js" main="faz/app/picklist">
+    </script>
+</head>
+
+<body>
+<main-navbar></main-navbar>
+
+<main role="main" class="container">
+    <h1>Picklist</h1>
+
+    <h2>Basic Picklist</h2>
+    <div>
+        <faz-picklist id="basicpicklist" initcallback="initBasicInitialItems">
+        </faz-picklist>
+    </div>
+
+</main><!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
+
+<script>
+    //$(function () {
+    document.querySelectorAll("pre code").forEach((block) => {
+        hljs.highlightBlock(block);
+        hljs.lineNumbersBlock(block);
+    });
+    //});
+</script>
+
+</body>
+</html>
