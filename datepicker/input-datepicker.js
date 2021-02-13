@@ -29,11 +29,24 @@ export default class FazInputDatepicker extends FazStacheItem {
         return $.extend(super.props, {
             datepicker: {type: Object, get default () {
                 let datepicker = new FazDatepicker();
-                datepicker.id = this.id + "-datepicker";
+                console.log(this.datePickerId);
+                datepicker.id = this.datePickerId;
                 datepicker.render();
                 return datepicker;
             }}
         });
+    }
+
+    get datePickerId () {
+        return this.id + "-datepicker";
+    }
+
+    get inputId () {
+        return this.id + "-input";
+    }
+
+    get popoverId () {
+        return this.inputId + "-popover";
     }
 
     get year() {
@@ -74,8 +87,9 @@ export default class FazInputDatepicker extends FazStacheItem {
     }
 
     showPopover() {
-        $("#" + this.id).popover("show");
-        $("#" + this.id + "-popover").append(this.datepicker);
+        $("#" + this.inputId).popover("show");
+
+        $("#" + this.popoverId).append(this.datepicker);
     }
 
     afterConnectedCallback() {
@@ -102,15 +116,21 @@ export default class FazInputDatepicker extends FazStacheItem {
 
     show() {
         $(this).addClass("faz-datepicker-rendered");
-        $(function () {
-            $("#" + this.id).popover({
+        $(() => {
+            $("#" + this.inputId).popover({
                 content: this.datepicker,
                 placement: "top",
                 trigger: "focus",
                 html: true
             })
-        }.bind(this));
-        console.log(this.id + "-popover");
+        }).on("hide.bs.popover", (event) => {
+            if (this.datepicker.overDatePicker) {
+                event.preventDefault();
+                $("#" + this.inputId).focus();
+                return null;
+            }
+
+        });
     }
 
     static get seal() {

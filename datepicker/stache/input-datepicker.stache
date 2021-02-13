@@ -1,2 +1,2 @@
-<input id:from="id" type="text" class="form-control"
+<input id:from="inputId" type="text" class="form-control"
        on:focus="showPopover()">
