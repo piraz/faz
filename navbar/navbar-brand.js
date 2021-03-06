@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import { default as FazItem } from "../item";
+import {FazStacheItem} from "../item";
 
 import navbarBrandTemplate from "./stache/navbar-brand.stache";
+import {ObservableObject, type} from "can";
+
 
 /**
  *
@@ -26,22 +28,32 @@ import navbarBrandTemplate from "./stache/navbar-brand.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-class FazNavbarBrand extends FazItem {
+export default class FazNavbarBrand extends FazStacheItem {
+
+    static view = ``;
+
+    static get props() {
+        return $.extend(super.props, {
+            buga: {type: String, default: ""}
+        });
+    }
 
     get html() {
         let view = navbarBrandTemplate;
         return view(this);
     }
 
-    process(element) {
-        if(element.attr("id") !== undefined) {
-            this.id = element.attr("id");
+    beforeConnectedCallback() {
+        for(let attribute of this.attributes) {
+            switch (attribute.name) {
+                case "id":
+                    this.id = attribute.value;
+                    break;
+                case "href":
+                    this.href = attribute.value;
+                    break;
+            }
         }
-        if(element.attr("href") !== undefined) {
-            this.href = element.attr("href");
-        }
-        this.content = element.html();
-        this.element = element;
     }
 
     processData(data) {
@@ -53,6 +65,7 @@ class FazNavbarBrand extends FazItem {
             this.href = data.href;
         }
     }
+
 }
 
-export default FazNavbarBrand;
+customElements.define("faz-navbar-brand", FazNavbarBrand);

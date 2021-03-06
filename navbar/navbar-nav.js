@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import { default as FazItem} from "../item";
-import { default as FazNavbarNavItem,
-    FazNavbarNavItemList } from "./navbar-nav-item";
+import { FazStacheItem, FazStacheItemList} from "../item";
 import navTemplate from "./stache/navbar-nav.stache";
+import FazNavbarNavItem from "./navbar-nav-item";
 
 /**
  *
@@ -27,13 +26,15 @@ import navTemplate from "./stache/navbar-nav.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-export default class FazNavbarNav extends FazItem {
+export default class FazNavbarNav extends FazStacheItem {
+    static view = ``;
+
     static get props() {
         return $.extend(super.props, {
             items: {
-                type: FazNavbarNavItemList,
+                type: FazStacheItemList,
                 get default() {
-                    return new FazNavbarNavItemList([]);
+                    return new FazStacheItemList([]);
                 }
             }
         });
@@ -43,36 +44,33 @@ export default class FazNavbarNav extends FazItem {
         return navTemplate(this);
     }
 
-    processItem(child) {
-        let navbarNavItem = new FazNavbarNavItem();
-        navbarNavItem.process(this, child);
-        this.items.push(navbarNavItem);
-    }
-
     processItemData(data) {
         let navbarNavItem = new FazNavbarNavItem();
         navbarNavItem.processData(this, data);
         this.items.push(navbarNavItem);
     }
 
-    process(parent, element) {
-        this.parent = parent;
-        for(let attribute of element.attributes) {
+    beforeConnectedCallback() {
+        for(let attribute of this.attributes) {
             switch (attribute.name.toLowerCase()) {
                 case "id":
                     this.id = attribute.value;
                     break;
             }
         }
-        for (let i = 0; i < element.children.length; i++) {
-            let child = element.children[i];
-            switch (child.tagName.toLowerCase()) {
-                case "faz-navbar-nav-item":
-                    this.processItem(child);
-                    break;
+        if(this.firstElementChild !== undefined) {
+            while (this.firstElementChild) {
+                let child = this.firstElementChild;
+                if (child.isRoot !== undefined) {
+                    child.isRoot = true;
+                }
+                if (child.parent !== undefined) {
+                    child.parent = this;
+                }
+                this.items.push(child);
+                this.removeChild(child);
             }
         }
-        $(element).detach();
     }
 
     processData(parent, data) {
@@ -81,9 +79,11 @@ export default class FazNavbarNav extends FazItem {
             this.id = data.id;
         }
         if (data.items !== undefined) {
-            data.items.forEach(function(item) {
+            data.items.forEach((item) => {
                 this.processItemData(item);
-            }.bind(this));
+            });
         }
     }
 }
+
+customElements.define("faz-navbar-nav", FazNavbarNav);

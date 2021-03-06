@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-import { ObservableObject, StacheElement, type } from "can";
-
+import { ObservableObject, type } from "can";
+import {FazStacheItem} from "../item";
+import { FazNavbar } from "../faz";
 import mainNavbarTemplate from "./stache/main-navbar.stache";
 
-export default class MainNavbar extends StacheElement {
+export default class MainNavbar extends FazStacheItem{
     static view = mainNavbarTemplate;
 
     static get props() {
-        return {
+        return $.extend(super.props, {
             id: {type: type.convert(String), default: "navbarIndex"},
             data: ObservableObject
-        };
+        });
     }
 
     static get seal() {

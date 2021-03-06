@@ -1,2 +1,2 @@
-<faz-navbar id="navbarIndex" source="/app/main-navbar-data.json" type="dark" class="navbar-expand-md fixed-top">
+<faz-navbar id="navbarIndex" source="/app/main-navbar-data.json" type="dark" class="bg-dark navbar-expand-md fixed-top">
 </faz-navbar>
