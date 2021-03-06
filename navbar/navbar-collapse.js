@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { default as FazItem, FazItemList } from "../item";
+import { FazStacheItem, FazStacheItemList } from "../item";
 import {default as FazNavbarBrand} from "./navbar-brand";
 import {default as FazNavbarNav} from "./navbar-nav";
 import navCollapseTemplate from "./stache/navbar-collapse.stache";
@@ -27,26 +27,24 @@ import navCollapseTemplate from "./stache/navbar-collapse.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-export default class FazNavbarCollapse extends FazItem {
+export default class FazNavbarCollapse extends FazStacheItem {
+
+    static view = ``;
+
     static get props() {
         return $.extend(super.props, {
             items: {
-                type: FazItemList,
+                type: FazStacheItemList,
                 get default() {
-                    return new FazItemList([]);
+                    return new FazStacheItemList([]);
                 }
             }
         });
     }
 
     get html() {
-        return navCollapseTemplate(this);
-    }
-
-    processBrand(element) {
-        let brand = new FazNavbarBrand();
-        brand.process($(element));
-        return brand;
+        let view = navCollapseTemplate;
+        return view(this);
     }
 
     processBrandData(data) {
@@ -55,39 +53,27 @@ export default class FazNavbarCollapse extends FazItem {
         return brand;
     }
 
-    processNav(element) {
-        let nav = new FazNavbarNav();
-        nav.process(this, element);
-        return nav;
-    }
-
     processNavData(data) {
         let nav = new FazNavbarNav();
         nav.processData(this, data);
         return nav;
     }
 
-    process(parent, element) {
-        this.parent = parent;
-        for(let attribute of element.attributes) {
+    beforeConnectedCallback() {
+        for(let attribute of this.attributes) {
             switch (attribute.name.toLowerCase()) {
                 case "id":
                     this.id = attribute.value;
                     break;
             }
         }
-        for (let i = 0; i < element.children.length; i++) {
-            let child = element.children[i];
-            switch (child.tagName.toLowerCase()) {
-                case "faz-navbar-brand":
-                    this.items.push(this.processBrand(child));
-                    break;
-                case "faz-navbar-nav":
-                    this.items.push(this.processNav(child));
-                    break;
+        if(this.firstElementChild !== undefined) {
+            while (this.firstElementChild) {
+                let child = this.firstElementChild;
+                this.items.push(child);
+                $(child).detach();
             }
         }
-        $(element).detach();
     }
 
     processData(parent, data) {
@@ -96,7 +82,7 @@ export default class FazNavbarCollapse extends FazItem {
             this.id = data.id;
         }
         if (data.items !== undefined) {
-            data.items.forEach(function(item) {
+            data.items.forEach((item) => {
                 switch (item.type.toLowerCase()) {
                     case "faz-navbar-brand":
                         this.items.push(this.processBrandData(item));
@@ -105,7 +91,9 @@ export default class FazNavbarCollapse extends FazItem {
                         this.items.push(this.processNavData(item));
                         break;
                 }
-            }.bind(this));
+            });
         }
     }
 }
+
+customElements.define("faz-navbar-collapse", FazNavbarCollapse);

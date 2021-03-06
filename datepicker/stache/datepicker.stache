@@ -1,4 +1,4 @@
-<div id:from="id" class:from="componentClass">
+<div id:from="id" class:from="componentClass" on:mouseover="beOverDatePicker()" on:mouseleave="leaveDatePicker()">
     <div class="row border-0 m-0 p-1 seven-cols" >
         <div class="col-md-1 m-0 p-1 text-center">
             <button type="button" class="btn btn-sm btn-light" on:click="goToPreviousMonth()">

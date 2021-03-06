@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-
-import {domEvents, ObservableArray, type} from "can";
+import {ObservableArray, type} from "can";
 import { FazStacheItem } from "../item";
 import filterboxTemplate from "./stache/filterbox.stache";
-import datepickerTemplate from "../datepicker/stache/datepicker.stache";
 
 
 export default class FazFilterbox extends FazStacheItem {
@@ -28,7 +26,7 @@ export default class FazFilterbox extends FazStacheItem {
         return $.extend(super.props, {
             buffer: {type: String, default: ""},
             displayFilter: {type: Boolean, default: false},
-            items: {type: ObservableArray, get default() {
+            items: {type: type.convert(ObservableArray), get default() {
                 return new ObservableArray([]);
             }},
             filtering: {type: Boolean, default: false},
@@ -38,28 +36,48 @@ export default class FazFilterbox extends FazStacheItem {
             selectedName: {type: String, default: ""},
             selectedValue: {type: String, default: ""},
             filterCallback: {type: Object },
+            innitCallback: {type: Object },
             get hasItems() {
                 return this.items.length > 0;
             }
+
         });
     }
 
-    afterConnectedCallback() {
-    }
+    // afterConnectedCallback() {
+    // }
 
     beforeConnectedCallback() {
-        this.items = new ObservableArray([
-            {
-                name: "Item 1",
-                value: 1
-            }, {
-                name: "Item 2",
-                value: 2
+        for (let attribute of this.attributes) {
+            switch (attribute.name.toLowerCase()) {
+                case "items":
+                    this.items = JSON.parse(attribute.value);
+                    break;
+                case "initcallback":
+                    this.initCallback = eval(attribute.value);
+                    break;
             }
-        ]);
+
+        }
+        if (this.initCallback !== undefined) {
+            this.initCallback();
+        }
+        console.log(this.filteredItemsUncategorized);
+        console.log(this.categories);
     }
 
-    show() {
+    // show() {
+    // }
+
+    get categories() {
+        return this.filteredItems.reduce((categories, item)=> {
+            if(item.hasOwnProperty("category")) {
+                if(categories.indexOf(item.category) === -1) {
+                    categories.push(item.category);
+                }
+            }
+            return categories;
+        }, []);
     }
 
     doFilter(input) {
@@ -77,17 +95,39 @@ export default class FazFilterbox extends FazStacheItem {
         }
     }
 
+    defaultFilterCallback() {
+        return this.items.filter(
+            item => item.name.toLowerCase().indexOf(
+                this.buffer.toLowerCase()
+            ) !== -1
+        );
+    }
+
     get filteredItems() {
         if(this.filterCallback===undefined) {
-            return this.items.filter(
-                item => item.name.indexOf(this.buffer) !== -1
-            );
+            return this.defaultFilterCallback();
         }
         return this.filterCallback();
     }
 
+    get filteredItemsUncategorized() {
+        return this.filteredItems.filter(
+            (item) => {
+                return !item.hasOwnProperty("category");
+            }
+        );
+    }
+
+    filteredItemsByCategory(category) {
+        return this.filteredItems.filter(
+            (item) => {
+                return item.hasOwnProperty("category") &&
+                    item.category==category;
+            }
+        );
+    }
+
     showFilter() {
-        console.log(this.buffer);
         this.filtering = false;
         this.displayFilter = true;
     }

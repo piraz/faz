@@ -32,10 +32,20 @@ export default class FazDatepicker extends FazStacheItem {
             }},
             selectedDate: {type: Date},
             type: {type: String, default: "fixed"},
+            overDatePicker: {type: Boolean, default: false},
             today: {type: Date, get default() {
                 return new Date();
             }}
         });
+    }
+
+
+    beOverDatePicker() {
+        this.overDatePicker = true;
+    }
+
+    leaveDatePicker() {
+        this.overDatePicker = false;
     }
 
     get year() {

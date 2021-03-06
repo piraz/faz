@@ -50,7 +50,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <faz-navbar id="navbarHeading" class="bg-light">
-                    <faz-navbar-brand href="#">test</faz-navbar-brand>
+                    <faz-navbar-brand href="#"><b>test</b></faz-navbar-brand>
                 </faz-navbar>
             </li>
             <li class="list-group-item"><pre><code class="xml">&lt;faz-navbar id="navbarTitle" class="bg-light"&gt;
@@ -93,7 +93,7 @@
     <div class="card">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md">
+                <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md bg-success">
 
                     <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
                         Faz Toolkit aaa
@@ -101,12 +101,12 @@
 
                     <faz-navbar-toggler target="fazNavbarNavBrandInsideNav1"><span class="navbar-toggler-icon"></span></faz-navbar-toggler>
 
-                    <faz-navbar-nav id="fazNavbarNavBrandInsideNav1">
-                        <children>
+                    <faz-navbar-collapse id="fazNavbarNavBrandInsideNav1">
+                        <faz-navbar-nav>
                             <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
                             <faz-navbar-nav-item id="test1" href="#test">Test 1</faz-navbar-nav-item>
-                        </children>
-                    </faz-navbar-nav>
+                        </faz-navbar-nav>
+                    </faz-navbar-collapse>
                 </faz-navbar>
             </li>
         </ul>
@@ -117,7 +117,7 @@
     <div class="card">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md">
+                <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md bg-primary">
                     <faz-navbar-toggler target="fazNavbarNavBrandInsideNav2"><span class="navbar-toggler-icon"></span></faz-navbar-toggler>
 
                     <faz-navbar-collapse id="fazNavbarNavBrandInsideNav2">

@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-import { FazFilterbox } from "../faz";
+import { FazFilterbox, FazNavbar } from "../faz";
 
 import MainNavbar from "../app/main-navbar";

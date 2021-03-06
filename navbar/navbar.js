@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,17 @@ import {
     ajax, DeepObservable, ObservableObject, StacheElement, type
 } from "can";
 
-import { default as ID } from "../id";
-import { FazItemList } from "../item";
+import { FazStacheItem, FazStacheItemList } from "../item";
 import { default as FazNavbarBrand } from "./navbar-brand";
 import { default as FazNavbarCollapse } from "./navbar-collapse";
 import { default as FazNavbarToggler } from "./navbar-toggler";
 
 import navbarTemplate from "./stache/navbar.stache";
 
-export default class FazNavbar extends StacheElement {
+export default class FazNavbar extends FazStacheItem {
     static view = navbarTemplate;
     static get props() {
-        return {
-            id: {type: type.convert(String), default: ID.random},
-            isLoading: {type: type.convert(Boolean), default: true},
-            element: ObservableObject,
+        return $.extend(super.props, {
             data: {
                 type: ObservableObject,
                 get default(){
@@ -43,32 +39,27 @@ export default class FazNavbar extends StacheElement {
             },
             source: {type: String, default: ""},
             items: {
-                type: FazItemList,
+                type: FazStacheItemList,
                 get default() {
-                    return new FazItemList([]);
+                    return new FazStacheItemList([]);
                 }
             },
-            brand: ObservableObject,
-            toggler: ObservableObject,
-            nav: ObservableObject,
             extraClasses: String,
-            type: {type: type.convert(String), default: "light"},
+            type: {type: type.convert(String), default: "light"}
+        });
+    }
 
-            get class() {
-                let classes = ["navbar"];
-                if (this.type == "light") {
-                    classes.push("navbar-light");
-                    classes.push("bg-light");
-                } else if(this.type == "dark") {
-                    classes.push("navbar-dark");
-                    classes.push("bg-dark");
-                }
-                if (this.extraClasses) {
-                    classes.push(this.extraClasses);
-                }
-                return classes.join(" ");
-            }
-        };
+    get class() {
+        let classes = ["navbar"];
+        if (this.type == "light") {
+            classes.push("navbar-light");
+        } else if(this.type == "dark") {
+            classes.push("navbar-dark");
+        }
+        if (this.extraClasses) {
+            classes.push(this.extraClasses);
+        }
+        return classes.join(" ");
     }
 
     static get propertyDefaults() {
@@ -95,34 +86,16 @@ export default class FazNavbar extends StacheElement {
         }
     }
 
-    processBrand(element) {
-        let brand = new FazNavbarBrand();
-        brand.process($(element));
-        return brand;
-    }
-
     processBrandData(data) {
         let brand = new FazNavbarBrand();
         brand.processData(data);
         return brand;
     }
 
-    processCollapse(element) {
-        let collapse = new FazNavbarCollapse();
-        collapse.process(this, element);
-        return collapse;
-    }
-
     processCollapseData(data) {
         let collapse = new FazNavbarCollapse();
         collapse.processData(this, data);
         return collapse;
-    }
-
-    processToggler(element) {
-        let toggler = new FazNavbarToggler();
-        toggler.process(element);
-        return toggler;
     }
 
     processTogglerData(data) {
@@ -135,8 +108,13 @@ export default class FazNavbar extends StacheElement {
         $(this).addClass("faz-navbar-rendered");
     }
 
-    connectedCallback() {
-        this.show();
+    addItem(item) {
+        this.items.push(item);
+    }
+
+    beforeConnectedCallback() {
+        console.clear();
+        console.log(this.attributes);
         for(let attribute of this.attributes) {
             switch (attribute.name) {
                 case "id":
@@ -156,31 +134,19 @@ export default class FazNavbar extends StacheElement {
         let childrenToDelete = new Array();
         for (let i = 0; i < this.children.length; i++) {
             let child = this.children[i];
-            switch (child.tagName.toLowerCase()) {
-                case "faz-navbar-brand":
-                    this.items.push(this.processBrand(child));
-                    childrenToDelete.push(child);
-                    break;
-                case "faz-navbar-collapse":
-                    this.items.push(this.processCollapse(child));
-                    childrenToDelete.push(child);
-                    break;
-                case "faz-navbar-toggler":
-                    this.items.push(this.processToggler(child));
-                    childrenToDelete.push(child);
-                    break;
+            if(child.tagName.toLowerCase().includes("navbar")) {
+                this.items.push(child);
+                if (child.parent !== undefined) {
+                    child.parent = this;
+                }
             }
         }
-
         childrenToDelete.forEach(function (child) {
-            $(child).detach();
+            this.removeChild(child);
         });
-
-        this.isLoading = false;
-        super.connectedCallback();
     }
 
-    connected() {
+    afterConnectedCallback() {
         if(this.source!="") {
             this.isLoading = true;
             ajax({
@@ -199,3 +165,4 @@ export default class FazNavbar extends StacheElement {
 }
 
 customElements.define("faz-navbar", FazNavbar);
+

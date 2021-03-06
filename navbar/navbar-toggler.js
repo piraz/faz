@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { default as FazItem } from "../item";
+import { FazStacheItem } from "../item";
 import navbarTogglerTemplate from "./stache/navbar-toggler.stache";
 
 /**
@@ -23,7 +23,9 @@ import navbarTogglerTemplate from "./stache/navbar-toggler.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-export default class FazNavbarToggler extends FazItem {
+export default class FazNavbarToggler extends FazStacheItem {
+
+    static view = ``;
 
     static get props() {
         return $.extend(super.props, {
@@ -42,8 +44,8 @@ export default class FazNavbarToggler extends FazItem {
         return "#" + this.target;
     }
 
-    process(element) {
-        for(let attribute of element.attributes) {
+    process() {
+        for(let attribute of this.attributes) {
             switch (attribute.name.toLowerCase()) {
                 case "id":
                     this.id = attribute.value;
@@ -59,8 +61,11 @@ export default class FazNavbarToggler extends FazItem {
                     break;
             }
         }
-        this.content = element.innerHTML;
-        this.element = element;
+    }
+
+    beforeConnectedCallback() {
+        this.process();
+        this.parent = this.parentElement;
     }
 
     processData(data) {
@@ -82,3 +87,5 @@ export default class FazNavbarToggler extends FazItem {
         }
     }
 }
+
+customElements.define("faz-navbar-toggler", FazNavbarToggler);

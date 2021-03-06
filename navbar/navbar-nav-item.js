@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { ObservableArray, stache, type } from "can";
-import { default as  FazItem } from "../item";
-import {default as FazNavbarNav } from "./navbar-nav";
+import { type } from "can";
+import { FazStacheItem, FazStacheItemList } from "../item";
 import navbarNavItemTemplate from "./stache/navbar-nav-item.stache";
 
 /**
@@ -27,25 +26,26 @@ import navbarNavItemTemplate from "./stache/navbar-nav-item.stache";
  * @param {Object} event. An object representing a nav item.
  * @param {string} event.value
  */
-export default class FazNavbarNavItem extends FazItem {
+export default class FazNavbarNavItem extends FazStacheItem {
+
+    static view = ``;
 
     static get props() {
         return $.extend(super.props, {
             children: {
-                type: FazNavbarNavItemList,
+                type: FazStacheItemList,
                 get default() {
-                    return new FazNavbarNavItemList([]);
+                    return new FazStacheItemList([]);
                 }
             },
             disabled: {type: type.convert(Boolean), default: false},
             dropdown: {type: type.convert(Boolean), default: false},
+            isRoot: {type: type.convert(Boolean), default: false},
             target: {type: type.convert(String), default: ""},
             value: String
         });
     }
-    get isRoot() {
-        return this.parent.constructor.name == "FazNavbarNav";
-    }
+
     get html() {
         let view = navbarNavItemTemplate;
         return view(this);
@@ -91,10 +91,9 @@ export default class FazNavbarNavItem extends FazItem {
         }
         return validHef;
     }
-    process(parent, element) {
-        this.parent = parent;
-        this.element = element;
-        for(let attribute of element.attributes) {
+
+    beforeConnectedCallback() {
+        for(let attribute of this.attributes) {
             switch (attribute.name.toLowerCase()) {
                 case "current":
                     this.active = true;
@@ -104,11 +103,11 @@ export default class FazNavbarNavItem extends FazItem {
                     break;
             }
         }
-        this.value = element.innerHTML;
     }
+
     processData(parent, data) {
         this.parent = parent;
-        this.value = data.value;
+        this.content = data.value;
         this.href = data.href;
         if(this.href == document.location.pathname) {
             this.active = true;
@@ -116,20 +115,4 @@ export default class FazNavbarNavItem extends FazItem {
     }
 }
 
-export class FazNavbarNavItemList extends ObservableArray {
-    static get props() {
-        return {
-            get enabled() {
-                return this.filter({disabled: false});
-            },
-
-            get active() {
-                return this.filter({active: true});
-            }
-        };
-    }
-
-    static get items() {
-        return type.convert(FazNavbarNavItem);
-    }
-}
+customElements.define("faz-navbar-nav-item", FazNavbarNavItem);

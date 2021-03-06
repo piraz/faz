@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 Flavio Garcia
+ * Copyright 2018-2021 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,7 +108,11 @@ export class FazStacheItem extends StacheElement {
     }
 
     connectedCallback() {
-        this.content = this.innerHTML;
+        let content = this.innerHTML;
+        this.content = content;
+        steal.done().then(()=>{
+            this.contentLoaded();
+        });
         this.beforeConnectedCallback();
         super.connectedCallback();
         this.afterConnectedCallback();
@@ -121,6 +125,8 @@ export class FazStacheItem extends StacheElement {
     beforeConnectedCallback() {}
 
     show() {}
+
+    contentLoaded() {}
 
     elementClasses(element) {
         return element.className.split(" ");
@@ -147,6 +153,24 @@ export class FazStacheItem extends StacheElement {
         return true;
     }
 
+}
+
+export class FazStacheItemList extends ObservableArray {
+    static get props() {
+        return {
+            get enabled() {
+                return this.filter({disabled: false});
+            },
+
+            get active() {
+                return this.filter({active: true});
+            }
+        };
+    }
+
+    static get items() {
+        return type.convert(FazStacheItem);
+    }
 }
 
 export default FazItem;

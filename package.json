@@ -1,6 +1,6 @@
 {
   "name": "faz",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Candango Faz Javascript toolkit.",
   "main": "faz.js",
   "repository": "https://github.com/candango/faz.git",
@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "bootstrap": "4.6.0",
-    "bootstrap-icons": "1.3.0",
+    "bootstrap-icons": "1.4.0",
     "bootswatch": "4.6.0",
     "can": "6.6.1",
     "jquery": "3.5.0",

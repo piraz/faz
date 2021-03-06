@@ -1,3 +1,3 @@
 <li class="nav-item">
-    <a id:from="id" class:from="class" {{#if isLink}}href:from="getHref()"{{/if}}>{{ value }}</a>
+    <a id:from="id" class:from="class" {{#if isLink}}href:from="getHref()"{{/if}}>{{ content }}</a>
 </li>
