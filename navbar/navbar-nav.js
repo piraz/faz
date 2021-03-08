@@ -46,6 +46,8 @@ export default class FazNavbarNav extends FazStacheItem {
 
     processItemData(data) {
         let navbarNavItem = new FazNavbarNavItem();
+        navbarNavItem.isRoot = true;
+        navbarNavItem.root = this;
         navbarNavItem.processData(this, data);
         this.items.push(navbarNavItem);
     }
@@ -58,17 +60,17 @@ export default class FazNavbarNav extends FazStacheItem {
                     break;
             }
         }
-        if(this.firstElementChild !== undefined) {
-            while (this.firstElementChild) {
-                let child = this.firstElementChild;
+        for (let i = 0; i < this.children.length; i++) {
+            let child = this.children[i];
+            if(child.tagName.toLowerCase().includes("navbar")) {
+                this.items.push(child);
                 if (child.isRoot !== undefined) {
                     child.isRoot = true;
+                    child.setRoot(this);
                 }
                 if (child.parent !== undefined) {
                     child.parent = this;
                 }
-                this.items.push(child);
-                this.removeChild(child);
             }
         }
     }
