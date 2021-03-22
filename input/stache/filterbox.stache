@@ -1,4 +1,4 @@
-<div id:from="idOuterDiv" class="form-floating" style="position: relative">
+<div id:from="idOuterDiv" class="filterbox-outer-container" >
     <input id:from="idInput" type="text" class="form-control" value:from="selectedName"
            on:keyup="doFilter(scope.event.target)"
            on:focus="doFilter(scope.event.target)"
@@ -15,7 +15,7 @@
     </div>
     {{/filtering}}
     {{#displayFilter}}
-    <div style="position: absolute; margin-top: 5px; width: 100%;" on:mouseover="scope.top.beOverListGroup()" on:mouseout="scope.top.leaveListGroup()">
+    <div class="filterbox-list-container" on:mouseover="scope.top.beOverListGroup()" on:mouseout="scope.top.leaveListGroup()">
         <div class="list-group">
             {{#each (../filteredItemsUncategorized, item=value)}}
                 <a href="#" class="list-group-item list-group-item-action"
