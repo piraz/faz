@@ -187,17 +187,6 @@ export default class FazNavbarNavItem extends FazStacheItem {
         element.content = element.innerHTML;
         element.process();
         element.processChildren(true);
-        // for (let i = 0; i < child.children.length; i++) {
-        //     let grandChild = child.children[i];
-        //     if(grandChild.tagName.toLowerCase().includes("navbar-nav-item")) {
-        //         if(grandChild.tagName.toLowerCase().includes(
-        //             "navbar-nav-item-title")) {
-        //             console.log(grandChild)
-        //             element.content = grandChild.content;
-        //             element.innerHTML = grandChild.content;
-        //         }
-        //     }
-        // }
         return element;
     }
 
