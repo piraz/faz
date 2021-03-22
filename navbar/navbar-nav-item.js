@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { type } from "can";
+import {type} from "can";
 import { FazStacheItem, FazStacheItemList } from "../item";
+import {default as FazNavbarNavItemTitle} from "./navbar-nav-item-title"
 import navbarNavItemTemplate from "./stache/navbar-nav-item.stache";
 
 /**
@@ -32,18 +33,25 @@ export default class FazNavbarNavItem extends FazStacheItem {
 
     static get props() {
         return $.extend(super.props, {
-            children: {
+            items: {
                 type: FazStacheItemList,
                 get default() {
                     return new FazStacheItemList([]);
                 }
             },
+            title: {
+                type: FazNavbarNavItemTitle
+            },
             disabled: {type: type.convert(Boolean), default: false},
-            dropdown: {type: type.convert(Boolean), default: false},
+            root: "*",
             isRoot: {type: type.convert(Boolean), default: false},
             target: {type: type.convert(String), default: ""},
             value: String
         });
+    }
+
+    get dropdown() {
+        return this.items.length > 0;
     }
 
     get html() {
@@ -74,7 +82,7 @@ export default class FazNavbarNavItem extends FazStacheItem {
      * @returns {string}
      */
     getHref () {
-        if (this.active){
+        if (this.active) {
             return "#";
         }
         let voidHref = "javascript:void(0)";
@@ -92,9 +100,53 @@ export default class FazNavbarNavItem extends FazStacheItem {
         return validHef;
     }
 
+    logThis() {
+        console.log(this);
+    }
+
     beforeConnectedCallback() {
+        this.process();
+        this.processChildren();
+    }
+
+    activate(element, event) {
+        if(element !== undefined) {
+            // Responsive Dropdown Submenu fix
+            // Based on https://codepen.io/surjithctly/pen/PJqKzQ
+            if(this.dropdown) {
+                if (this.isRoot) {
+                    $('.dropdown-submenu .show').removeClass("show");
+                } else {
+                    if (!$(element).next().hasClass("show")) {
+                        $(element).parents(".dropdown-menu").first().find(
+                            ".show").removeClass("show");
+                    }
+                    let subMenu = $(element).next(".dropdown-menu");
+                    subMenu.toggleClass('show');
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }
+        }
+        if (!this.disabled) {
+            if (this.parent != null) {
+                this.parent.items.active.forEach((child) => {
+                    child.active = false;
+                });
+            }
+            this.active = true;
+        }
+    }
+
+    contentLoaded() {
+    }
+
+    process() {
         for(let attribute of this.attributes) {
             switch (attribute.name.toLowerCase()) {
+                case "id":
+                    this.id = attribute.value;
+                    break;
                 case "current":
                     this.active = true;
                     break;
@@ -103,6 +155,46 @@ export default class FazNavbarNavItem extends FazStacheItem {
                     break;
             }
         }
+    }
+
+    processChildren(sub=false) {
+        let childrenToDelete = new Array();
+        for (let i = 0; i < this.children.length; i++) {
+            let child = this.children[i];
+            if(child.tagName.toLowerCase().includes("navbar-nav-item")) {
+                if(child.tagName.toLowerCase().includes(
+                    "navbar-nav-item-title")) {
+                    this.title = child;
+                } else {
+                    this.items.push(this.processChild(child));
+                }
+                childrenToDelete.push(child);
+            }
+        }
+        childrenToDelete.forEach((child) => {
+            this.removeChild(child);
+        });
+        if(this.title!==undefined) {
+            this.content = this.title.content;
+            console.log(this.title.content);
+        }
+    }
+
+    processChild(child) {
+        let element = new FazNavbarNavItem();
+        element.parent = this;
+        element.innerHTML = child.innerHTML;
+        element.content = element.innerHTML;
+        element.process();
+        element.processChildren(true);
+        return element;
+    }
+
+    setRoot(root) {
+        this.root = root;
+        this.items.forEach((child) => {
+            child.setRoot(root);
+        });
     }
 
     processData(parent, data) {

@@ -93,6 +93,28 @@
     <div class="card">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
+                <faz-navbar id="navbarImageText1" type="light" class="navbar-expand-md bg-warning">
+
+                    <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Faz Toolkit aaa
+                    </faz-navbar-brand>
+
+                    <faz-navbar-nav>
+                        <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
+                        <faz-navbar-nav-item id="test1" href="#test">Test 1</faz-navbar-nav-item>
+                    </faz-navbar-nav>
+
+                </faz-navbar>
+            </li>
+        </ul>
+    </div>
+
+
+    <h3>Brand outside the collapse</h3>
+
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
                 <faz-navbar id="navbarImageText1" type="dark" class="navbar-expand-md bg-success">
 
                     <faz-navbar-brand href="#"><img src="/img/faz_square.png" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -126,14 +148,73 @@
                         </faz-navbar-brand>
                         <faz-navbar-nav>
                             <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
-                            <faz-navbar-nav-item id="test1" href="#test">Test 1</faz-navbar-nav-item>
+                            <faz-navbar-nav-item id="test1" href="#test">
+                                <faz-navbar-nav-item-title>Test 1</faz-navbar-nav-item-title>
+                                <faz-navbar-nav-item id="test11" href="#test11">Test 11</faz-navbar-nav-item>
+                                <faz-navbar-nav-item id="test12" href="#test12">
+                                    <faz-navbar-nav-item-title>Test 12</faz-navbar-nav-item-title>
+                                    <faz-navbar-nav-item id="test121" href="#test121">Test 121</faz-navbar-nav-item>
+                                    <faz-navbar-nav-item id="test122" href="#test122">
+                                        <faz-navbar-nav-item-title>Test 122</faz-navbar-nav-item-title>
+                                        <faz-navbar-nav-item id="test1221" href="#test1221">Test 1221</faz-navbar-nav-item>
+                                        <faz-navbar-nav-item id="test1222" href="#test1222">Test 1222</faz-navbar-nav-item>
+                                    </faz-navbar-nav-item>
+                                </faz-navbar-nav-item>
+                            </faz-navbar-nav-item>
+                        </faz-navbar-nav>
+                    </faz-navbar-collapse>
+                    <faz-navbar-collapse id="fazNavbarNavBrandInsideNav2">
+                        <faz-navbar-nav>
+                            <faz-navbar-nav-item id="test" href="#test">Test</faz-navbar-nav-item>
+                            <faz-navbar-nav-item id="test1" href="#test">
+                                <faz-navbar-nav-item-title>Test 1</faz-navbar-nav-item-title>
+                                <faz-navbar-nav-item id="test11" href="#test11">Test 11</faz-navbar-nav-item>
+                                <faz-navbar-nav-item id="test12" href="#test12">
+                                    <faz-navbar-nav-item-title>Test 12</faz-navbar-nav-item-title>
+                                    <faz-navbar-nav-item id="test121" href="#test121">Test 121</faz-navbar-nav-item>
+                                    <faz-navbar-nav-item id="test122" href="#test122">
+                                        <faz-navbar-nav-item-title>Test 122</faz-navbar-nav-item-title>
+                                        <faz-navbar-nav-item id="test1221" href="#test1221">Test 1221</faz-navbar-nav-item>
+                                        <faz-navbar-nav-item id="test1222" href="#test1222">Test 1222</faz-navbar-nav-item>
+                                    </faz-navbar-nav-item>
+                                </faz-navbar-nav-item>
+                            </faz-navbar-nav-item>
                         </faz-navbar-nav>
                     </faz-navbar-collapse>
                 </faz-navbar>
+
             </li>
         </ul>
     </div>
 
+
+    <div>
+        <h1>Something to be bellow the last navbar</h1>
+        <p>This is a content that last navbar should be over without
+            problems.<br> We don't have any issues with repeating this a
+            million times. Like:<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.<br>
+            This is a content that last navbar should be over without
+            problems.
+        </p>
+    </div>
 
 </main><!-- /.container -->
 

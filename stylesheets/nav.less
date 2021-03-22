@@ -1,21 +1,19 @@
-.navbar-nav li:hover > ul.dropdown-menu {
-  display: block;
-}
-
 .dropdown-submenu {
   position: relative;
 }
 
-.dropdown-submenu > .dropdown-menu {
-  top: 10px;
-  left: 100%;
-  margin-top:-6px;
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
 }
 
-/* rotate caret on hover */
-.dropdown-menu > li > a:hover:after {
-  text-decoration: underline;
-  transform: rotate(-90deg);
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
 }
 
 faz-nav {
@@ -25,7 +23,6 @@ faz-nav {
 faz-nav.faz-nav-rendered {
   visibility: visible;
 }
-
 
 faz-navbar {
   visibility: hidden;

@@ -113,8 +113,6 @@ export default class FazNavbar extends FazStacheItem {
     }
 
     beforeConnectedCallback() {
-        console.clear();
-        console.log(this.attributes);
         for(let attribute of this.attributes) {
             switch (attribute.name) {
                 case "id":

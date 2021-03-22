@@ -30,7 +30,8 @@ export default class FazFilterbox extends FazStacheItem {
                 return new ObservableArray([]);
             }},
             filtering: {type: Boolean, default: false},
-            filterDelay: {type:Number, default: 400},
+            filterDelay: {type:Number, default: 300},
+            label: {type:String, default: "Type something to filter"},
             filterTimeoutHandler: {type: Number, default: -1},
             overListGroup: {type: Boolean, default: false},
             selectedName: {type: String, default: ""},
@@ -42,6 +43,14 @@ export default class FazFilterbox extends FazStacheItem {
             }
 
         });
+    }
+
+    get idOuterDiv() {
+        return this.id + "-div";
+    }
+
+    get idInput() {
+        return this.id + "-input";
     }
 
     // afterConnectedCallback() {
@@ -62,8 +71,6 @@ export default class FazFilterbox extends FazStacheItem {
         if (this.initCallback !== undefined) {
             this.initCallback();
         }
-        console.log(this.filteredItemsUncategorized);
-        console.log(this.categories);
     }
 
     // show() {
@@ -71,16 +78,16 @@ export default class FazFilterbox extends FazStacheItem {
 
     get categories() {
         return this.filteredItems.reduce((categories, item)=> {
-            if(item.hasOwnProperty("category")) {
-                if(categories.indexOf(item.category) === -1) {
-                    categories.push(item.category);
-                }
+            if(item.hasOwnProperty("category") &&
+                categories.indexOf(item.category) === -1) {
+                categories.push(item.category);
             }
             return categories;
         }, []);
     }
 
     doFilter(input) {
+        this.verifySelectedValue(input);
         this.filtering = true;
         this.displayFilter = false;
         this.buffer = input.value;
@@ -90,9 +97,9 @@ export default class FazFilterbox extends FazStacheItem {
                 this.showFilter.bind(this),
                 this.filterDelay
             );
-        } else {
-            this.filtering = false;
+            return;
         }
+        this.filtering = false;
     }
 
     defaultFilterCallback() {
@@ -144,6 +151,15 @@ export default class FazFilterbox extends FazStacheItem {
         if(this.filterTimeoutHandler > 0) {
             clearTimeout(this.filterTimeoutHandler);
             this.filterTimeoutHandler = -1;
+        }
+    }
+
+    verifySelectedValue(input) {
+        if(this.selectedName!="" && input.value != this.selectedName) {
+            let inputValue = input.value;
+            this.selectedName = "";
+            this.selectedValue = "";
+            input.value = inputValue;
         }
     }
 

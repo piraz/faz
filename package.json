@@ -1,6 +1,6 @@
 {
   "name": "faz",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Candango Faz Javascript toolkit.",
   "main": "faz.js",
   "repository": "https://github.com/candango/faz.git",

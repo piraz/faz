@@ -67,11 +67,14 @@ export default class FazNavbarCollapse extends FazStacheItem {
                     break;
             }
         }
-        if(this.firstElementChild !== undefined) {
-            while (this.firstElementChild) {
-                let child = this.firstElementChild;
+
+        for (let i = 0; i < this.children.length; i++) {
+            let child = this.children[i];
+            if(child.tagName.toLowerCase().includes("navbar")) {
                 this.items.push(child);
-                $(child).detach();
+                if (child.parent !== undefined) {
+                    child.parent = this;
+                }
             }
         }
     }
