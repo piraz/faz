@@ -25,6 +25,8 @@
     "lessc:dev:showcase": "lessc stylesheets/showcase.less stylesheets/showcase.css --source-map",
     "test": "npm run test:browser",
     "test:browser": "testee test/*.html --config=testee.json",
+    "yarn": "npm run yarn:clean && npm run yarn:v2 && npm run yarn:install",
+    "yarn:install": "yarn install",
     "yarn:clean": "rm -rf yarn.lock .yarn .yarnrc.yml .next node_modules",
     "yarn:v2": "yarn set version berry && yarn config set nodeLinker node-modules"
   },
