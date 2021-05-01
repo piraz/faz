@@ -8,10 +8,10 @@
   "license": "Apache-2.0",
   "dependencies": {
     "bootstrap": "4.6.0",
-    "bootstrap-icons": "1.4.0",
+    "bootstrap-icons": "1.4.1",
     "bootswatch": "4.6.0",
     "can": "6.6.1",
-    "jquery": "3.5.0",
+    "jquery": "3.5.1",
     "less": "4.1.1",
     "popper.js": "1.16.1"
   },
@@ -24,7 +24,11 @@
     "lessc:dev:faz": "lessc stylesheets/faz.less stylesheets/faz.css --source-map",
     "lessc:dev:showcase": "lessc stylesheets/showcase.less stylesheets/showcase.css --source-map",
     "test": "npm run test:browser",
-    "test:browser": "testee test/*.html --config=testee.json"
+    "test:browser": "testee test/*.html --config=testee.json",
+    "yarn": "npm run yarn:clean && npm run yarn:v2 && npm run yarn:install",
+    "yarn:install": "yarn install",
+    "yarn:clean": "rm -rf yarn.lock .yarn .yarnrc.yml .next node_modules",
+    "yarn:v2": "yarn set version berry && yarn config set nodeLinker node-modules"
   },
   "keywords": [
     "canjs",
@@ -32,10 +36,10 @@
     "toolkit"
   ],
   "devDependencies": {
-    "codemirror": "5.59.2",
-    "electron": "11.2.3",
+    "codemirror": "5.61.0",
+    "electron": "12.0.6",
     "http-server": "0.12.3",
-    "qunit": "2.14.0",
+    "qunit": "2.15.0",
     "steal": "2.2.4",
     "steal-qunit": "2.0.0",
     "steal-stache": "5.0.0",
