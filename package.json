@@ -24,7 +24,9 @@
     "lessc:dev:faz": "lessc stylesheets/faz.less stylesheets/faz.css --source-map",
     "lessc:dev:showcase": "lessc stylesheets/showcase.less stylesheets/showcase.css --source-map",
     "test": "npm run test:browser",
-    "test:browser": "testee test/*.html --config=testee.json"
+    "test:browser": "testee test/*.html --config=testee.json",
+    "yarn:clean": "rm -rf yarn.lock .yarn .yarnrc.yml .next node_modules",
+    "yarn:v2": "yarn set version berry && yarn config set nodeLinker node-modules"
   },
   "keywords": [
     "canjs",
