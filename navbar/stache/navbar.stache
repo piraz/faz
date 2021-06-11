@@ -2,8 +2,10 @@
     <div>Loading...</div>
 {{ else }}
     <nav id:from="id" class:from="class">
-    {{#items}}
-        {{{ this.html }}}
-    {{/items}}
+        <div class="container-fluid">
+            {{#items}}
+                {{{ this.html }}}
+            {{/items}}
+        </div>
     </nav>
 {{/ this.isLoading}}
