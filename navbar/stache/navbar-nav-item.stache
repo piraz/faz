@@ -1,7 +1,7 @@
 {{# isRoot }}
     {{# ../dropdown }}
     <li class="nav-item dropdown">
-        <a id:from="../id" class="nav-link dropdown-toggle" on:click="../activate(scope.element)" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ ../content }}</a>
+        <a id:from="../id" class="nav-link dropdown-toggle" on:click="../activate(scope.element)" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ ../content }}</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             {{#each ( ../items, child=value)}}
                 {{{ child.html }}}
