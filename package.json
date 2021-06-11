@@ -39,7 +39,7 @@
     "codemirror": "5.61.0",
     "electron": "13.1.2",
     "http-server": "0.12.3",
-    "qunit": "2.15.0",
+    "qunit": "2.16.0",
     "steal": "2.2.4",
     "steal-qunit": "2.0.0",
     "steal-stache": "5.0.0",
