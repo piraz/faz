@@ -7,13 +7,13 @@
   "author": "Flavio Garcia <piraz@candango.org>",
   "license": "Apache-2.0",
   "dependencies": {
-    "bootstrap": "4.6.0",
-    "bootstrap-icons": "1.4.1",
-    "bootswatch": "4.6.0",
+    "@popperjs/core": "2.9.2",
+    "bootstrap": "5.0.1",
+    "bootstrap-icons": "1.5.0",
+    "bootswatch": "5.0.1",
     "can": "6.6.1",
     "jquery": "3.5.1",
-    "less": "4.1.1",
-    "popper.js": "1.16.1"
+    "less": "4.1.1"
   },
   "scripts": {
     "run": "http-server",
