@@ -2,7 +2,7 @@
     {{# ../isRoot }}
     <!-- nav root dropdowns-->
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" on:click="../activate(scope.element)" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ ../content }}</a>
+        <a class="nav-link dropdown-toggle" on:click="../activate(scope.element)" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ ../content }}</a>
         <ul class="dropdown-menu">
             {{#each ( ../items, child=value)}}
                 {{ child.html }}
