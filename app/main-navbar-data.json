@@ -34,6 +34,11 @@
               "value": "Breadcrumb"
             },
             {
+              "id": "navDatePicker",
+              "href": "/datepicker",
+              "value": "Date Picker"
+            },
+            {
               "id": "navForm",
               "href": "/form",
               "value": "Form"
